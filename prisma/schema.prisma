@@ -15,4 +15,6 @@ model Event {
   description String?
   dateTime DateTime
   location String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
