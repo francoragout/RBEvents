@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { CreateEvent } from "./create-event";
 import { Input } from "../ui/input";
 import { ListFilter, Search } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
@@ -23,6 +22,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function EventsTable() {
   const invoices = [
@@ -115,7 +116,12 @@ export default function EventsTable() {
               className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
             />
           </div>
-          <CreateEvent />
+          <Link
+            href="/admin/events/create"
+            className={buttonVariants({ variant: "default" })}
+          >
+            Create Event
+          </Link>
         </div>
       </div>
       <Table>
