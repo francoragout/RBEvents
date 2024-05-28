@@ -7,12 +7,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
+model Event {
   id          String   @id @default(cuid())
   title       String
-  description String?
   type        String
   date        DateTime
   time        DateTime
   location    String?
+  description String?
 }
