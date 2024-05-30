@@ -8,14 +8,10 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   const validatedFields = EventSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Create Invoice.",
-    };
+    return { error: "Invalid fields!" };
   }
 
   const { title, type, date, time, lounge, description } = validatedFields.data;
-
   const isoTime = new Date(`1970-01-01T${time}:00Z`).toISOString();
 
   await db.event.create({
@@ -28,4 +24,6 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
       description,
     },
   });
+
+  return { success: "Confirmation event created!" };
 };

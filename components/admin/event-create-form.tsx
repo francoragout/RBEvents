@@ -10,6 +10,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useTransition } from "react";
+import { CreateEvent } from "@/actions/create-event";
+import { toast } from "../ui/use-toast";
+import { EventSchema } from "@/lib/validations";
+import { redirect } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -31,39 +36,36 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useTransition } from "react";
-import { CreateEvent } from "@/actions/create-event";
-import { toast } from "../ui/use-toast";
-import { EventSchema } from "@/lib/validations";
 
 export default function EventCreateForm() {
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof EventSchema>>({
-    resolver: zodResolver(EventSchema)
+    resolver: zodResolver(EventSchema),
   });
 
   function onSubmit(values: z.infer<typeof EventSchema>) {
     startTransition(() => {
       CreateEvent(values)
-      .then(() => {
-        // Display success toast
-        toast({
-          variant: "default",
-          title: "",      
-          description: ""
+        .then((data) => {
+          if (data.success) {
+            toast({
+              variant: "default",
+              title: `"${values.title}" was created successfully.`,
+              description: "Now you can manage it!",
+            });
+          }
+        })
+
+        .catch((error) => {
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
+          });
         });
-        // Redirect or perform any other action upon success
-      })
-      .catch((error) => {
-        // Display error toast
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",      
-          description: error.message,
-        });
-        // Handle other error cases as needed
-      });    
+
+      redirect("/admin/events");
     });
   }
 
@@ -124,6 +126,7 @@ export default function EventCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="date"

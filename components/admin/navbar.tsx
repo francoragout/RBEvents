@@ -21,7 +21,7 @@ export const Navbar = () => {
   return (
     <React.Fragment>
       <Header />
-      <Breadcrumb className="mb-7">
+      <Breadcrumb>
         <BreadcrumbList>
           {pathNames.length > 0 && (
             <>
