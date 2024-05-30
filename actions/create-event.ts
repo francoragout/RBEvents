@@ -1,45 +1,31 @@
+"use server";
+
 import { db } from "@/lib/db";
-import { error } from "console";
+import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
 
-const formSchema = z.object({
-  title: z
-    .string()
-    .min(2, {
-      message: "Title must be at least 2 characters.",
-    })
-    .max(20, {
-      message: "Title must not be longer than 20 characters.",
-    }),
-  type: z.string({
-    required_error: "Please select the type of event to display.",
-  }),
-  date: z.date({
-    required_error: "Required.",
-  }),
-  time: z.string().regex(/^\d{2}:\d{2}$/, {
-    message: "Time must be in the format HH:MM.",
-  }),
-  lounge: z
-    .string()
-    .max(30, {
-      message: "Lounge must not be longer than 30 characters.",
-    })
-    .optional(),
-  description: z
-    .string()
-    .max(100, {
-      message: "Description must not be longer than 100 characters.",
-    })
-    .optional(),
-});
-
-export const CreateEvent = async (values: z.infer<typeof formSchema>) => {
-  const validatedFields = formSchema.safeParse(values);
+export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
+  const validatedFields = EventSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    return { error: "Invalid fields" };
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create Invoice.",
+    };
   }
 
-  return { success: "Event created" };
+  const { title, type, date, time, lounge, description } = validatedFields.data;
+
+  const isoTime = new Date(`1970-01-01T${time}:00Z`).toISOString();
+
+  await db.event.create({
+    data: {
+      title,
+      type,
+      date,
+      time: isoTime,
+      lounge,
+      description,
+    },
+  });
 };

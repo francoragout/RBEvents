@@ -11,8 +11,8 @@ model Event {
   id          String   @id @default(cuid())
   title       String
   type        String
-  date        DateTime
-  time        DateTime
-  location    String?
+  date        DateTime @db.Date()
+  time        DateTime @db.Time()
+  lounge      String?
   description String?
 }

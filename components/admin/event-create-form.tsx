@@ -31,67 +31,39 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {  useState, useTransition } from "react";
+import { useTransition } from "react";
 import { CreateEvent } from "@/actions/create-event";
-import { FormError } from "../form-error";
-import { FormSuccess } from "../form-success";
-
-const formSchema = z.object({
-  title: z
-    .string()
-    .min(2, {
-      message: "Title must be at least 2 characters.",
-    })
-    .max(20, {
-      message: "Title must not be longer than 20 characters.",
-    }),
-  type: z.string({
-    required_error: "Please select the type of event to display.",
-  }),
-  date: z.date({
-    required_error: "Required.",
-  }),
-  time: z.string().regex(/^\d{2}:\d{2}$/, {
-    message: "Time must be in the format HH:MM.",
-  }),
-  lounge: z
-    .string()
-    .max(30, {
-      message: "Lounge must not be longer than 30 characters.",
-    })
-    .optional(),
-  description: z
-    .string()
-    .max(100, {
-      message: "Description must not be longer than 100 characters.",
-    })
-    .optional(),
-});
+import { toast } from "../ui/use-toast";
+import { EventSchema } from "@/lib/validations";
 
 export default function EventCreateForm() {
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      lounge: "",
-      description: "",
-    },
+  const form = useForm<z.infer<typeof EventSchema>>({
+    resolver: zodResolver(EventSchema)
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setError("");
-    setSuccess("");
-
+  function onSubmit(values: z.infer<typeof EventSchema>) {
     startTransition(() => {
       CreateEvent(values)
-        .then((data) => {
-          setError(data.error);
-          setSuccess(data.success);
+      .then(() => {
+        // Display success toast
+        toast({
+          variant: "default",
+          title: "",      
+          description: ""
         });
+        // Redirect or perform any other action upon success
+      })
+      .catch((error) => {
+        // Display error toast
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",      
+          description: error.message,
+        });
+        // Handle other error cases as needed
+      });    
     });
   }
 
@@ -205,7 +177,7 @@ export default function EventCreateForm() {
                     placeholder="Shedule a time"
                     {...field}
                     type="time"
-                    value={field.value || ''}
+                    value={field.value || ""}
                     disabled={isPending}
                   />
                 </FormControl>
@@ -254,9 +226,6 @@ export default function EventCreateForm() {
             </FormItem>
           )}
         />
-
-        <FormError message={error} />
-        <FormSuccess message={success} />
 
         <Button type="submit" className="mt-8">
           Submit
