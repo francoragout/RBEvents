@@ -11,17 +11,17 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     return { error: "Invalid fields!" };
   }
 
-  const { title, type, date, time, lounge, description } = validatedFields.data;
-  const isoTime = new Date(`1970-01-01T${time}:00Z`).toISOString();
+  const { title } = validatedFields.data;
+  // const isoTime = new Date(`1970-01-01T${time}:00Z`).toISOString();
 
   await db.event.create({
     data: {
       title,
-      type,
-      date,
-      time: isoTime,
-      lounge,
-      description,
+      // type,
+      // date,
+      // time: isoTime,
+      // lounge,
+      // description,
     },
   });
 

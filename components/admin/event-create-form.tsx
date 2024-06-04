@@ -92,7 +92,7 @@ export default function EventCreateForm() {
             )}
           />
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="type"
             render={({ field }) => (
@@ -125,9 +125,9 @@ export default function EventCreateForm() {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="date"
             render={({ field }) => (
@@ -167,9 +167,9 @@ export default function EventCreateForm() {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="time"
             render={({ field }) => (
@@ -188,10 +188,10 @@ export default function EventCreateForm() {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
         </div>
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="lounge"
           render={({ field }) => (
@@ -228,7 +228,7 @@ export default function EventCreateForm() {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <Button type="submit" className="mt-8">
           Submit

@@ -29,7 +29,7 @@ export const Navbar = () => {
                 <BreadcrumbLink href="/admin">Admin</BreadcrumbLink>
               </BreadcrumbItem>
               {pathNames.slice(1).map((path, index) => {
-                const href = "/" + pathNames.slice(0, index + 1).join("/");
+                const href = "/" + pathNames.slice(0, index + 2).join("/");
                 const isLast = index === pathNames.slice(1).length - 1;
 
                 return (

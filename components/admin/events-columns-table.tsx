@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
@@ -15,33 +15,36 @@ import {
 
 import { z } from "zod";
 import { EventSchema } from "@/lib/validations";
+import { Checkbox } from "../ui/checkbox";
 
 type Events = z.infer<typeof EventSchema>;
 
 export const EventsColumnsTable: ColumnDef<Events>[] = [
   {
-    accessorKey: "type",
-    header: "Type",
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: "title",
     header: "Title",
-  },
-  {
-    accessorKey: "date",
-    header: "Date",
-  },
-  {
-    accessorKey: "time",
-    header: "Time",
-  },
-  {
-    accessorKey: "lounge",
-    header: "Lounge",
-  },
-  {
-    accessorKey: "description",
-    header: "Description",
   },
   {
     id: "actions",
@@ -60,7 +63,7 @@ export const EventsColumnsTable: ColumnDef<Events>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-            //   onClick={() => navigator.clipboard.writeText(event.id)}
+              onClick={() => navigator.clipboard.writeText(row.id)}
             >
               Copy event ID
             </DropdownMenuItem>

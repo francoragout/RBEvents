@@ -14,9 +14,5 @@ async function getData(): Promise<Event[]> {
 export default async function EventsPage() {
   const data = await getData();
 
-  return (
-    <div className="py-6">
-      <EventsTable columns={EventsColumnsTable} data={data} />
-    </div>
-  );
+  return <EventsTable columns={EventsColumnsTable} data={data} />;
 }
