@@ -10,10 +10,10 @@ export const EventSchema = z.object({
       message: "Title must not be longer than 20 characters.",
     }),
   type: z.string({
-    required_error: "Required.",
+    required_error: "Requireddddd.",
   }),
   date: z.date({
-    required_error: "Required.",
+    required_error: "A date of event is required.",
   }),
   time: z.string().regex(/^\d{2}:\d{2}$/, {
     message: "Time must be in the format HH:MM.",
