@@ -14,7 +14,7 @@ import { FaceIcon, PersonIcon } from "@radix-ui/react-icons";
 
 export default function Header() {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between mb-1">
       <h1 className="text-2xl font-bold">RBEvents</h1>
       <div className="flex items-center space-x-4">
         <ModeToggle />

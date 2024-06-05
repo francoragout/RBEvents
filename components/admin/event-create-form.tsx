@@ -36,6 +36,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { revalidatePath } from "next/cache";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Link from "next/link";
 
 export default function EventCreateForm() {
   const [isPending, startTransition] = useTransition();
@@ -51,7 +61,7 @@ export default function EventCreateForm() {
           if (data.success) {
             toast({
               variant: "default",
-              title: `"${values.title}" was created successfully.`,
+              title: `"${values.name}" was created successfully.`,
               description: "Now you can manage it!",
             });
           }
@@ -64,35 +74,39 @@ export default function EventCreateForm() {
             description: "There was a problem with your request.",
           });
         });
-
       redirect("/admin/events");
     });
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Name of the title"
-                    {...field}
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormDescription>This field is requiered.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <Card className="my-5">
+      <CardHeader>
+        <CardTitle>Create event</CardTitle>
+        <CardDescription>Deploy your new project in one-click.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Name of event (required)"
+                        {...field}
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          {/* <FormField
+              {/* <FormField
             control={form.control}
             name="type"
             render={({ field }) => (
@@ -127,7 +141,7 @@ export default function EventCreateForm() {
             )}
           /> */}
 
-          {/* <FormField
+              {/* <FormField
             control={form.control}
             name="date"
             render={({ field }) => (
@@ -169,7 +183,7 @@ export default function EventCreateForm() {
             )}
           /> */}
 
-          {/* <FormField
+              {/* <FormField
             control={form.control}
             name="time"
             render={({ field }) => (
@@ -189,9 +203,9 @@ export default function EventCreateForm() {
               </FormItem>
             )}
           /> */}
-        </div>
+            </div>
 
-        {/* <FormField
+            {/* <FormField
           control={form.control}
           name="lounge"
           render={({ field }) => (
@@ -229,11 +243,15 @@ export default function EventCreateForm() {
             </FormItem>
           )}
         /> */}
-
-        <Button type="submit" className="mt-8">
-          Submit
-        </Button>
-      </form>
-    </Form>
+            <div className="flex justify-between mt-8">
+              <Button type="submit">Submit</Button>
+              <Button asChild variant="outline">
+                <Link href="/admin/events">Cancel</Link>
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, EyeIcon, MoreHorizontal, Pencil, Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,10 +16,15 @@ import {
 import { z } from "zod";
 import { EventSchema } from "@/lib/validations";
 import { Checkbox } from "../ui/checkbox";
+import Link from "next/link";
 
-type Events = z.infer<typeof EventSchema>;
+const ExtendedEventSchema = EventSchema.extend({
+  id: z.string(), // Assuming the id field is a string in your database
+});
 
-export const EventsColumnsTable: ColumnDef<Events>[] = [
+type Event = z.infer<typeof ExtendedEventSchema>;
+
+export const EventsColumnsTable: ColumnDef<Event>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -43,8 +48,19 @@ export const EventsColumnsTable: ColumnDef<Events>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "title",
-    header: "Title",
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
     id: "actions",
@@ -62,13 +78,23 @@ export const EventsColumnsTable: ColumnDef<Events>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(row.id)}
-            >
-              Copy event ID
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <Link href={`/admin/events/${event.id}`} className="flex">
+                <EyeIcon className="mr-2 h-4 w-4" />
+                View
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Pencil className="mr-2 h-4 w-4" />
+              Edit
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View event details</DropdownMenuItem>
+            <DropdownMenuItem className="text-red-500">
+              <Trash className="mr-2 h-4 w-4" />
+              Delite
+            </DropdownMenuItem>
+
           </DropdownMenuContent>
         </DropdownMenu>
       );

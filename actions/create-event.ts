@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
@@ -11,12 +12,12 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     return { error: "Invalid fields!" };
   }
 
-  const { title } = validatedFields.data;
+  const { name } = validatedFields.data;
   // const isoTime = new Date(`1970-01-01T${time}:00Z`).toISOString();
 
   await db.event.create({
     data: {
-      title,
+      name,
       // type,
       // date,
       // time: isoTime,
@@ -24,6 +25,6 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
       // description,
     },
   });
-
+  revalidatePath("/admin/events");
   return { success: "Confirmation event created!" };
 };

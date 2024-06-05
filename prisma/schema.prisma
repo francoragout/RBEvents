@@ -8,8 +8,8 @@ generator client {
 }
 
 model Event {
-  id          String   @id @default(cuid())
-  title       String 
+  id   String @id @default(cuid())
+  name String
   // type        String
   // date        DateTime @db.Date()
   // time        DateTime @db.Time()

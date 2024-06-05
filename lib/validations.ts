@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const EventSchema = z.object({
-  title: z
+  name: z
     .string()
     .min(2, {
       message: "Title must be at least 2 characters.",

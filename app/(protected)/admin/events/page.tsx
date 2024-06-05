@@ -4,11 +4,16 @@ import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
 
-type Event = z.infer<typeof EventSchema>;
+// Extend the existing EventSchema to include the id field
+const ExtendedEventSchema = EventSchema.extend({
+  id: z.string(), // Assuming the id field is a string in your database
+});
+
+type Event = z.infer<typeof ExtendedEventSchema>;
 
 async function getData(): Promise<Event[]> {
   const events = await db.event.findMany();
-  return events.map((event) => EventSchema.parse(event));
+  return events.map((event) => ExtendedEventSchema.parse(event));
 }
 
 export default async function EventsPage() {

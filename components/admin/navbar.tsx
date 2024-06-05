@@ -11,10 +11,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { HomeIcon } from "@radix-ui/react-icons";
 
 export const Navbar = () => {
   const paths = usePathname();
-  const pathNames = paths.startsWith("/admin")
+  const pathNames = paths.startsWith("/")
     ? paths.split("/").filter((path) => path)
     : [];
 
@@ -26,12 +27,11 @@ export const Navbar = () => {
           {pathNames.length > 0 && (
             <>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/admin">Admin</BreadcrumbLink>
+                <HomeIcon />
               </BreadcrumbItem>
-              {pathNames.slice(1).map((path, index) => {
-                const href = "/" + pathNames.slice(0, index + 2).join("/");
-                const isLast = index === pathNames.slice(1).length - 1;
-
+              {pathNames.map((path, index) => {
+                const href = "/" + pathNames.slice(0, index + 1).join("/");
+                const isLast = index === pathNames.length - 1;
                 return (
                   <React.Fragment key={href}>
                     <BreadcrumbSeparator />
