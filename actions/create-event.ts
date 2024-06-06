@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
@@ -11,6 +10,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
 
   if (!validatedFields.success) {
     return {
+      success: false,
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create event.",
     };
@@ -24,12 +24,16 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         name,
       },
     });
-  } catch (error) {
+    revalidatePath("/admin/events");
     return {
-      message: `"Failed to create event."`,
+      success: true,
+      message: `"${name}" was created successfully!`,
+    };
+  } catch (error) {
+    console.error("Error creating event:", error);
+    return {
+      success: false,
+      message: "Failed to create event!",
     };
   }
-
-  revalidatePath("/admin/events");
-  redirect(`/admin/events`);
 };
