@@ -1,7 +1,13 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, EyeIcon, MoreHorizontal, Pencil, Trash } from "lucide-react";
+import {
+  ArrowUpDown,
+  EyeIcon,
+  MoreHorizontal,
+  Pencil,
+  Trash,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -86,15 +92,15 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Pencil className="mr-2 h-4 w-4" />
-              Edit
+              <Link href={`/admin/events/${event.id}/edit`} className="flex">
+                <Pencil className="mr-2 h-4 w-4" />
+                Edit
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem className="text-red-500">
               <Trash className="mr-2 h-4 w-4" />
               Delite
             </DropdownMenuItem>
-
           </DropdownMenuContent>
         </DropdownMenu>
       );

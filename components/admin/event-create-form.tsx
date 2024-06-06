@@ -52,29 +52,24 @@ export default function EventCreateForm() {
 
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
+    defaultValues: {
+      name: "",
+    },
   });
 
   function onSubmit(values: z.infer<typeof EventSchema>) {
     startTransition(() => {
       CreateEvent(values)
-        .then((data) => {
-          if (data.success) {
-            toast({
-              variant: "default",
-              title: `"${values.name}" was created successfully.`,
-              description: "Now you can manage it!",
-            });
-          }
-        })
-
-        .catch((error) => {
+        .then(() => {
           toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "There was a problem with your request.",
+            title: `"${values.name}" was created successfully!`,
+            description: "Now you can manage it.",
           });
+        })
+        .catch((error) => {
+          console.error("Failed to create event:", error);
+          // Optionally, handle error states or show error messages
         });
-      redirect("/admin/events");
     });
   }
 
@@ -96,7 +91,7 @@ export default function EventCreateForm() {
                     <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Name of event (required)"
+                        placeholder="Name (required)"
                         {...field}
                         disabled={isPending}
                       />
@@ -244,10 +239,10 @@ export default function EventCreateForm() {
           )}
         /> */}
             <div className="flex justify-between mt-8">
-              <Button type="submit">Submit</Button>
               <Button asChild variant="outline">
                 <Link href="/admin/events">Cancel</Link>
               </Button>
+              <Button type="submit">Submit</Button>
             </div>
           </form>
         </Form>
