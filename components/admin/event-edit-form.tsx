@@ -71,19 +71,13 @@ export default function EventEditForm({ event }: { event: Event }) {
         if (response.success) {
           toast({
             title: response.message,
-            description: "Now you can manage it.",
-            action: (
-              <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-            ),
           });
           router.push("/admin/events");
         } else {
           toast({
             title: "Failed to update event",
             description: response.message,
-            action: (
-              <ToastAction altText="Try again">Try again</ToastAction>
-            ),
+            action: <ToastAction altText="Try again">Try again</ToastAction>,
           });
         }
       });

@@ -65,8 +65,6 @@ export default function EventCreateForm() {
         if (response.success) {
           toast({
             title: response.message,
-            description: "Now you can manage it.",
-            action: <ToastAction altText="Undo">Undo</ToastAction>,
           });
           router.push("/admin/events");
         } else {
