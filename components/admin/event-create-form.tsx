@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
-import { CreateEvent } from "@/actions/create-event";
+import { CreateEvent } from "@/actions/event";
 import { toast } from "../ui/use-toast";
 import { EventSchema } from "@/lib/validations";
 import { redirect, useRouter } from "next/navigation";
@@ -66,9 +66,7 @@ export default function EventCreateForm() {
           toast({
             title: response.message,
             description: "Now you can manage it.",
-            action: (
-              <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-            ),
+            action: <ToastAction altText="Undo">Undo</ToastAction>,
           });
           router.push("/admin/events");
         } else {

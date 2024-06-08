@@ -1,4 +1,6 @@
+import EventEditForm from "@/components/admin/event-edit-form";
 import { db } from "@/lib/db";
+import { notFound } from "next/navigation";
 
 export default async function EditEventPage({
   params,
@@ -11,9 +13,14 @@ export default async function EditEventPage({
       id: id,
     },
   });
+
+  if (!event) {
+    notFound();
+  }
+
   return (
     <div>
-        <h1>{event?.name}</h1>
+      <EventEditForm event={event} />
     </div>
   );
 }
