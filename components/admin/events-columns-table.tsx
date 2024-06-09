@@ -38,9 +38,11 @@ import Link from "next/link";
 import { DeleteEvent } from "@/actions/event";
 import { toast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
+import { Badge } from "../ui/badge";
 
 const ExtendedEventSchema = EventSchema.extend({
   id: z.string(),
+  active: z.boolean(),
 });
 
 type Event = z.infer<typeof ExtendedEventSchema>;
@@ -82,6 +84,38 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
       );
     },
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
+  },
+  {
+    accessorKey: "type",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Type
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div>{row.getValue("type")}</div>,
+  },
+  {
+    accessorKey: "active",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <Badge variant="secondary">{row.getValue("active") ? "Pending" : "Expired"}</Badge>
+    ),
   },
   {
     id: "actions",
@@ -151,7 +185,7 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                       This action cannot be undone. This will permanently delete
-                      your account and remove your data from our servers.
+                      your event and remove your data from our servers.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>

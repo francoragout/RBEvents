@@ -7,7 +7,8 @@ import { z } from "zod";
 
 // Extend the existing EventSchema to include the id field
 const ExtendedEventSchema = EventSchema.extend({
-  id: z.string(), // Assuming the id field is a string in your database
+  id: z.string(), 
+  active: z.boolean(),
 });
 
 type Event = z.infer<typeof ExtendedEventSchema>;

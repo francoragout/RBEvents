@@ -16,12 +16,13 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     };
   }
 
-  const { name } = validatedFields.data;
+  const { name, type } = validatedFields.data;
 
   try {
     await db.event.create({
       data: {
         name,
+        type,
       },
     });
     revalidatePath("/admin/events");
@@ -49,13 +50,14 @@ export const EditEvent = async (id: string, values: z.infer<typeof EventSchema>)
     };
   }
 
-  const { name } = validatedFields.data;
+  const { name, type } = validatedFields.data;
 
   try {
     await db.event.update({
       where: { id },
       data: {
         name,
+        type,
       },
     });
     revalidatePath("/admin/events");

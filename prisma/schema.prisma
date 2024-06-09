@@ -10,9 +10,6 @@ generator client {
 model Event {
   id   String @id @default(cuid())
   name String
-  // type        String
-  // date        DateTime @db.Date()
-  // time        DateTime @db.Time()
-  // lounge      String?  @default("")
-  // description String?  @default("")
+  type String
+  active Boolean @default(true)
 }
