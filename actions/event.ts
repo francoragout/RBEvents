@@ -16,13 +16,15 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     };
   }
 
-  const { name, type } = validatedFields.data;
-
+  const { name, type, date, time } = validatedFields.data;
+  
   try {
     await db.event.create({
       data: {
         name,
         type,
+        date,
+        time,
       },
     });
     revalidatePath("/admin/events");
@@ -50,7 +52,7 @@ export const EditEvent = async (id: string, values: z.infer<typeof EventSchema>)
     };
   }
 
-  const { name, type } = validatedFields.data;
+  const { name, type, date, time } = validatedFields.data;
 
   try {
     await db.event.update({
@@ -58,6 +60,8 @@ export const EditEvent = async (id: string, values: z.infer<typeof EventSchema>)
       data: {
         name,
         type,
+        date,
+        time,
       },
     });
     revalidatePath("/admin/events");
@@ -92,6 +96,32 @@ export const DeleteEvent = async (id: string) => {
     };
   }
 };
+
+export const ArchiveEvent = async (id: string) => {
+  try {
+    await db.event.update({
+      where: { id },
+      data: {
+        archived: true,
+      },
+    });
+    revalidatePath("/admin/events");
+    return {
+      success: true,
+      message: `Event was archived successfully!`,
+    };
+  } catch (error) {
+    console.error("Error archiving event:", error);
+    return {
+      success: false,
+      message: "Failed to archive event!",
+    };
+  }
+};
+
+
+
+
 
 
 

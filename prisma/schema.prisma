@@ -7,9 +7,19 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum EventType {
+  WEDDING
+  BIRTHDAY
+  OPENING
+  MEETING
+  OTHER
+}
+
 model Event {
   id   String @id @default(cuid())
   name String
-  type String
-  active Boolean @default(true)
+  type EventType
+  date DateTime @db.Date
+  time String
+  archived Boolean @default(false)
 }

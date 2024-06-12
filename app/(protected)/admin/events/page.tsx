@@ -8,13 +8,18 @@ import { z } from "zod";
 // Extend the existing EventSchema to include the id field
 const ExtendedEventSchema = EventSchema.extend({
   id: z.string(), 
-  active: z.boolean(),
+  archived: z.boolean(),
 });
 
 type Event = z.infer<typeof ExtendedEventSchema>;
 
 async function getData(): Promise<Event[]> {
-  const events = await db.event.findMany();
+  const events = await db.event.findMany({
+    where: {
+      archived: false,
+    }
+  })
+    
   return events.map((event) => ExtendedEventSchema.parse(event));
 }
 
