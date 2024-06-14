@@ -1,54 +1,71 @@
 "use client";
 
 import React from "react";
-import Header from "./header";
 import { usePathname } from "next/navigation";
+import { ModeToggle } from "../theme-toggle-button";
+import { Button } from "@/components/ui/button";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { HomeIcon } from "@radix-ui/react-icons";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {  PersonIcon } from "@radix-ui/react-icons";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
+
 
 export const Navbar = () => {
-  const paths = usePathname();
-  const pathNames = paths.startsWith("/")
-    ? paths.split("/").filter((path) => path)
-    : [];
+  const path = usePathname();
+  
 
   return (
     <React.Fragment>
-      <Header />
-      <Breadcrumb>
-        <BreadcrumbList>
-          {pathNames.length > 0 && (
-            <>
-              <BreadcrumbItem>
-                <HomeIcon />
-              </BreadcrumbItem>
-              {pathNames.map((path, index) => {
-                const href = "/" + pathNames.slice(0, index + 1).join("/");
-                const isLast = index === pathNames.length - 1;
-                return (
-                  <React.Fragment key={href}>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                      {isLast ? (
-                        <BreadcrumbPage>{path}</BreadcrumbPage>
-                      ) : (
-                        <BreadcrumbLink href={href}>{path}</BreadcrumbLink>
-                      )}
-                    </BreadcrumbItem>
-                  </React.Fragment>
-                );
-              })}
-            </>
-          )}
-        </BreadcrumbList>
-      </Breadcrumb>
+      <div className="flex items-center justify-between mb-2">
+        <h1 className="text-2xl font-bold">RBEvents</h1>
+        <div className="flex items-center space-x-4">
+          <ModeToggle />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="overflow-hidden rounded-full"
+              >
+                <PersonIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+
+      
+      <Tabs defaultValue={path} className="mb-5">
+        <TabsList className="w-full">
+          <Link href="/admin">
+            <TabsTrigger value="/admin">Admin</TabsTrigger>
+          </Link>
+          <Link href="/admin/events">
+            <TabsTrigger value="/admin/events">Events</TabsTrigger>
+          </Link>
+          <Link href="/admin/providers">
+            <TabsTrigger value="/admin/providers">Providers</TabsTrigger>
+          </Link>
+          <Link href="/admin/users">
+            <TabsTrigger value="/admin/users">Users</TabsTrigger>
+          </Link>
+        </TabsList>
+      </Tabs>
     </React.Fragment>
   );
 };
