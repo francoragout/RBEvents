@@ -11,7 +11,7 @@ export const EventSchema = z.object({
       message: "Title must not be longer than 20 characters.",
     }),
   type: z.enum(["WEDDING", "BIRTHDAY", "OPENING", "MEETING", "OTHER"], {
-    message: "Please select event type.",
+    message: "Please select type.",
   }),
   date: z.date({
     message: "Please select date.",

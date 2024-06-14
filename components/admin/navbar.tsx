@@ -12,18 +12,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {  PersonIcon } from "@radix-ui/react-icons";
+import { BellIcon, PersonIcon } from "@radix-ui/react-icons";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 
-
 export const Navbar = () => {
   const path = usePathname();
-  
 
   return (
     <React.Fragment>
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">RBEvents</h1>
         <div className="flex items-center space-x-4">
           <ModeToggle />
@@ -34,7 +32,26 @@ export const Navbar = () => {
                 size="icon"
                 className="overflow-hidden rounded-full"
               >
-                <PersonIcon />
+                <BellIcon className="h-[1.2rem] w-[1.2rem]" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="overflow-hidden rounded-full"
+              >
+                <PersonIcon className="h-[1.2rem] w-[1.2rem]" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -49,11 +66,10 @@ export const Navbar = () => {
         </div>
       </div>
 
-      
-      <Tabs defaultValue={path} className="mb-5">
+      <Tabs defaultValue={path} className="mb-6 shadow-lg rounded-full">
         <TabsList className="w-full">
           <Link href="/admin">
-            <TabsTrigger value="/admin">Admin</TabsTrigger>
+            <TabsTrigger value="/admin">Dashboard</TabsTrigger>
           </Link>
           <Link href="/admin/events">
             <TabsTrigger value="/admin/events">Events</TabsTrigger>
@@ -62,7 +78,7 @@ export const Navbar = () => {
             <TabsTrigger value="/admin/providers">Providers</TabsTrigger>
           </Link>
           <Link href="/admin/users">
-            <TabsTrigger value="/admin/users">Users</TabsTrigger>
+            <TabsTrigger value="/admin/users">Clients</TabsTrigger>
           </Link>
         </TabsList>
       </Tabs>

@@ -188,6 +188,17 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
                 Edit
               </Link>
             </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="flex justify-start h-5 pl-0 w-full"
+                onClick={archiveEvent}
+              >
+                <ArchiveRestore className="mr-2 h-4 w-4" />
+                Archive
+              </Button>
+            </DropdownMenuItem>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button
@@ -215,17 +226,6 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-            <DropdownMenuItem>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex justify-start h-5 pl-0 w-full"
-                onClick={archiveEvent}
-              >
-                <ArchiveRestore className="mr-2 h-4 w-4" />
-                Archive
-              </Button>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
