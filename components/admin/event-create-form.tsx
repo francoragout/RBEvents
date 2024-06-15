@@ -56,6 +56,7 @@ export default function EventCreateForm() {
     resolver: zodResolver(EventSchema),
     defaultValues: {
       name: "",
+      time: "00:00",
     },
   });
 
@@ -161,7 +162,7 @@ export default function EventCreateForm() {
                             {field.value ? (
                               format(field.value, "EEE, dd MMM yyyy")
                             ) : (
-                              <span>Pick a date</span>
+                              <span>Pick a date (required)</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>

@@ -1,6 +1,10 @@
 import { db } from "@/lib/db";
 
-export default async function EventPage({ params }: { params: { id: string } }) {
+export default async function EventPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const event = await db.event.findUnique({
     where: {
       id: params.id,

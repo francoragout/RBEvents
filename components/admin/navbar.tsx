@@ -74,6 +74,9 @@ export const Navbar = () => {
           <Link href="/admin/events">
             <TabsTrigger value="/admin/events">Events</TabsTrigger>
           </Link>
+          <Link href="/admin/venues">
+            <TabsTrigger value="/admin/venues">Venues</TabsTrigger>
+          </Link>
           <Link href="/admin/providers">
             <TabsTrigger value="/admin/providers">Providers</TabsTrigger>
           </Link>
