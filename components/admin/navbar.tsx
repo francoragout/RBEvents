@@ -73,15 +73,12 @@ export const Navbar = () => {
           </Link>
           <Link href="/admin/events">
             <TabsTrigger value="/admin/events">Events</TabsTrigger>
-          </Link>
-          <Link href="/admin/venues">
-            <TabsTrigger value="/admin/venues">Venues</TabsTrigger>
-          </Link>
+          </Link>        
           <Link href="/admin/providers">
             <TabsTrigger value="/admin/providers">Providers</TabsTrigger>
           </Link>
-          <Link href="/admin/users">
-            <TabsTrigger value="/admin/users">Clients</TabsTrigger>
+          <Link href="/admin/services">
+            <TabsTrigger value="/admin/services">Services</TabsTrigger>
           </Link>
         </TabsList>
       </Tabs>
