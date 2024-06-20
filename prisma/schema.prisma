@@ -16,10 +16,21 @@ enum EventType {
 }
 
 model Event {
-  id   String @id @default(cuid())
-  name String
-  type EventType
-  date DateTime @db.Date
-  time String
-  archived Boolean @default(false)
+  id       String    @id @default(cuid())
+  name     String
+  type     EventType
+  date     DateTime  @db.Date
+  time     String
+  archived Boolean   @default(false)
+  tasks    Task[]
+}
+
+model Task {
+  id       String   @id @default(cuid())
+  title    String
+  status   String
+  label    String
+  priority String
+  event    Event    @relation(fields: [eventId], references: [id])
+  eventId  String
 }

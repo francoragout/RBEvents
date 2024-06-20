@@ -66,8 +66,8 @@ export const Navbar = () => {
         </div>
       </div>
 
-      <Tabs defaultValue={path} className="mb-6 shadow-lg rounded-full">
-        <TabsList className="w-full">
+      <Tabs defaultValue={path} className="mb-6">
+        <TabsList>
           <Link href="/admin">
             <TabsTrigger value="/admin">Dashboard</TabsTrigger>
           </Link>

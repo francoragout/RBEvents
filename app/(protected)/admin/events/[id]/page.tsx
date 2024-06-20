@@ -1,19 +1,28 @@
+
+import { z } from "zod";
+
+import { columns } from "@/components/admin/columns";
+import { DataTable } from "@/components/admin/data-table";
+import { taskSchema } from "@/lib/validations";
 import { db } from "@/lib/db";
 
-export default async function EventPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const event = await db.event.findUnique({
+// Simulate a database read for tasks.
+async function getTasks(params: { id: string }) {
+  const data = await db.task.findMany({
     where: {
       id: params.id,
     },
   });
 
+  return data;
+}
+
+export default async function TaskPage({ params }: { params: { id: string } }) {
+  const tasks = await getTasks(params);
+
   return (
-    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-5">
-      {event?.name}
-    </h1>
+    <div className="h-full flex-col">
+      <DataTable data={tasks} columns={columns} />
+    </div>
   );
 }
