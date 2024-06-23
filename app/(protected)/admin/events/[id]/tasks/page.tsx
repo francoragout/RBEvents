@@ -1,4 +1,3 @@
-
 import { z } from "zod";
 
 import { columns } from "@/components/admin/columns";
@@ -17,7 +16,7 @@ async function getTasks(params: { id: string }) {
   return data;
 }
 
-export default async function TaskPage({ params }: { params: { id: string } }) {
+export default async function TasksPage({ params }: { params: { id: string } }) {
   const tasks = await getTasks(params);
 
   return (

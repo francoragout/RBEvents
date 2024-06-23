@@ -1,12 +1,6 @@
 import { db } from "@/lib/db";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { ListChecks } from "lucide-react";
-
+import { ChevronDown } from "lucide-react";
+import { usePathname } from "next/navigation";
 interface ProtectedLayoutProps {
   children: React.ReactNode;
   params: { id: string };
@@ -21,39 +15,10 @@ const ProtectedLayout = async ({ children, params }: ProtectedLayoutProps) => {
 
   return (
     <main>
-      <div className="flex items-center space-x-4 mb-6">
+      <div className="flex items-center space-x-4 mb-6 justify-center">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           {event?.name}
         </h1>
-        
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <ListChecks />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Add to library</p>
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger>
-                <ListChecks />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Add to library</p>
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger>
-                <ListChecks />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Add to library</p>
-              </TooltipContent>
-            </Tooltip>
-
-          </TooltipProvider>
-        
       </div>
       {children}
     </main>

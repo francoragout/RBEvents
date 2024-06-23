@@ -115,7 +115,7 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
           daysLeft = <Badge variant="secondary">Expired</Badge>;
           break;
         default:
-          daysLeft = diffDays;
+          daysLeft = <Badge>{diffDays}</Badge>;
       }
       return <div>{daysLeft}</div>;
     },
@@ -173,7 +173,7 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <Link
-                href={`/admin/events/${event.id}`}
+                href={`/admin/events/${event.id}/overview`}
                 className="flex w-full h-5"
               >
                 <EyeIcon className="mr-2 h-4 w-4" />
