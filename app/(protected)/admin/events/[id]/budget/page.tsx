@@ -1,7 +1,7 @@
 export default function BudgetwPage() {
-    return (
-        <div>
-            <h1>OBudget</h1>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Budget</h1>
+    </div>
+  );
 }

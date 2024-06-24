@@ -73,7 +73,7 @@ export function EventsTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center mb-6">
+      <div className="flex items-center mb-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="me-4">

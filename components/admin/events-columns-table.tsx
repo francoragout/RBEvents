@@ -3,8 +3,9 @@
 import { ColumnDef } from "@tanstack/react-table";
 import {
   ArchiveRestore,
-  ArrowUpDown,
+  DollarSign,
   EyeIcon,
+  ListTodo,
   MoreHorizontal,
   Pencil,
   Trash,
@@ -14,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -171,62 +171,90 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link
-                href={`/admin/events/${event.id}/overview`}
-                className="flex w-full h-5"
+            <div className="flex flex-col">
+              <Button
+                asChild
+                variant="ghost"
+                className="flex justify-start pl-2"
               >
-                <EyeIcon className="mr-2 h-4 w-4" />
-                View
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link
-                href={`/admin/events/${event.id}/edit`}
-                className="flex w-full h-5"
+                <Link href={`/admin/events/${event.id}/overview`}>
+                  <EyeIcon className="mr-2 h-4 w-4" />
+                  <span>Overview</span>
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                variant="ghost"
+                className="flex justify-start pl-2"
               >
-                <Pencil className="mr-2 h-4 w-4" />
-                Edit
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
+                <Link href={`/admin/events/${event.id}/tasks`}>
+                  <ListTodo className="mr-2 h-4 w-4" />
+                  <span>Tasks</span>
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                variant="ghost"
+                className="flex justify-start pl-2"
+              >
+                <Link href={`/admin/events/${event.id}/budget`}>
+                  <DollarSign className="mr-2 h-4 w-4" />
+                  <span>Budget</span>
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                variant="ghost"
+                className="flex justify-start pl-2"
+              >
+                <Link href={`/admin/events/${event.id}/edit`}>
+                  <Pencil className="mr-2 h-4 w-4" />
+                  <span>Edit</span>
+                </Link>
+              </Button>
+
               <Button
                 variant="ghost"
-                size="sm"
-                className="flex justify-start h-5 pl-0 w-full"
+                className="flex justify-start pl-2"
                 onClick={archiveEvent}
               >
                 <ArchiveRestore className="mr-2 h-4 w-4" />
-                Archive
+                <span>Archive</span>
               </Button>
-            </DropdownMenuItem>
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="flex justify-start h-8 pl-2 w-full"
-                >
-                  <Trash className="mr-2 h-4 w-4" />
-                  Delete
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your event and remove your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={deleteEvent}>
-                    Continue
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex justify-start pl-2 w-full"
+                  >
+                    <Trash className="mr-2 h-4 w-4" />
+                    Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your event and remove your data from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={deleteEvent}>
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -9,6 +9,7 @@ import { DataTableViewOptions } from "@/components/admin/data-table-view-options
 
 import { priorities, statuses } from "@/components/admin/data"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
+import TaskCreateForm from "./task-create-form"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -55,6 +56,7 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
+      <TaskCreateForm />
       <DataTableViewOptions table={table} />
     </div>
   )
