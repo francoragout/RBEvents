@@ -17,7 +17,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   }
 
   const { name, type, date, time } = validatedFields.data;
-  
+
   try {
     await db.event.create({
       data: {
@@ -41,7 +41,10 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   }
 };
 
-export const EditEvent = async (id: string, values: z.infer<typeof EventSchema>) => {
+export const EditEvent = async (
+  id: string,
+  values: z.infer<typeof EventSchema>
+) => {
   const validatedFields = EventSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -118,10 +121,3 @@ export const ArchiveEvent = async (id: string) => {
     };
   }
 };
-
-
-
-
-
-
-
