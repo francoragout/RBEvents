@@ -6,9 +6,17 @@ import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 
 import { labels, priorities, statuses } from "@/components/admin/data"
-import { Task } from "@/lib/validations"
+import { TaskSchema } from "@/lib/validations"
 import { DataTableColumnHeader } from "@/components/admin/data-table-column-header"
 import { DataTableRowActions } from "@/components/admin/data-table-row-actions"
+import { z } from "zod"
+
+const ExtendedTaskSchema = TaskSchema.extend({
+  id: z.string(),
+  eventId: z.string(),
+})
+
+type Task = z.infer<typeof ExtendedTaskSchema>
 
 export const columns: ColumnDef<Task>[] = [
   {

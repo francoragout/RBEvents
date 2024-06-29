@@ -15,16 +15,6 @@ async function getData(): Promise<Task[]> {
   return tasks.map((task) => taskSchema.parse(task));
 }
 
-// async function getTasks(params: { id: string }) {
-//   const data = await db.task.findMany({
-//     where: {
-//       id: params.id,
-//     },
-//   });
-
-//   return data;
-// }
-
 export default async function TasksPage() {
   const tasks = await getData();
   return (

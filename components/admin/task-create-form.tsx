@@ -1,4 +1,3 @@
-import { CreateTask } from "@/actions/task";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { EventSchema, taskSchema } from "@/lib/validations";
+import { EventSchema, TaskSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -38,28 +37,24 @@ import {
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 
-
-
-type Event = z.infer<typeof EventSchema>;
-
-export default function TaskCreateForm({ event }: { event: Event }) {
+export default function TaskCreateForm() {
   const [isPending, startTransition] = useTransition();
-  const [open, setOpen] = useState(false);
 
-  const form = useForm<z.infer<typeof taskSchema>>({
-    resolver: zodResolver(taskSchema),
+  const form = useForm<z.infer<typeof TaskSchema>>({
+    resolver: zodResolver(TaskSchema),
     defaultValues: {
       title: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof taskSchema>) {
+  function onSubmit(values: z.infer<typeof TaskSchema>) {
     startTransition(() => {
+      CreateTask(values)
       
     });
   }
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <PlusIcon className="mr-2 size-4" aria-hidden="true" />
@@ -201,15 +196,7 @@ export default function TaskCreateForm({ event }: { event: Event }) {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button disabled={isPending}>
-                {isPending && (
-                  <ReloadIcon
-                    className="mr-2 size-4 animate-spin"
-                    aria-hidden="true"
-                  />
-                )}
-                Create
-              </Button>
+              <Button type="submit">Submit</Button>
             </DialogFooter>
           </form>
         </Form>
