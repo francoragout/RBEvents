@@ -12,8 +12,9 @@ import { DataTableRowActions } from "@/components/admin/data-table-row-actions"
 import { z } from "zod"
 
 const ExtendedTaskSchema = TaskSchema.extend({
-  id: z.string(),
+ 
   eventId: z.string(),
+  id: z.string(),
 })
 
 type Task = z.infer<typeof ExtendedTaskSchema>

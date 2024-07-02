@@ -36,8 +36,17 @@ import {
 } from "../ui/select";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
+import { CreateTask } from "@/actions/task";
+import { toast } from "../ui/use-toast";
+import { ToastAction } from "../ui/toast";
 
-export default function TaskCreateForm() {
+const ExtendedTaskSchema = TaskSchema.extend({
+  eventId: z.string(),
+});
+
+type Task = z.infer<typeof ExtendedTaskSchema>;
+
+export default function TaskCreateForm({ eventId }: { eventId: string}) {
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof TaskSchema>>({
@@ -49,10 +58,24 @@ export default function TaskCreateForm() {
 
   function onSubmit(values: z.infer<typeof TaskSchema>) {
     startTransition(() => {
-      CreateTask(values)
-      
+      CreateTask(eventId, values).then((response) => {
+        if (response.success) {
+          toast({
+            title: response.message,
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            title: response.message,
+            description: "Something went wrong.",
+            action: <ToastAction altText="Try again">Try again</ToastAction>,
+          });
+        }
+      });
     });
   }
+
+  
   return (
     <Dialog>
       <DialogTrigger asChild>

@@ -13,10 +13,12 @@ import TaskCreateForm from "./task-create-form"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
+  event: string
 }
 
 export function DataTableToolbar<TData>({
   table,
+  event,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
 
@@ -56,7 +58,7 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      <TaskCreateForm />
+      <TaskCreateForm eventId={event}/>
       <DataTableViewOptions table={table} />
     </div>
   )
