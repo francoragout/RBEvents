@@ -40,14 +40,9 @@ import { CreateTask } from "@/actions/task";
 import { toast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
 
-const ExtendedTaskSchema = TaskSchema.extend({
-  eventId: z.string(),
-});
-
-type Task = z.infer<typeof ExtendedTaskSchema>;
-
-export default function TaskCreateForm({ eventId }: { eventId: string}) {
+export default function TaskCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
+  const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TaskSchema>>({
     resolver: zodResolver(TaskSchema),
@@ -63,6 +58,8 @@ export default function TaskCreateForm({ eventId }: { eventId: string}) {
           toast({
             title: response.message,
           });
+          form.reset()
+          setOpen(false)
         } else {
           toast({
             variant: "destructive",
@@ -75,9 +72,8 @@ export default function TaskCreateForm({ eventId }: { eventId: string}) {
     });
   }
 
-  
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <PlusIcon className="mr-2 size-4" aria-hidden="true" />

@@ -5,19 +5,18 @@ import { DataTable } from "@/components/admin/data-table";
 import { TaskSchema } from "@/lib/validations";
 import { db } from "@/lib/db";
 
-// Simulate a database read for tasks.
+type Task = z.infer<typeof TaskSchema>;
 
-const ExtendedTaskSchema = TaskSchema.extend({
-  eventId: z.string(),
-  id: z.string(),
-});
+// Modificar getData para aceptar eventId
+async function getData(eventId: string): Promise<Task[]> {
+  // Usar eventId para filtrar las tareas
+  const tasks = await db.task.findMany({
+    where: {
+      eventId: eventId, // Asumiendo que las tareas tienen un campo 'eventId' para la relación
+    },
+  });
 
-type Task = z.infer<typeof ExtendedTaskSchema>;
-
-async function getData(): Promise<Task[]> {
-  const tasks = await db.task.findMany();
-
-  return tasks.map((task) => ExtendedTaskSchema.parse(task));
+  return tasks.map((task) => TaskSchema.parse(task));
 }
 
 export default async function TasksPage({
@@ -26,12 +25,12 @@ export default async function TasksPage({
   params: { id: string };
 }) {
   const eventId = params.id;
-  
 
-  const tasks = await getData();
+  // Pasar eventId a getData
+  const tasks = await getData(eventId);
   return (
     <div className="h-full flex-col">
-      <DataTable data={tasks} columns={columns} event={eventId}/>
+      <DataTable data={tasks} columns={columns} eventId={eventId} />
     </div>
   );
 }

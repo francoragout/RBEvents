@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
 import { CreateEvent } from "@/actions/event";
 import { toast } from "../ui/use-toast";
-import { EventSchema } from "@/lib/validations";
+import { EventSchema, EventType } from "@/lib/validations";
 import { redirect, useRouter } from "next/navigation";
 import {
   Form,
@@ -27,6 +27,7 @@ import {
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -129,11 +130,13 @@ export default function EventCreateForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="WEDDING">Wedding</SelectItem>
-                        <SelectItem value="BIRTHDAY">Birthday</SelectItem>
-                        <SelectItem value="OPENING">Opening</SelectItem>
-                        <SelectItem value="MEETING">Meeting</SelectItem>
-                        <SelectItem value="OTHER">Other</SelectItem>
+                        <SelectGroup>
+                          {Object.values(EventType.options).map((type) => (
+                            <SelectItem key={type} value={type}>
+                              {type}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
                       </SelectContent>
                     </Select>
                     <FormMessage />

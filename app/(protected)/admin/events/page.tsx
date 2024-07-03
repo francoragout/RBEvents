@@ -5,12 +5,8 @@ import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
 
 // Extend the existing EventSchema to include the id field
-const ExtendedEventSchema = EventSchema.extend({
-  id: z.string(), 
-  archived: z.boolean(),
-});
 
-type Event = z.infer<typeof ExtendedEventSchema>;
+type Event = z.infer<typeof EventSchema>;
 
 async function getData(): Promise<Event[]> {
   const events = await db.event.findMany({
@@ -19,7 +15,7 @@ async function getData(): Promise<Event[]> {
     }
   })
     
-  return events.map((event) => ExtendedEventSchema.parse(event));
+  return events.map((event) => EventSchema.parse(event));
 }
 
 export default async function EventsPage() {

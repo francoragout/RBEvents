@@ -41,12 +41,7 @@ import { toast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
 import { Badge } from "../ui/badge";
 
-const ExtendedEventSchema = EventSchema.extend({
-  id: z.string(),
-  archived: z.boolean(),
-});
-
-type Event = z.infer<typeof ExtendedEventSchema>;
+type Event = z.infer<typeof EventSchema>;
 
 export const EventsColumnsTable: ColumnDef<Event>[] = [
   {
@@ -127,7 +122,7 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
       const event = row.original;
 
       const deleteEvent = () => {
-        DeleteEvent(event.id).then((response) => {
+        DeleteEvent(event.id ?? "").then((response) => {
           if (response.success) {
             toast({
               title: response.message,
@@ -142,9 +137,9 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
           }
         });
       };
-
+      
       const archiveEvent = () => {
-        ArchiveEvent(event.id).then((response) => {
+        ArchiveEvent(event.id ?? "").then((response) => {
           if (response.success) {
             toast({
               title: response.message,

@@ -31,13 +31,14 @@ import { DataTableToolbar } from "./data-table-toolbar"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  event: string
+  eventId: string
+  
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  event,
+  eventId,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -71,7 +72,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} event={event}/>
+      <DataTableToolbar table={table} eventId={eventId}/>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

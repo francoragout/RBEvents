@@ -11,13 +11,7 @@ import { DataTableColumnHeader } from "@/components/admin/data-table-column-head
 import { DataTableRowActions } from "@/components/admin/data-table-row-actions"
 import { z } from "zod"
 
-const ExtendedTaskSchema = TaskSchema.extend({
- 
-  eventId: z.string(),
-  id: z.string(),
-})
-
-type Task = z.infer<typeof ExtendedTaskSchema>
+type Task = z.infer<typeof TaskSchema>
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -41,15 +35,6 @@ export const columns: ColumnDef<Task>[] = [
         className="translate-y-[2px]"
       />
     ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
-    ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: false,
     enableHiding: false,
   },

@@ -1,3 +1,5 @@
+'use server';
+
 import { db } from "@/lib/db";
 import { TaskSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
@@ -26,16 +28,14 @@ export const CreateTask = async (
         status,
         label,
         priority,
-        event: {
-          connect: {
-            id: eventId,
-          },
-        },
+        event: { connect: { id: eventId } },
       },
     });
+    revalidatePath(`/admin/events/${eventId}/tasks`);
+    // Corrected the reference to use `title` instead of `name`
     return {
       success: true,
-      message: `"${name}" was created successfully!`,
+      message: `"${title}" was created successfully!`,
     };
   } catch (error) {
     console.error("Error creating task:", error);
