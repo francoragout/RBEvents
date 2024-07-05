@@ -32,7 +32,6 @@ export const CreateTask = async (
       },
     });
     revalidatePath(`/admin/events/${eventId}/tasks`);
-    // Corrected the reference to use `title` instead of `name`
     return {
       success: true,
       message: `"${title}" was created successfully!`,

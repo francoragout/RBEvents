@@ -14,7 +14,6 @@ enum EventType {
   MEETING
   OTHER
 }
-
 model Event {
   id       String    @id @default(cuid())
   name     String
@@ -25,12 +24,30 @@ model Event {
   tasks    Task[]
 }
 
+enum TaskLabel {
+  ANA
+  BELU
+}
+
+enum TaskStatus {
+  BACKLOG
+  TODO
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
 model Task {
   id       String   @id @default(cuid())
   title    String
-  status   String
-  label    String
-  priority String
+  status   TaskStatus
+  label    TaskLabel
+  priority TaskPriority
   event    Event    @relation(fields: [eventId], references: [id])
   eventId  String
 }
