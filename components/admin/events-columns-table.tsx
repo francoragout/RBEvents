@@ -110,7 +110,7 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
           daysLeft = <Badge variant="secondary">Expired</Badge>;
           break;
         default:
-          daysLeft = <Badge>{diffDays}</Badge>;
+          daysLeft = diffDays;
       }
       return <div>{daysLeft}</div>;
     },

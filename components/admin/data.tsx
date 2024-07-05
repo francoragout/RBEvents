@@ -11,42 +11,38 @@ import {
   
   export const labels = [
     {
-      value: "bug",
-      label: "Bug",
+      value: "ANA",
+      label: "Ana",
     },
     {
-      value: "feature",
-      label: "Feature",
-    },
-    {
-      value: "documentation",
-      label: "Documentation",
+      value: "BELU",
+      label: "Belu",
     },
   ]
   
   export const statuses = [
     {
-      value: "backlog",
+      value: "BACKLOG",
       label: "Backlog",
       icon: QuestionMarkCircledIcon,
     },
     {
-      value: "todo",
+      value: "TODO",
       label: "Todo",
       icon: CircleIcon,
     },
     {
-      value: "in progress",
+      value: "IN_PROGRESS",
       label: "In Progress",
       icon: StopwatchIcon,
     },
     {
-      value: "done",
+      value: "DONE",
       label: "Done",
       icon: CheckCircledIcon,
     },
     {
-      value: "canceled",
+      value: "CANCELED",
       label: "Canceled",
       icon: CrossCircledIcon,
     },
@@ -55,17 +51,17 @@ import {
   export const priorities = [
     {
       label: "Low",
-      value: "low",
+      value: "LOW",
       icon: ArrowDownIcon,
     },
     {
       label: "Medium",
-      value: "medium",
+      value: "MEDIUM",
       icon: ArrowRightIcon,
     },
     {
       label: "High",
-      value: "high",
+      value: "HIGH",
       icon: ArrowUpIcon,
     },
   ]

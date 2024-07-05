@@ -131,11 +131,8 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="bug">Bug</SelectItem>
-                      <SelectItem value="feature">Feature</SelectItem>
-                      <SelectItem value="documentation">
-                        Documentation
-                      </SelectItem>
+                      <SelectItem value="ANA">Ana</SelectItem>
+                      <SelectItem value="BELU">Belu</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -165,11 +162,11 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="backlog">Backlog</SelectItem>
-                      <SelectItem value="todo">Todo</SelectItem>
-                      <SelectItem value="in progress">In progress</SelectItem>
-                      <SelectItem value="done">Done</SelectItem>
-                      <SelectItem value="canceled">Canceled</SelectItem>
+                      <SelectItem value="BACKLOG">Backlog</SelectItem>
+                      <SelectItem value="TODO">Todo</SelectItem>
+                      <SelectItem value="IN_PROGRESS">In progress</SelectItem>
+                      <SelectItem value="DONE">Done</SelectItem>
+                      <SelectItem value="CANCELLED">Canceled</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -199,9 +196,9 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="low">Low</SelectItem>
-                      <SelectItem value="medium">Medium</SelectItem>
-                      <SelectItem value="high">High</SelectItem>
+                      <SelectItem value="LOW">Low</SelectItem>
+                      <SelectItem value="MEDIUM">Medium</SelectItem>
+                      <SelectItem value="HIGH">High</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
