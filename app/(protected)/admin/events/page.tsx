@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
 
-// Extend the existing EventSchema to include the id field
 
 type Event = z.infer<typeof EventSchema>;
 

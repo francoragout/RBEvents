@@ -44,3 +44,55 @@ export const CreateTask = async (
     };
   }
 };
+
+export const UpdateTask = async (
+  taskId: string,
+  values: z.infer<typeof TaskSchema>
+) => {
+  const validatedFields = TaskSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return {
+      success: false,
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update task.",
+    };
+  }
+
+  const { title, status, label, priority } = validatedFields.data;
+
+  try {
+    await db.task.update({
+      where: { id: taskId },
+      data: { title, status, label, priority },
+    });
+    revalidatePath(`/admin/events/${taskId}/tasks`);
+    return {
+      success: true,
+      message: `"${title}" was updated successfully!`,
+    };
+  } catch (error) {
+    console.error("Error updating task:", error);
+    return {
+      success: false,
+      message: "Failed to update task!",
+    };
+  }
+};
+
+export const DeleteTask = async (id: string) => {
+  try {
+    await db.task.delete({ where: { id } });
+    revalidatePath(`/admin/events//tasks`);
+    return {
+      success: true,
+      message: "Task was deleted successfully!",
+    };
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    return {
+      success: false,
+      message: "Failed to delete task!",
+    };
+  }
+}
