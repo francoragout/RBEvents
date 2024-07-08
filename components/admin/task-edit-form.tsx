@@ -24,7 +24,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { PlusIcon } from "lucide-react";
+import { Pencil, PlusIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import {
   Select,
@@ -34,24 +34,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
-import { CreateTask } from "@/actions/task";
+import { CreateTask, UpdateTask } from "@/actions/task";
 import { toast } from "sonner";
 
-export default function TaskCreateForm({ eventId }: { eventId: string }) {
+type Task = z.infer<typeof TaskSchema>;
+
+export default function TaskEditForm({ task }: { task: Task }) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TaskSchema>>({
     resolver: zodResolver(TaskSchema),
     defaultValues: {
-      title: "",
+      title: task.title,
+      label: task.label,
+      status: task.status,
+      priority: task.priority,
     },
   });
 
   function onSubmit(values: z.infer<typeof TaskSchema>) {
     startTransition(() => {
-      CreateTask(eventId, values).then((response) => {
+      UpdateTask(task.id ?? "", task.eventId ?? "", values).then((response) => {
         if (response.success) {
           toast.success(response.message);
           form.reset();
@@ -66,8 +72,9 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="h-8">
-          New task
+        <Button variant="ghost" className="flex justify-start pl-2">
+          <Pencil className="mr-2 h-4 w-4" />
+          <span>Edit</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -90,7 +97,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Title (required)"
+                      placeholder="Do a kickflip"
                       className="resize-none"
                       {...field}
                     />

@@ -30,7 +30,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: `"${name}" was created successfully!`,
+      message: "Event was created successfully!",
     };
   } catch (error) {
     console.error("Error creating event:", error);
@@ -70,7 +70,7 @@ export const EditEvent = async (
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: `"${name}" was edited successfully!`,
+      message: "Event was edited successfully!",
     };
   } catch (error) {
     console.error("Error editing event:", error);

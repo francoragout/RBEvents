@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
 import { CreateEvent, EditEvent } from "@/actions/event";
-import { toast } from "../ui/use-toast";
 import { EventSchema } from "@/lib/validations";
 import { redirect, useRouter } from "next/navigation";
 import {
@@ -47,6 +46,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { ToastAction } from "../ui/toast";
+import { toast } from "sonner";
 
 const ExtendedEventSchema = EventSchema.extend({
   id: z.string(),
@@ -72,16 +72,10 @@ export default function EventEditForm({ event }: { event: Event }) {
     startTransition(() => {
       EditEvent(event.id, values).then((response) => {
         if (response.success) {
-          toast({
-            title: response.message,
-          });
+          toast.success(response.message);
           router.push("/admin/events");
         } else {
-          toast({
-            title: "Failed to update event",
-            description: response.message,
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
-          });
+          toast.error(response.message);
         }
       });
     });

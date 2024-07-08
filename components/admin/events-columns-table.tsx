@@ -37,9 +37,8 @@ import { EventSchema } from "@/lib/validations";
 import { Checkbox } from "../ui/checkbox";
 import Link from "next/link";
 import { ArchiveEvent, DeleteEvent } from "@/actions/event";
-import { toast } from "../ui/use-toast";
-import { ToastAction } from "../ui/toast";
 import { Badge } from "../ui/badge";
+import { toast } from "sonner";
 
 type Event = z.infer<typeof EventSchema>;
 
@@ -116,6 +115,12 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
     },
   },
   {
+    accessorKey: "tasks",
+    header: () => <div className="text-left">Tasks</div>,
+    cell: ({ row }) => <div>{row.getValue("tasks")}</div>,
+  },
+  
+  {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
@@ -124,33 +129,19 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
       const deleteEvent = () => {
         DeleteEvent(event.id ?? "").then((response) => {
           if (response.success) {
-            toast({
-              title: response.message,
-            });
+            toast.success(response.message);
           } else {
-            toast({
-              variant: "destructive",
-              title: response.message,
-              description: "Something went wrong.",
-              action: <ToastAction altText="Try again">Try again</ToastAction>,
-            });
+            toast.error(response.message);
           }
         });
       };
-      
+
       const archiveEvent = () => {
         ArchiveEvent(event.id ?? "").then((response) => {
           if (response.success) {
-            toast({
-              title: response.message,
-            });
+            toast.success(response.message);
           } else {
-            toast({
-              variant: "destructive",
-              title: response.message,
-              description: "Something went wrong.",
-              action: <ToastAction altText="Try again">Try again</ToastAction>,
-            });
+            toast.error(response.message);
           }
         });
       };

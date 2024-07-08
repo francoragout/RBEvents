@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
 import { CreateEvent } from "@/actions/event";
-import { toast } from "../ui/use-toast";
 import { EventSchema, EventType } from "@/lib/validations";
 import { redirect, useRouter } from "next/navigation";
 import {
@@ -47,6 +46,8 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { ToastAction } from "../ui/toast";
+import { toast } from "sonner"
+
 
 export default function EventCreateForm() {
   const [isPending, startTransition] = useTransition();
@@ -64,17 +65,10 @@ export default function EventCreateForm() {
     startTransition(() => {
       CreateEvent(values).then((response) => {
         if (response.success) {
-          toast({
-            title: response.message,
-          });
+          toast.success(response.message);
           router.push("/admin/events");
         } else {
-          toast({
-            variant: "destructive",
-            title: response.message,
-            description: "Something went wrong.",
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
-          });
+          toast.error(response.message);
         }
       });
     });

@@ -34,7 +34,7 @@ export const CreateTask = async (
     revalidatePath(`/admin/events/${eventId}/tasks`);
     return {
       success: true,
-      message: `"${title}" was created successfully!`,
+      message: "Task was created successfully!",
     };
   } catch (error) {
     console.error("Error creating task:", error);
@@ -46,7 +46,8 @@ export const CreateTask = async (
 };
 
 export const UpdateTask = async (
-  taskId: string,
+  id: string,
+  eventId: string,
   values: z.infer<typeof TaskSchema>
 ) => {
   const validatedFields = TaskSchema.safeParse(values);
@@ -63,13 +64,13 @@ export const UpdateTask = async (
 
   try {
     await db.task.update({
-      where: { id: taskId },
+      where: { id },
       data: { title, status, label, priority },
     });
-    revalidatePath(`/admin/events/${taskId}/tasks`);
+    revalidatePath(`/admin/events/${eventId}/tasks`);
     return {
       success: true,
-      message: `"${title}" was updated successfully!`,
+      message: "Task was updated successfully!",
     };
   } catch (error) {
     console.error("Error updating task:", error);
@@ -80,10 +81,10 @@ export const UpdateTask = async (
   }
 };
 
-export const DeleteTask = async (id: string) => {
+export const DeleteTask = async (id: string, eventId: string) => {
   try {
     await db.task.delete({ where: { id } });
-    revalidatePath(`/admin/events//tasks`);
+    revalidatePath(`/admin/events/${eventId}/tasks`);
     return {
       success: true,
       message: "Task was deleted successfully!",

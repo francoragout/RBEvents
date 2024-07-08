@@ -7,12 +7,10 @@ import { db } from "@/lib/db";
 
 type Task = z.infer<typeof TaskSchema>;
 
-// Modificar getData para aceptar eventId
 async function getData(eventId: string): Promise<Task[]> {
-  // Usar eventId para filtrar las tareas
   const tasks = await db.task.findMany({
     where: {
-      eventId: eventId, // Asumiendo que las tareas tienen un campo 'eventId' para la relación
+      eventId: eventId, 
     },
   });
 
