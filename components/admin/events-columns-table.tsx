@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { z } from "zod";
-import { EventSchema } from "@/lib/validations";
+import { EventSchema, TaskSchema } from "@/lib/validations";
 import { Checkbox } from "../ui/checkbox";
 import Link from "next/link";
 import { ArchiveEvent, DeleteEvent } from "@/actions/event";
@@ -41,6 +41,7 @@ import { Badge } from "../ui/badge";
 import { toast } from "sonner";
 
 type Event = z.infer<typeof EventSchema>;
+type Task = z.infer<typeof TaskSchema>;
 
 export const EventsColumnsTable: ColumnDef<Event>[] = [
   {
@@ -117,9 +118,20 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
   {
     accessorKey: "tasks",
     header: () => <div className="text-left">Tasks</div>,
-    cell: ({ row }) => <div>{row.getValue("tasks")}</div>,
+    cell: ({ row }) => {
+      const tasks: Task[] = row.getValue("tasks");
+      const totalTasks = tasks.length;
+      const completedTasks = tasks.filter(
+        (task) => task.status === "DONE"
+      ).length;
+      return (
+        <div>
+          {completedTasks} / {totalTasks}
+        </div>
+      );
+    },
   },
-  
+
   {
     id: "actions",
     enableHiding: false,

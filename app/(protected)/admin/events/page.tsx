@@ -11,7 +11,10 @@ async function getData(): Promise<Event[]> {
   const events = await db.event.findMany({
     where: {
       archived: false,
-    }
+    },
+    include: {
+      tasks: true,
+    },
   })
     
   return events.map((event) => EventSchema.parse(event));

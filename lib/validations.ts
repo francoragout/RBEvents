@@ -7,27 +7,6 @@ const EventType = z.enum(
   }
 );
 
-const EventSchema = z.object({
-  id: z.string().optional(),
-  name: z
-    .string()
-    .trim()
-    .min(3, {
-      message: "Name must be at least 3 characters.",
-    })
-    .max(30, {
-      message: "Name must not be longer than 30 characters.",
-    }),
-  type: EventType,
-  date: z.date({
-    message: "Please select date.",
-  }),
-  time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, {
-    message: "Please select time.",
-  }),
-  archived: z.boolean().default(false),
-});
-
 const TaskLabel = z.enum(["ANA", "BELU"], {
   message: "Please select label.",
 });
@@ -58,6 +37,28 @@ const TaskSchema = z.object({
   label: TaskLabel,
   priority: TaskPriority,
   eventId: z.string().optional(),
+});
+
+const EventSchema = z.object({
+  id: z.string().optional(),
+  name: z
+    .string()
+    .trim()
+    .min(3, {
+      message: "Name must be at least 3 characters.",
+    })
+    .max(30, {
+      message: "Name must not be longer than 30 characters.",
+    }),
+  type: EventType,
+  date: z.date({
+    message: "Please select date.",
+  }),
+  time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, {
+    message: "Please select time.",
+  }),
+  archived: z.boolean().default(false),
+  tasks: z.array(TaskSchema).default([]),
 });
 
 export {

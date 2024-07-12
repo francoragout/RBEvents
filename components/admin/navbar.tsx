@@ -23,9 +23,9 @@ export const Navbar = () => {
     <div className="flex items-center justify-between mb-4">
       <h1 className="text-2xl font-bold">RBEvents</h1>
       <Tabs defaultValue={path}>
-        <TabsList className="rounded-full">
+        <TabsList className="">
           <Link href="/admin">
-            <TabsTrigger value="/admin" className="rounded-s-full">Dashboard</TabsTrigger>
+            <TabsTrigger value="/admin" className="">Dashboard</TabsTrigger>
           </Link>
           <Link href="/admin/events">
             <TabsTrigger value="/admin/events">Events</TabsTrigger>
@@ -34,7 +34,7 @@ export const Navbar = () => {
             <TabsTrigger value="/admin/providers">Providers</TabsTrigger>
           </Link>
           <Link href="/admin/services">
-            <TabsTrigger value="/admin/services" className="rounded-e-full">Services</TabsTrigger>
+            <TabsTrigger value="/admin/services" className="">Services</TabsTrigger>
           </Link>
         </TabsList>
       </Tabs>
