@@ -8,6 +8,29 @@ import {
     QuestionMarkCircledIcon,
     StopwatchIcon,
   } from "@radix-ui/react-icons"
+
+  export const types = [
+    {
+      value: "WEDDING",
+      label: "Wedding",
+    },
+    {
+      value: "BIRTHDAY",
+      label: "Birthday",
+    },
+    {
+      value: "OPENING",
+      label: "Opening",
+    },
+    {
+      value: "MEETING",
+      label: "Meeting",
+    },
+    {
+      value: "OTHER",
+      label: "Other",
+    },
+  ]
   
   export const labels = [
     {

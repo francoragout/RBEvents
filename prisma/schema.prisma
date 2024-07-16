@@ -20,6 +20,8 @@ model Event {
   type     EventType
   date     DateTime  @db.Date
   time     String
+  venue    String?
+  description String?
   archived Boolean   @default(false)
   tasks    Task[]
 }

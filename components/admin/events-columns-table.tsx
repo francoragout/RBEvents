@@ -39,6 +39,7 @@ import Link from "next/link";
 import { ArchiveEvent, DeleteEvent } from "@/actions/event";
 import { Badge } from "../ui/badge";
 import { toast } from "sonner";
+import { types } from "./data";
 
 type Event = z.infer<typeof EventSchema>;
 type Task = z.infer<typeof TaskSchema>;
@@ -74,8 +75,21 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
   {
     accessorKey: "type",
     header: () => <div className="text-left">Type</div>,
-    cell: ({ row }) => <div>{row.getValue("type")}</div>,
+    cell: ({ row }) => {
+      const type = types.find((type) => type.value === row.getValue("type"));
+
+      if (!type) return null;
+      return (
+        <div className="flex items-center">
+          <span>{type.label}</span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
   },
+
   {
     accessorKey: "date",
     header: () => <div className="text-left">Date</div>,

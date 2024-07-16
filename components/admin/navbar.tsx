@@ -33,9 +33,6 @@ export const Navbar = () => {
           <Link href="/admin/providers">
             <TabsTrigger value="/admin/providers">Providers</TabsTrigger>
           </Link>
-          <Link href="/admin/services">
-            <TabsTrigger value="/admin/services" className="">Services</TabsTrigger>
-          </Link>
         </TabsList>
       </Tabs>
       <div className="flex items-center space-x-4">

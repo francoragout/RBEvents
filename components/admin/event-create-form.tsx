@@ -204,20 +204,19 @@ export default function EventCreateForm() {
               />
             </div>
 
-            {/* <FormField
+            <FormField
           control={form.control}
-          name="lounge"
+          name="venue"
           render={({ field }) => (
             <FormItem className="flex flex-col mt-8">
-              <FormLabel>Lounge</FormLabel>
+              <FormLabel>Venue</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Name of the Lounge"
+                  placeholder="Venue (optional)"
                   {...field}
                   disabled={isPending}
                 />
               </FormControl>
-              <FormDescription>This field is opcional.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -232,16 +231,15 @@ export default function EventCreateForm() {
               <FormControl>
                 <Textarea
                   disabled={isPending}
-                  placeholder="You can add more information here!"
+                  placeholder="Description (optional)"
                   className="resize-none"
                   {...field}
                 />
               </FormControl>
-              <FormDescription>This field is opcional.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
             <div className="flex justify-between mt-8">
               <Button asChild variant="outline">
                 <Link href="/admin/events">Cancel</Link>

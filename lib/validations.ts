@@ -57,6 +57,8 @@ const EventSchema = z.object({
   time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, {
     message: "Please select time.",
   }),
+  venue: z.string().optional(),
+  description: z.string().optional(),
   archived: z.boolean().default(false),
   tasks: z.array(TaskSchema).default([]),
 });
