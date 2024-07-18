@@ -8,6 +8,7 @@ import {
     QuestionMarkCircledIcon,
     StopwatchIcon,
   } from "@radix-ui/react-icons"
+import { text } from "stream/consumers"
 
   export const types = [
     {
@@ -48,21 +49,25 @@ import {
       value: "BACKLOG",
       label: "Backlog",
       icon: QuestionMarkCircledIcon,
+      textColor: "text-blue-500",
     },
     {
       value: "TODO",
       label: "Todo",
       icon: CircleIcon,
+      textColor: "text-red-500",
     },
     {
       value: "IN_PROGRESS",
       label: "In Progress",
       icon: StopwatchIcon,
+      textColor: "text-yellow-500",
     },
     {
       value: "DONE",
       label: "Done",
       icon: CheckCircledIcon,
+      textColor: "text-green-500",
     },
     {
       value: "CANCELED",

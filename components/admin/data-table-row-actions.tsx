@@ -23,10 +23,9 @@ import { labels } from "@/components/admin/data";
 import { TaskSchema } from "@/lib/validations";
 import { MoreHorizontal, Pencil, Trash } from "lucide-react";
 import { DeleteTask } from "@/actions/task";
-import { toast } from "../ui/use-toast";
-import { ToastAction } from "../ui/toast";
 import { Dialog } from "../ui/dialog";
 import TaskEditForm from "./task-edit-form";
+import { toast } from "sonner";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -40,16 +39,9 @@ export function DataTableRowActions<TData>({
   const deleteTask = async () => {
     DeleteTask(task.id ?? "", task.eventId ?? "").then((response) => {
       if (response.success) {
-        toast({
-          title: response.message,
-        });
+        toast.success(response.message);
       } else {
-        toast({
-          variant: "destructive",
-          title: response.message,
-          description: "Something went wrong.",
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
-        });
+        toast.error(response.message);
       }
     });
   };
@@ -66,7 +58,7 @@ export function DataTableRowActions<TData>({
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col">
-          <TaskEditForm task={task}/>
+          <TaskEditForm task={task} />
           <Button
             variant="ghost"
             className="flex justify-start pl-2"
