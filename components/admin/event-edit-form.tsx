@@ -26,6 +26,7 @@ import {
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -47,6 +48,7 @@ import {
 import Link from "next/link";
 import { ToastAction } from "../ui/toast";
 import { toast } from "sonner";
+import { types } from "./data";
 
 const ExtendedEventSchema = EventSchema.extend({
   id: z.string(),
@@ -65,6 +67,8 @@ export default function EventEditForm({ event }: { event: Event }) {
       type: event.type,
       date: event.date,
       time: event.time,
+      venue: event.venue,
+      description: event.description,
     },
   });
 
@@ -131,11 +135,13 @@ export default function EventEditForm({ event }: { event: Event }) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="WEDDING">Wedding</SelectItem>
-                        <SelectItem value="BIRTHDAY">Birthday</SelectItem>
-                        <SelectItem value="OPENING">Opening</SelectItem>
-                        <SelectItem value="MEETING">Meeting</SelectItem>
-                        <SelectItem value="OTHER">Other</SelectItem>
+                      <SelectGroup>
+                          {types.map((type) => (
+                            <SelectItem key={type.value} value={type.value}>
+                              {type.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -208,6 +214,45 @@ export default function EventEditForm({ event }: { event: Event }) {
                 )}
               />
             </div>
+
+            <FormField
+              control={form.control}
+              name="venue"
+              render={({ field }) => (
+                <FormItem className="flex flex-col mt-8">
+                  <FormLabel>Venue</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Venue (optional)"
+                      {...field}
+                      value={field.value || ""}
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="flex flex-col mt-8">
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      disabled={isPending}
+                      placeholder="Description (optional)"
+                      {...field}
+                      value={field.value || ""}
+                      className="resize-none"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <div className="flex justify-between mt-8">
               <Button asChild variant="outline">

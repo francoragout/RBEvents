@@ -38,6 +38,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 import { CreateTask, UpdateTask } from "@/actions/task";
 import { toast } from "sonner";
+import { statuses } from "./data";
 
 type Task = z.infer<typeof TaskSchema>;
 
@@ -114,7 +115,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
                   <FormLabel>Label</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value || ""}
                     disabled={isPending}
                   >
                     <FormControl>
@@ -159,11 +160,13 @@ export default function TaskEditForm({ task }: { task: Task }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="BACKLOG">Backlog</SelectItem>
-                      <SelectItem value="TODO">Todo</SelectItem>
-                      <SelectItem value="IN_PROGRESS">In progress</SelectItem>
-                      <SelectItem value="DONE">Done</SelectItem>
-                      <SelectItem value="CANCELLED">Canceled</SelectItem>
+                      <SelectGroup>
+                        {statuses.map((status) => (
+                          <SelectItem key={status.value} value={status.value}>
+                            {status.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
                   <FormMessage />

@@ -9,10 +9,10 @@ const EventType = z.enum(
 
 const TaskLabel = z.enum(["ANA", "BELU"], {
   message: "Please select label.",
-});
+}).optional().nullable();
 
 const TaskStatus = z.enum(
-  ["BACKLOG", "TODO", "IN_PROGRESS", "DONE", "CANCELLED"],
+  ["BACKLOG", "TODO", "IN_PROGRESS", "DONE"],
   {
     message: "Please select status.",
   }
@@ -57,8 +57,8 @@ const EventSchema = z.object({
   time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, {
     message: "Please select time.",
   }),
-  venue: z.string().optional(),
-  description: z.string().optional(),
+  venue: z.string().optional().nullable(),
+  description: z.string().optional().nullable(),
   archived: z.boolean().default(false),
   tasks: z.array(TaskSchema).default([]),
 });

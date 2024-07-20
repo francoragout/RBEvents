@@ -36,7 +36,6 @@ enum TaskStatus {
   TODO
   IN_PROGRESS
   DONE
-  CANCELLED
 }
 
 enum TaskPriority {
@@ -48,7 +47,7 @@ model Task {
   id       String   @id @default(cuid())
   title    String
   status   TaskStatus
-  label    TaskLabel
+  label    TaskLabel?
   priority TaskPriority
   event    Event    @relation(fields: [eventId], references: [id])
   eventId  String

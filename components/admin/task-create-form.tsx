@@ -9,9 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { EventSchema, TaskSchema } from "@/lib/validations";
+import { TaskSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -24,7 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { PlusIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import {
   Select,
@@ -37,6 +34,7 @@ import {
 import { cn } from "@/lib/utils";
 import { CreateTask } from "@/actions/task";
 import { toast } from "sonner";
+import { statuses } from "./data";
 
 export default function TaskCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
@@ -46,6 +44,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
     resolver: zodResolver(TaskSchema),
     defaultValues: {
       title: "",
+      status: "BACKLOG",
     },
   });
 
@@ -107,7 +106,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                   <FormLabel>Label</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value || ""}
                     disabled={isPending}
                   >
                     <FormControl>
@@ -117,7 +116,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        <SelectValue placeholder="Label (required)" />
+                        <SelectValue placeholder="Label (optional)" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -152,11 +151,13 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="BACKLOG">Backlog</SelectItem>
-                      <SelectItem value="TODO">Todo</SelectItem>
-                      <SelectItem value="IN_PROGRESS">In progress</SelectItem>
-                      <SelectItem value="DONE">Done</SelectItem>
-                      <SelectItem value="CANCELLED">Canceled</SelectItem>
+                      <SelectGroup>
+                        {statuses.map((status) => (
+                          <SelectItem key={status.value} value={status.value}>
+                            {status.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -198,7 +199,11 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
 
             <DialogFooter className="gap-2 pt-2 sm:space-x-0">
               <DialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => form.reset()}
+                >
                   Cancel
                 </Button>
               </DialogClose>

@@ -45,28 +45,28 @@ type Event = z.infer<typeof EventSchema>;
 type Task = z.infer<typeof TaskSchema>;
 
 export const EventsColumnsTable: ColumnDef<Event>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  // {
+  //   id: "select",
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() ||
+  //         (table.getIsSomePageRowsSelected() && "indeterminate")
+  //       }
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     accessorKey: "name",
     header: () => <div className="text-left">Name</div>,
@@ -104,7 +104,12 @@ export const EventsColumnsTable: ColumnDef<Event>[] = [
     cell: ({ row }) => <div>{row.getValue("time")}</div>,
   },
   {
-    id: "daysLeft",
+    accessorKey: "venue",
+    header: () => <div className="text-left">Venue</div>,
+    cell: ({ row }) => <div>{row.getValue("venue")}</div>,
+  },
+  {
+    id: "days left",
     header: "Days Left",
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"));

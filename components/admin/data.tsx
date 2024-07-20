@@ -4,7 +4,6 @@ import {
     ArrowUpIcon,
     CheckCircledIcon,
     CircleIcon,
-    CrossCircledIcon,
     QuestionMarkCircledIcon,
     StopwatchIcon,
   } from "@radix-ui/react-icons"
@@ -68,11 +67,6 @@ import { text } from "stream/consumers"
       label: "Done",
       icon: CheckCircledIcon,
       textColor: "text-green-500",
-    },
-    {
-      value: "CANCELED",
-      label: "Canceled",
-      icon: CrossCircledIcon,
     },
   ]
   

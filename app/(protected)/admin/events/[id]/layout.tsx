@@ -31,9 +31,9 @@ const EventLayout = async ({ children, params }: ProtectedLayoutProps) => {
   return (
     <main>
       <div className="flex items-center space-x-4 mb-4 justify-between">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+        <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0">
           {event?.name}
-        </h1>
+        </h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">

@@ -46,8 +46,8 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { ToastAction } from "../ui/toast";
-import { toast } from "sonner"
-
+import { toast } from "sonner";
+import { types } from "./data";
 
 export default function EventCreateForm() {
   const [isPending, startTransition] = useTransition();
@@ -125,9 +125,9 @@ export default function EventCreateForm() {
                       </FormControl>
                       <SelectContent>
                         <SelectGroup>
-                          {Object.values(EventType.options).map((type) => (
-                            <SelectItem key={type} value={type}>
-                              {type}
+                          {types.map((type) => (
+                            <SelectItem key={type.value} value={type.value}>
+                              {type.label}
                             </SelectItem>
                           ))}
                         </SelectGroup>
@@ -205,41 +205,43 @@ export default function EventCreateForm() {
             </div>
 
             <FormField
-          control={form.control}
-          name="venue"
-          render={({ field }) => (
-            <FormItem className="flex flex-col mt-8">
-              <FormLabel>Venue</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Venue (optional)"
-                  {...field}
-                  disabled={isPending}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              control={form.control}
+              name="venue"
+              render={({ field }) => (
+                <FormItem className="flex flex-col mt-8">
+                  <FormLabel>Venue</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Venue (optional)"
+                      {...field}
+                      value={field.value || ""}
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem className="flex flex-col mt-8">
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  disabled={isPending}
-                  placeholder="Description (optional)"
-                  className="resize-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="flex flex-col mt-8">
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      disabled={isPending}
+                      placeholder="Description (optional)"
+                      {...field}
+                      value={field.value || ""}
+                      className="resize-none"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <div className="flex justify-between mt-8">
               <Button asChild variant="outline">
                 <Link href="/admin/events">Cancel</Link>
