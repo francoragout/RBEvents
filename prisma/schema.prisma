@@ -48,7 +48,7 @@ model Task {
   title    String
   status   TaskStatus
   label    TaskLabel?
-  priority TaskPriority
+  priority TaskPriority?
   event    Event    @relation(fields: [eventId], references: [id])
   eventId  String
 }

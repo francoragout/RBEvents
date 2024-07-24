@@ -182,7 +182,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
                   <FormLabel>Priority</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value || ""}                  
                     disabled={isPending}
                   >
                     <FormControl>
@@ -192,7 +192,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        <SelectValue placeholder="Priority (required)" />
+                        <SelectValue placeholder="Priority (optional)" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

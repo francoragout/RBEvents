@@ -173,7 +173,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                   <FormLabel>Priority</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value || ""}                  
                     disabled={isPending}
                   >
                     <FormControl>
@@ -183,7 +183,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        <SelectValue placeholder="Priority (required)" />
+                        <SelectValue placeholder="Priority (optional)" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

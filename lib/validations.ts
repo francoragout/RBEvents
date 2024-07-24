@@ -20,7 +20,7 @@ const TaskStatus = z.enum(
 
 const TaskPriority = z.enum(["LOW", "MEDIUM", "HIGH"], {
   message: "Please select priority.",
-});
+}).optional().nullable();
 
 const TaskSchema = z.object({
   id: z.string().optional(),
