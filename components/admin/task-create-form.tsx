@@ -137,7 +137,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                   <FormLabel>Status</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value || ""}                 
                     disabled={isPending}
                   >
                     <FormControl>

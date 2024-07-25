@@ -12,8 +12,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
 import { CreateEvent } from "@/actions/event";
-import { EventSchema, EventType } from "@/lib/validations";
-import { redirect, useRouter } from "next/navigation";
+import { EventSchema } from "@/lib/validations";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -45,7 +45,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { ToastAction } from "../ui/toast";
 import { toast } from "sonner";
 import { types } from "./data";
 
