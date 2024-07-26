@@ -27,7 +27,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 import { LoginUser } from "@/actions/auth";
 
-export default function LoginForm() {
+export default function LoginForm({ isVerified }: { isVerified: boolean }) {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -62,6 +62,13 @@ export default function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        {isVerified && (
+          <div className="bg-green-100 border-l-4 border-green-500 p-4 mb-4 rounded-lg">
+            <p className="text-green-700 text-sm">
+              Your email has been verified. You can now login to your account.
+            </p>
+          </div>
+        )}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid gap-4">
