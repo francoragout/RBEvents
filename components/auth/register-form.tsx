@@ -10,8 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "@/lib/validations";
 import { z } from "zod";
@@ -25,16 +24,33 @@ import {
   FormMessage,
 } from "../ui/form";
 import { FcGoogle } from "react-icons/fc";
+import { RegisterUser } from "@/actions/auth";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    },
   });
 
   function onSubmit(values: z.infer<typeof RegisterSchema>) {
     startTransition(() => {
-      console.log(values);
+      RegisterUser(values).then((response) => {
+        if (response.error) {
+          setError(response.error);
+        } else {
+          router.push("/auth/login");
+        }
+      });
     });
   }
 
@@ -121,6 +137,7 @@ export default function RegisterForm() {
                       <FormLabel>Password</FormLabel>
                       <FormControl>
                         <Input
+                          type="password"
                           placeholder="********"
                           {...field}
                           disabled={isPending}
@@ -131,6 +148,8 @@ export default function RegisterForm() {
                   )}
                 />
               </div>
+
+              {error && <FormMessage>{error}</FormMessage>}
 
               <Button type="submit" className="w-full">
                 Create an account

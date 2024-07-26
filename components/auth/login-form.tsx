@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LoginSchema } from "@/lib/validations";
@@ -23,18 +22,34 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { useRouter } from "next/navigation";
+import { LoginUser } from "@/actions/auth";
 
 export default function LoginForm() {
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   function onSubmit(values: z.infer<typeof LoginSchema>) {
+    setError(null);
     startTransition(() => {
-      console.log(values);
+      LoginUser(values).then((response) => {
+        if (response.error) {
+          setError(response.error);
+        } else {
+          router.push("/admin");
+        }
+      });
     });
   }
 
@@ -84,6 +99,7 @@ export default function LoginForm() {
                       </div>
                       <FormControl>
                         <Input
+                          type="password"
                           placeholder="********"
                           {...field}
                           disabled={isPending}
@@ -94,7 +110,10 @@ export default function LoginForm() {
                   )}
                 />
               </div>
-              <Button type="submit" className="w-full">
+
+              {error && <FormMessage>{error}</FormMessage>}
+
+              <Button type="submit" className="w-full" disabled={isPending}>
                 Login
               </Button>
               <Button variant="outline" className="w-full">

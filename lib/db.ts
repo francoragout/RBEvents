@@ -1,12 +1,13 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client'
 
-// Declarar global para incluir la variable prisma
-declare global {
-  var prisma: PrismaClient | undefined;
+const prismaClientSingleton = () => {
+  return new PrismaClient()
 }
 
-// Inicializar el cliente de Prisma, reutilizar si ya existe en globalThis
-export const db = globalThis.prisma || new PrismaClient();
+declare const globalThis: {
+  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
+} & typeof global;
 
-// En entornos de desarrollo, asignar prisma a la instancia de Prisma
-if (process.env.NODE_ENV !== "production") globalThis.prisma = db;
+export const db = globalThis.prismaGlobal ?? prismaClientSingleton()
+
+if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = db

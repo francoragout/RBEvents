@@ -7,6 +7,55 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
+model User {
+  id            String    @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String    @unique
+  password      String?
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(USER)
+  accounts      Account[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
 enum EventType {
   WEDDING
   BIRTHDAY
@@ -14,16 +63,17 @@ enum EventType {
   MEETING
   OTHER
 }
+
 model Event {
-  id       String    @id @default(cuid())
-  name     String
-  type     EventType
-  date     DateTime  @db.Date
-  time     String
-  venue    String?
+  id          String    @id @default(cuid())
+  name        String
+  type        EventType
+  date        DateTime  @db.Date
+  time        String
+  venue       String?
   description String?
-  archived Boolean   @default(false)
-  tasks    Task[]
+  archived    Boolean   @default(false)
+  tasks       Task[]
 }
 
 enum TaskLabel {
@@ -43,12 +93,13 @@ enum TaskPriority {
   MEDIUM
   HIGH
 }
+
 model Task {
-  id       String   @id @default(cuid())
+  id       String        @id @default(cuid())
   title    String
   status   TaskStatus
   label    TaskLabel?
   priority TaskPriority?
-  event    Event    @relation(fields: [eventId], references: [id])
+  event    Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId  String
 }

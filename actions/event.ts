@@ -87,9 +87,6 @@ export const EditEvent = async (
 
 export const DeleteEvent = async (id: string) => {
   try {
-    await db.task.deleteMany({
-      where: { eventId: id },
-    });
     await db.event.delete({
       where: { id },
     });
@@ -128,4 +125,3 @@ export const ArchiveEvent = async (id: string) => {
     };
   }
 };
-
