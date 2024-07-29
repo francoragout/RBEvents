@@ -26,6 +26,7 @@ import { useState, useTransition } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 import { LoginUser } from "@/actions/auth";
+import ButtonSocial from "./button-social";
 
 export default function LoginForm({ isVerified }: { isVerified: boolean }) {
   const [error, setError] = useState<string | null>(null);
@@ -123,18 +124,22 @@ export default function LoginForm({ isVerified }: { isVerified: boolean }) {
               <Button type="submit" className="w-full" disabled={isPending}>
                 Login
               </Button>
-              <Button variant="outline" className="w-full">
-                <FcGoogle className="h-5 w-5 me-2" />
-                Login with Google
-              </Button>
             </div>
-            <div className="mt-4 text-center text-sm">
+            
+          </form>
+
+          <ButtonSocial provider="google">
+            <FcGoogle className="h-5 w-5 me-2" />
+            Login with Google
+          </ButtonSocial>
+
+          <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
               <Link href="/auth/register" className="underline">
                 Sign up
               </Link>
             </div>
-          </form>
+
         </Form>
       </CardContent>
     </Card>

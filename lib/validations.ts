@@ -10,9 +10,7 @@ export const TaskSchema = z.object({
     .min(6, "Name must be at least 6 characters.")
     .max(100, "Name must not be longer than 100 characters."),
   status: z
-    .enum(["BACKLOG", "TODO", "IN_PROGRESS", "DONE"])
-    .optional()
-    .nullable(),
+    .enum(["BACKLOG", "TODO", "IN_PROGRESS", "DONE"]),
   label: z
     .enum(["ANA", "BELU"])
     .optional()
