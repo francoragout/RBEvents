@@ -26,6 +26,7 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { RegisterUser } from "@/actions/auth";
 import { useRouter } from "next/navigation";
+import ButtonSocial from "./button-social";
 
 export default function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
@@ -35,8 +36,7 @@ export default function RegisterForm() {
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
       password: "",
     },
@@ -66,46 +66,24 @@ export default function RegisterForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid gap-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="grid gap-2">
-                  <FormField
-                    control={form.control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>First Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder=""
-                            {...field}
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="grid gap-2">
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Last Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder=""
-                            {...field}
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+              <div className="grid gap-2">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Name (required)"
+                          {...field}
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
 
               <div className="grid gap-2">
@@ -154,19 +132,19 @@ export default function RegisterForm() {
               <Button type="submit" className="w-full">
                 Create an account
               </Button>
-              <Button variant="outline" className="w-full">
-                <FcGoogle className="h-5 w-5 me-2" />
-                Sign up with Google
-              </Button>
-            </div>
-            <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
-              <Link href="/auth/login" className="underline">
-                Sign in
-              </Link>
             </div>
           </form>
         </Form>
+        <ButtonSocial provider="google">
+          <FcGoogle className="h-5 w-5 me-2" />
+          Sign Up with Google
+        </ButtonSocial>
+        <div className="mt-4 text-center text-sm">
+          Already have an account?{" "}
+          <Link href="/auth/login" className="underline">
+            Sign in
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );

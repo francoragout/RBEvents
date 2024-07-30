@@ -13,6 +13,6 @@ const ButtonSocial = ({ children, provider }: ButtonSocialProps) => {
     await signIn(provider);
   };
 
-  return <Button onClick={handleClick} className="w-full" variant="outline">{children}</Button>;
+  return <Button onClick={handleClick} className="w-full mt-4" variant="outline">{children}</Button>;
 };
 export default ButtonSocial;

@@ -26,7 +26,7 @@ export default auth((req) => {
 
   // Redirigir a /dashboard si el usuario está logueado y trata de acceder a rutas de autenticación
   if (isLoggedIn && authRoutes.includes(nextUrl.pathname)) {
-    return NextResponse.redirect(new URL("/admin/dasboard", nextUrl));
+    return NextResponse.redirect(new URL("/client", nextUrl));
   }
 
   // Redirigir a /login si el usuario no está logueado y trata de acceder a una ruta protegida
@@ -35,7 +35,7 @@ export default auth((req) => {
     !authRoutes.includes(nextUrl.pathname) &&
     !publicRoutes.includes(nextUrl.pathname)
   ) {
-    return NextResponse.redirect(new URL("auth/login", nextUrl));
+    return NextResponse.redirect(new URL("/auth/login", nextUrl));
   }
 
   return NextResponse.next();

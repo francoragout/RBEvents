@@ -28,7 +28,15 @@ import { useRouter } from "next/navigation";
 import { LoginUser } from "@/actions/auth";
 import ButtonSocial from "./button-social";
 
-export default function LoginForm({ isVerified }: { isVerified: boolean }) {
+interface LoginFormProps {
+  isVerified: boolean;
+  OAuthAccountNotLinked: boolean;
+}
+
+export default function LoginForm({
+  isVerified,
+  OAuthAccountNotLinked,
+}: LoginFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -48,7 +56,7 @@ export default function LoginForm({ isVerified }: { isVerified: boolean }) {
         if (response.error) {
           setError(response.error);
         } else {
-          router.push("/admin");
+          
         }
       });
     });
@@ -70,6 +78,14 @@ export default function LoginForm({ isVerified }: { isVerified: boolean }) {
             </p>
           </div>
         )}
+        {OAuthAccountNotLinked && (
+          <div className="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-4 rounded-lg">
+            <p className="text-yellow-700 text-sm">
+              Your email is already registered. Please login with your email and
+            </p>
+          </div>
+        )}
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid gap-4">
@@ -125,22 +141,19 @@ export default function LoginForm({ isVerified }: { isVerified: boolean }) {
                 Login
               </Button>
             </div>
-            
           </form>
-
-          <ButtonSocial provider="google">
-            <FcGoogle className="h-5 w-5 me-2" />
-            Login with Google
-          </ButtonSocial>
-
-          <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link href="/auth/register" className="underline">
-                Sign up
-              </Link>
-            </div>
-
         </Form>
+        <ButtonSocial provider="google">
+          <FcGoogle className="h-5 w-5 me-2" />
+          Sign In with Google
+        </ButtonSocial>
+
+        <div className="mt-4 text-center text-sm">
+          Don&apos;t have an account?{" "}
+          <Link href="/auth/register" className="underline">
+            Sign up
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );

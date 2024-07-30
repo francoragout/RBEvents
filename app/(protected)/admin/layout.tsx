@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import LogoutButton from "@/components/admin/logout-button";
 import { Navbar } from "@/components/admin/navbar";
 import { Separator } from "@/components/ui/separator";
 
@@ -16,7 +17,9 @@ const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
   return (
     <main className="container p-4">
       <Navbar />
-      <Separator className="mb-4"/>
+      <pre>{JSON.stringify(session, null, 2)}</pre>
+      <LogoutButton />
+      <Separator className="mb-4" />
       {children}
     </main>
   );

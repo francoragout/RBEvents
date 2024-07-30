@@ -1,12 +1,12 @@
-import type { NextAuthConfig } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import { LoginSchema } from "./lib/validations";
-import { db } from "./lib/db";
+import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { nanoid } from "nanoid";
+import type { NextAuthConfig } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 import { sendEmailVerification } from "./lib/mail";
-import Google from "next-auth/providers/google"
 
+import Google from "next-auth/providers/google";
+import { LoginSchema } from "./lib/validations";
 
 // Notice this is only an object, not a full Auth.js instance
 export default {

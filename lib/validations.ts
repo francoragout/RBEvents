@@ -68,14 +68,18 @@ export const LoginSchema = z.object({
 });
 
 export const RegisterSchema = z.object({
-  firstName: z
-    .string({ required_error: "First name is required" })
-    .min(1, "First name is required")
-    .max(30, "First name must be less than 30 characters"),
-  lastName: z
-    .string({ required_error: "Last name is required" })
-    .min(1, "Last name is required")
-    .max(30, "Last name must be less than 30 characters"),
+  // firstName: z
+  //   .string({ required_error: "First name is required" })
+  //   .min(1, "First name is required")
+  //   .max(30, "First name must be less than 30 characters"),
+  // lastName: z
+  //   .string({ required_error: "Last name is required" })
+  //   .min(1, "Last name is required")
+  //   .max(30, "Last name must be less than 30 characters"),
+  name: z
+    .string({ required_error: "Name is required" })
+    .min(1, "Name is required")
+    .max(30, "Name must be less than 30 characters"),
   email: z
     .string({ required_error: "Email is required" })
     .min(1, "Email is required")
