@@ -17,9 +17,9 @@ const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
   return (
     <main className="container p-4">
       <Navbar />
+      <Separator className="mb-4" />
       <pre>{JSON.stringify(session, null, 2)}</pre>
       <LogoutButton />
-      <Separator className="mb-4" />
       {children}
     </main>
   );
