@@ -25,7 +25,9 @@ export const Navbar = () => {
       <Tabs defaultValue={path}>
         <TabsList className="">
           <Link href="/admin">
-            <TabsTrigger value="/admin" className="">Dashboard</TabsTrigger>
+            <TabsTrigger value="/admin" className="">
+              Dashboard
+            </TabsTrigger>
           </Link>
           <Link href="/admin/events">
             <TabsTrigger value="/admin/events">Events</TabsTrigger>
@@ -37,25 +39,7 @@ export const Navbar = () => {
       </Tabs>
       <div className="flex items-center space-x-4">
         <ModeToggle />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="overflow-hidden rounded-full"
-            >
-              <BellIcon className="h-[1.2rem] w-[1.2rem]" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

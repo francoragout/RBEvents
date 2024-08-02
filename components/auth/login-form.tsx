@@ -63,7 +63,7 @@ export default function LoginForm({
   }
 
   return (
-    <Card className="mx-auto max-w-md">
+    <Card className="mx-auto max-w-md mt-14">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
