@@ -55,15 +55,13 @@ export default function LoginForm({
       LoginUser(values).then((response) => {
         if (response.error) {
           setError(response.error);
-        } else {
-          
-        }
+        } 
       });
     });
   }
 
   return (
-    <Card className="mx-auto max-w-md mt-14">
+    <Card className="mx-auto max-w-md">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
@@ -81,7 +79,7 @@ export default function LoginForm({
         {OAuthAccountNotLinked && (
           <div className="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-4 rounded-lg">
             <p className="text-yellow-700 text-sm">
-              Your email is already registered. Please login with your email and
+              Your email is already registered.
             </p>
           </div>
         )}

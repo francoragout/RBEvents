@@ -1,11 +1,11 @@
 import { auth } from "@/auth";
-import LogoutButton from "@/components/admin/logout-button";
 
+import { redirect } from "next/navigation";
 export default async function ClientPage() {
   const session = await auth();
 
   if (session?.user?.role !== "USER") {
-    return <div>You are not user</div>;
+    redirect("/admin/dashboard");
   }
 
   return (
@@ -13,7 +13,7 @@ export default async function ClientPage() {
       <h1>Client Page</h1>
       <p>This page is only visible to authenticated users.</p>
       <pre>{JSON.stringify(session, null, 2)}</pre>
-      <LogoutButton />
+     
     </div>
   );
 }

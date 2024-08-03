@@ -55,7 +55,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <Card className="mx-auto max-w-md mt-14">
+    <Card className="mx-auto max-w-md">
       <CardHeader>
         <CardTitle className="text-2xl">Sign Up</CardTitle>
         <CardDescription>
