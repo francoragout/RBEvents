@@ -33,12 +33,15 @@ export default function Navbar({ session }: { session: any }) {
   const pathname = usePathname();
   const links = session?.user?.role === "ADMIN" ? adminLinks : publicLinks;
 
+  const activeLink = links.find((link) => pathname.startsWith(link.href));
+
   return (
-    <nav className="flex items-center justify-between py-2 px-6">
-      <div className="flex space-x-6 items-center">
+    <nav className="flex items-center justify-between py-2 px-8">
+      <div className="flex space-x-8 items-center">
         <h1 className="text-2xl font-bold">RBEvents</h1>
-        <Tabs defaultValue={pathname}>
-          <TabsList>
+
+        <Tabs value={activeLink?.href}>
+          <TabsList className="hidden sm:flex">
             {links.map((link) => (
               <Link key={link.href} href={link.href}>
                 <TabsTrigger value={link.href}>{link.name}</TabsTrigger>
@@ -47,7 +50,22 @@ export default function Navbar({ session }: { session: any }) {
           </TabsList>
         </Tabs>
       </div>
-      <div className="flex space-x-6 ">
+
+      <div className="flex space-x-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex sm:hidden" asChild>
+            <Button variant="outline" className="rounded-full">
+              {activeLink?.name}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {links.map((link) => (
+              <DropdownMenuItem key={link.href}>
+                <Link href={link.href}>{link.name}</Link>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
         <ModeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
