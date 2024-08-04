@@ -102,3 +102,11 @@ model Task {
   event    Event         @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId  String
 }
+
+model Provider {
+  id          String   @id @default(cuid())
+  name        String
+  address     String
+  city        String
+  phone       Int?
+}

@@ -1,3 +1,4 @@
+import { add } from "date-fns";
 import { z } from "zod";
 
 export const TaskSchema = z.object({
@@ -68,14 +69,6 @@ export const LoginSchema = z.object({
 });
 
 export const RegisterSchema = z.object({
-  // firstName: z
-  //   .string({ required_error: "First name is required" })
-  //   .min(1, "First name is required")
-  //   .max(30, "First name must be less than 30 characters"),
-  // lastName: z
-  //   .string({ required_error: "Last name is required" })
-  //   .min(1, "Last name is required")
-  //   .max(30, "Last name must be less than 30 characters"),
   name: z
     .string({ required_error: "Name is required" })
     .min(1, "Name is required")
@@ -89,4 +82,31 @@ export const RegisterSchema = z.object({
     .min(1, "Password is required")
     .min(8, "Password must be more than 8 characters")
     .max(32, "Password must be less than 32 characters"),
+});
+
+export const ProviderSchema = z.object({
+  id: z
+    .string()
+    .optional(),
+  name: z
+    .string({ required_error: "Name is required" })
+    .trim()
+    .min(3, "Name must be at least 3 characters.")
+    .max(30, "Name must not be longer than 30 characters."),
+  address: z
+    .string({ required_error: "Address is required" })
+    .trim()
+    .min(3, "Address must be at least 3 characters.")
+    .max(30, "Address must not be longer than 100 characters."),
+  city: z
+    .string({ required_error: "City is required" })
+    .trim()
+    .min(3, "City must be at least 3 characters.")
+    .max(30, "City must not be longer than 30 characters."),
+  phone: z
+    .number()
+    .int()
+    .positive()
+    .optional()
+    .nullable(),
 });

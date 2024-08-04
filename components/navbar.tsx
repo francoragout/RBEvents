@@ -12,16 +12,15 @@ import {
 import { PersonIcon } from "@radix-ui/react-icons";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import Link from "next/link";
 import { ModeToggle } from "./theme-toggle-button";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import LogoutButton from "./auth/logout-button";
+import { LogIn } from "lucide-react";
 
-const publicLinks = [
-  { name: "Home", href: "/" },
-  { name: "Auth", href: "/auth/login" },
-];
+const clientLinks = [{ name: "Dashboard", href: "/client/dashboard" }];
 
 const adminLinks = [
   { name: "Dashboard", href: "/admin/dashboard" },
@@ -31,41 +30,46 @@ const adminLinks = [
 
 export default function Navbar({ session }: { session: any }) {
   const pathname = usePathname();
-  const links = session?.user?.role === "ADMIN" ? adminLinks : publicLinks;
+  const links = session?.user?.role === "ADMIN" ? adminLinks : clientLinks;
 
   const activeLink = links.find((link) => pathname.startsWith(link.href));
+
+  console.log(activeLink);
 
   return (
     <nav className="flex items-center justify-between py-2 px-8">
       <div className="flex space-x-8 items-center">
         <h1 className="text-2xl font-bold">RBEvents</h1>
-
-        <Tabs value={activeLink?.href}>
-          <TabsList className="hidden sm:flex">
-            {links.map((link) => (
-              <Link key={link.href} href={link.href}>
-                <TabsTrigger value={link.href}>{link.name}</TabsTrigger>
-              </Link>
-            ))}
-          </TabsList>
-        </Tabs>
+        {session && (
+          <Tabs value={activeLink?.href}>
+            <TabsList className="hidden sm:flex">
+              {links.map((link) => (
+                <Link key={link.href} href={link.href}>
+                  <TabsTrigger value={link.href}>{link.name}</TabsTrigger>
+                </Link>
+              ))}
+            </TabsList>
+          </Tabs>
+        )}
       </div>
 
       <div className="flex space-x-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex sm:hidden" asChild>
-            <Button variant="outline" className="rounded-full">
-              {activeLink?.name}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {links.map((link) => (
-              <DropdownMenuItem key={link.href}>
-                <Link href={link.href}>{link.name}</Link>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {session && (
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex sm:hidden" asChild>
+              <Button variant="outline" className="rounded-full">
+                {activeLink?.name}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {links.map((link) => (
+                <DropdownMenuItem key={link.href}>
+                  <Link href={link.href}>{link.name}</Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
         <ModeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -85,11 +89,26 @@ export default function Navbar({ session }: { session: any }) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>
+              {session?.user?.name}
+            </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <div className="flex flex-col">
+            {session ? (
               <LogoutButton />
-            </div>
+            ) : (
+              <div>
+                <Button
+                  variant="ghost"
+                  className="flex justify-start pl-2 w-full"
+                  size="sm"
+                >
+                  <LogIn className="mr-2 h-4 w-4" />
+                  <Link href="/login">
+                    <span>Sign In</span>
+                  </Link>
+                </Button>
+              </div>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

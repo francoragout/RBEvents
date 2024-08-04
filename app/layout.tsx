@@ -39,7 +39,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Navbar session={session} />
-          <Separator className="mb-12" />
+          <Separator className="mb-14" />
           <div className="container">
             {children}
           </div>
