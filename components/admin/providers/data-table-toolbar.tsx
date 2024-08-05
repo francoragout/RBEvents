@@ -3,6 +3,9 @@
 import { Table } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/data-table-view-options";
+import { Button } from "@/components/ui/button";
+import { PlusCircle, PlusIcon } from "lucide-react";
+import Link from "next/link";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -25,7 +28,12 @@ export function DataTableToolbar<TData>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
       </div>
-      <DataTableViewOptions table={table} />
+      <div className="flex space-x-4">
+        <DataTableViewOptions table={table} />
+        <Button variant="default" size="sm" className="h-8" asChild>
+          <Link href="/admin/providers/create">New Provider</Link>
+        </Button>
+      </div>
     </div>
   );
 }

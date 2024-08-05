@@ -89,14 +89,20 @@ export default function Navbar({ session }: { session: any }) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>
-              {session?.user?.name}
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
             {session ? (
-              <LogoutButton />
+              <>
+                <DropdownMenuLabel>
+                  {session?.user?.name}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <LogoutButton />
+              </>
             ) : (
-              <div>
+              <>
+                <DropdownMenuLabel>
+                  Account
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
                 <Button
                   variant="ghost"
                   className="flex justify-start pl-2 w-full"
@@ -107,7 +113,7 @@ export default function Navbar({ session }: { session: any }) {
                     <span>Sign In</span>
                   </Link>
                 </Button>
-              </div>
+              </>
             )}
           </DropdownMenuContent>
         </DropdownMenu>

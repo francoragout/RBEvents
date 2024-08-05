@@ -108,5 +108,5 @@ model Provider {
   name        String
   address     String
   city        String
-  phone       Int?
+  phone       String?
 }

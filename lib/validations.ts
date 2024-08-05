@@ -104,9 +104,7 @@ export const ProviderSchema = z.object({
     .min(3, "City must be at least 3 characters.")
     .max(30, "City must not be longer than 30 characters."),
   phone: z
-    .number()
-    .int()
-    .positive()
+    .string()
     .optional()
     .nullable(),
 });

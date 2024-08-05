@@ -38,7 +38,7 @@ export const columns: ColumnDef<Provider>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div className="flex">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "address",
@@ -46,7 +46,7 @@ export const columns: ColumnDef<Provider>[] = [
       <DataTableColumnHeader column={column} title="Address" />
     ),
     cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue("address")}</div>
+      <div className="flex">{row.getValue("address")}</div>
     ),
   },
   {
@@ -54,14 +54,14 @@ export const columns: ColumnDef<Provider>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="City" />
     ),
-    cell: ({ row }) => <div className="w-[100px]">{row.getValue("city")}</div>,
+    cell: ({ row }) => <div className="flex">{row.getValue("city")}</div>,
   },
   {
     accessorKey: "phone",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Phone" />
     ),
-    cell: ({ row }) => <div className="w-[100px]">{row.getValue("phone")}</div>,
+    cell: ({ row }) => <div className="flex">{row.getValue("phone")}</div>,
     enableSorting: false,
   },
 
