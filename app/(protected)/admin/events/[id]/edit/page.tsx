@@ -12,6 +12,9 @@ export default async function EditEventPage({
     where: {
       id: id,
     },
+    include: {
+      tasks: true,
+    },
   });
 
   if (!event) {

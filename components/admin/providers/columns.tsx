@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
-import { DataTableRowActions } from "@/components/data-table-row-actions";
+import { DataTableRowActions } from "@/components/admin/providers/data-table-row-actions";
 import { z } from "zod";
 import { ProviderSchema } from "@/lib/validations";
 
@@ -38,7 +38,7 @@ export const columns: ColumnDef<Provider>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" />
     ),
-    cell: ({ row }) => <div className="flex">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
     accessorKey: "address",
