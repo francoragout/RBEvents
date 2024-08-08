@@ -11,9 +11,9 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
-import { CreateEvent } from "@/actions/event";
+import { CreateEvent, EditEvent } from "@/actions/event";
 import { EventSchema } from "@/lib/validations";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -36,6 +36,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { revalidatePath } from "next/cache";
 import {
   Card,
   CardContent,
@@ -46,23 +47,33 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { toast } from "sonner";
-import { types } from "./data";
+import { types } from "../data";
 
-export default function EventCreateForm() {
+const ExtendedEventSchema = EventSchema.extend({
+  id: z.string(),
+});
+
+type Event = z.infer<typeof ExtendedEventSchema>;
+
+export default function EventEditForm({ event }: { event: Event }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
     defaultValues: {
-      name: "",
-      time: "00:00",
+      name: event.name,
+      type: event.type,
+      date: event.date,
+      time: event.time,
+      venue: event.venue,
+      description: event.description,
     },
   });
 
   function onSubmit(values: z.infer<typeof EventSchema>) {
     startTransition(() => {
-      CreateEvent(values).then((response) => {
+      EditEvent(event.id, values).then((response) => {
         if (response.success) {
           toast.success(response.message);
           router.push("/admin/events");
@@ -76,8 +87,8 @@ export default function EventCreateForm() {
   return (
     <Card className="my-5">
       <CardHeader>
-        <CardTitle>Create event</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+        <CardTitle>Edit event</CardTitle>
+        <CardDescription>Update your event details.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -157,7 +168,7 @@ export default function EventCreateForm() {
                             {field.value ? (
                               format(field.value, "EEE, dd MMM yyyy")
                             ) : (
-                              <span>Pick a date (required)</span>
+                              <span>Pick a date</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -241,11 +252,14 @@ export default function EventCreateForm() {
                 </FormItem>
               )}
             />
-            <div className="flex justify-between mt-8">
-              <Button asChild variant="outline">
+
+            <div className="flex justify-end space-x-4 mt-8">
+              <Button asChild variant="outline" size="sm" className="h-8">
                 <Link href="/admin/events">Cancel</Link>
               </Button>
-              <Button type="submit">Submit</Button>
+              <Button type="submit" size="sm" className="h-8">
+                Submit
+              </Button>
             </div>
           </form>
         </Form>

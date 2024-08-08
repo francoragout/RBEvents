@@ -2,21 +2,19 @@
 
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { DataTableViewOptions } from "@/components/admin/data-table-view-options"
-
 import { priorities, statuses } from "@/components/admin/data"
-import { DataTableFacetedFilter } from "./data-table-faceted-filter"
+import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
 import TaskCreateForm from "./task-create-form"
+import { DataTableViewOptions } from "@/components/data-table-view-options"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
   eventId: string
 }
 
-export function DataTableToolbar<TData>({
+export function TasksTableToolbar<TData>({
   table,
   eventId,
 }: DataTableToolbarProps<TData>) {
@@ -58,8 +56,10 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      <TaskCreateForm eventId={eventId}/>
-      <DataTableViewOptions table={table} />
+      <div className="flex space-x-4">
+        <DataTableViewOptions table={table} />
+        <TaskCreateForm eventId={eventId}/>
+      </div>
     </div>
   )
 }

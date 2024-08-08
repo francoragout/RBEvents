@@ -9,9 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { EventSchema, TaskSchema } from "@/lib/validations";
+import { TaskSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -23,9 +21,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Pencil, PlusIcon } from "lucide-react";
-import { Textarea } from "../ui/textarea";
+} from "../../../ui/form";
+import { Textarea } from "../../../ui/textarea";
 import {
   Select,
   SelectContent,
@@ -33,32 +30,28 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
-import { ReloadIcon } from "@radix-ui/react-icons";
+} from "../../../ui/select";
 import { cn } from "@/lib/utils";
-import { CreateTask, UpdateTask } from "@/actions/task";
+import { CreateTask } from "@/actions/task";
 import { toast } from "sonner";
-import { statuses } from "./data";
+import { statuses } from "../../data";
+import { Input } from "@/components/ui/input";
 
-type Task = z.infer<typeof TaskSchema>;
-
-export default function TaskEditForm({ task }: { task: Task }) {
+export default function TaskCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TaskSchema>>({
     resolver: zodResolver(TaskSchema),
     defaultValues: {
-      title: task.title,
-      label: task.label,
-      status: task.status,
-      priority: task.priority,
+      title: "",
+      status: "BACKLOG",
     },
   });
 
   function onSubmit(values: z.infer<typeof TaskSchema>) {
     startTransition(() => {
-      UpdateTask(task.id ?? "", task.eventId ?? "", values).then((response) => {
+      CreateTask(eventId, values).then((response) => {
         if (response.success) {
           toast.success(response.message);
           form.reset();
@@ -73,9 +66,8 @@ export default function TaskEditForm({ task }: { task: Task }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="flex justify-start pl-2">
-          <Pencil className="mr-2 h-4 w-4" />
-          <span>Edit</span>
+        <Button variant="default" className="h-8" size="sm">
+          New Task
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -97,42 +89,12 @@ export default function TaskEditForm({ task }: { task: Task }) {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Do a kickflip"
+                    <Input
+                      placeholder="Title (required)"
                       className="resize-none"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="label"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Label</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    value={field.value || ""}
-                    disabled={isPending}
-                  >
-                    <FormControl>
-                      <SelectTrigger
-                        className={cn(
-                          "pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        <SelectValue placeholder="Label (required)" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="ANA">Ana</SelectItem>
-                      <SelectItem value="BELU">Belu</SelectItem>
-                    </SelectContent>
-                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -146,7 +108,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
                   <FormLabel>Status</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value || ""}
                     disabled={isPending}
                   >
                     <FormControl>
@@ -182,7 +144,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
                   <FormLabel>Priority</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    value={field.value || ""}                  
+                    value={field.value || ""}
                     disabled={isPending}
                   >
                     <FormControl>
@@ -206,13 +168,52 @@ export default function TaskEditForm({ task }: { task: Task }) {
               )}
             />
 
-            <DialogFooter className="gap-2 pt-2 sm:space-x-0">
+            <FormField
+              control={form.control}
+              name="label"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Label</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value || ""}
+                    disabled={isPending}
+                  >
+                    <FormControl>
+                      <SelectTrigger
+                        className={cn(
+                          "pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        <SelectValue placeholder="Label (optional)" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="ANA">Ana</SelectItem>
+                      <SelectItem value="BELU">Belu</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <DialogFooter className="gap-4 pt-2 sm:space-x-0">
               <DialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button
+                className="h-8"
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => form.reset()}
+                >
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit">Submit</Button>
+              <Button type="submit" size="sm" className="h-8">
+                Submit
+              </Button>
             </DialogFooter>
           </form>
         </Form>

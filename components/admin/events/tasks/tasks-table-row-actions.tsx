@@ -1,42 +1,31 @@
 "use client";
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { labels } from "@/components/admin/data";
 import { TaskSchema } from "@/lib/validations";
-import { MoreHorizontal, Pencil, Trash } from "lucide-react";
+import { MoreHorizontal, Trash } from "lucide-react";
 import { DeleteTask } from "@/actions/task";
-import { Dialog } from "../ui/dialog";
-import TaskEditForm from "./task-edit-form";
 import { toast } from "sonner";
+import TaskEditForm from "./task-edit-form";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function DataTableRowActions<TData>({
+export function TasksTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const task = TaskSchema.parse(row.original);
 
-  const deleteTask = async () => {
+  const handleDelete = async () => {
     DeleteTask(task.id ?? "", task.eventId ?? "").then((response) => {
       if (response.success) {
         toast.success(response.message);
@@ -62,7 +51,8 @@ export function DataTableRowActions<TData>({
           <Button
             variant="ghost"
             className="flex justify-start pl-2"
-            onClick={deleteTask}
+            onClick={handleDelete}
+            size="sm"
           >
             <Trash className="mr-2 h-4 w-4" />
             <span>Delete</span>

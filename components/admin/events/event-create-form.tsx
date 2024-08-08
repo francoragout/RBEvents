@@ -11,9 +11,9 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
-import { CreateEvent, EditEvent } from "@/actions/event";
+import { CreateEvent } from "@/actions/event";
 import { EventSchema } from "@/lib/validations";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -36,7 +36,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { revalidatePath } from "next/cache";
 import {
   Card,
   CardContent,
@@ -46,35 +45,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { ToastAction } from "../ui/toast";
 import { toast } from "sonner";
-import { types } from "./data";
+import { types } from "../data";
 
-const ExtendedEventSchema = EventSchema.extend({
-  id: z.string(),
-});
-
-type Event = z.infer<typeof ExtendedEventSchema>;
-
-export default function EventEditForm({ event }: { event: Event }) {
+export default function EventCreateForm() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
     defaultValues: {
-      name: event.name,
-      type: event.type,
-      date: event.date,
-      time: event.time,
-      venue: event.venue,
-      description: event.description,
+      name: "",
+      time: "00:00",
     },
   });
 
   function onSubmit(values: z.infer<typeof EventSchema>) {
     startTransition(() => {
-      EditEvent(event.id, values).then((response) => {
+      CreateEvent(values).then((response) => {
         if (response.success) {
           toast.success(response.message);
           router.push("/admin/events");
@@ -88,8 +76,8 @@ export default function EventEditForm({ event }: { event: Event }) {
   return (
     <Card className="my-5">
       <CardHeader>
-        <CardTitle>Edit event</CardTitle>
-        <CardDescription>Update your event details.</CardDescription>
+        <CardTitle>Create event</CardTitle>
+        <CardDescription>Deploy your new project in one-click.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -135,7 +123,7 @@ export default function EventEditForm({ event }: { event: Event }) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                      <SelectGroup>
+                        <SelectGroup>
                           {types.map((type) => (
                             <SelectItem key={type.value} value={type.value}>
                               {type.label}
@@ -169,7 +157,7 @@ export default function EventEditForm({ event }: { event: Event }) {
                             {field.value ? (
                               format(field.value, "EEE, dd MMM yyyy")
                             ) : (
-                              <span>Pick a date</span>
+                              <span>Pick a date (required)</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -253,12 +241,13 @@ export default function EventEditForm({ event }: { event: Event }) {
                 </FormItem>
               )}
             />
-
-            <div className="flex justify-between mt-8">
-              <Button asChild variant="outline">
+            <div className="flex justify-end space-x-4 mt-8">
+              <Button asChild variant="outline" size="sm" className="h-8">
                 <Link href="/admin/events">Cancel</Link>
               </Button>
-              <Button type="submit">Submit</Button>
+              <Button type="submit" size="sm" className="h-8">
+                Submit
+              </Button>
             </div>
           </form>
         </Form>

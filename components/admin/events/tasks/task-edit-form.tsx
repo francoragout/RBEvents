@@ -9,7 +9,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { TaskSchema } from "@/lib/validations";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { EventSchema, TaskSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -21,8 +23,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Textarea } from "../ui/textarea";
+} from "../../../ui/form";
+import { Pencil, PlusIcon } from "lucide-react";
+import { Textarea } from "../../../ui/textarea";
 import {
   Select,
   SelectContent,
@@ -30,27 +33,32 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "../../../ui/select";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
-import { CreateTask } from "@/actions/task";
+import { CreateTask, UpdateTask } from "@/actions/task";
 import { toast } from "sonner";
-import { statuses } from "./data";
+import { statuses } from "../../data";
 
-export default function TaskCreateForm({ eventId }: { eventId: string }) {
+type Task = z.infer<typeof TaskSchema>;
+
+export default function TaskEditForm({ task }: { task: Task }) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof TaskSchema>>({
     resolver: zodResolver(TaskSchema),
     defaultValues: {
-      title: "",
-      status: "BACKLOG",
+      title: task.title,
+      label: task.label,
+      status: task.status,
+      priority: task.priority,
     },
   });
 
   function onSubmit(values: z.infer<typeof TaskSchema>) {
     startTransition(() => {
-      CreateTask(eventId, values).then((response) => {
+      UpdateTask(task.id ?? "", task.eventId ?? "", values).then((response) => {
         if (response.success) {
           toast.success(response.message);
           form.reset();
@@ -65,15 +73,16 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="h-8">
-          New task
+        <Button variant="ghost" className="flex justify-start pl-2" size="sm">
+          <Pencil className="mr-2 h-4 w-4" />
+          <span>Edit</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create task</DialogTitle>
+          <DialogTitle>Edit task</DialogTitle>
           <DialogDescription>
-            Fill in the details below to create a new task.
+            Update the details below to edit the task.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -89,41 +98,11 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Title (required)"
+                      placeholder="Do a kickflip"
                       className="resize-none"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="label"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Label</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    value={field.value || ""}
-                    disabled={isPending}
-                  >
-                    <FormControl>
-                      <SelectTrigger
-                        className={cn(
-                          "pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        <SelectValue placeholder="Label (optional)" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="ANA">Ana</SelectItem>
-                      <SelectItem value="BELU">Belu</SelectItem>
-                    </SelectContent>
-                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -137,7 +116,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                   <FormLabel>Status</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    value={field.value || ""}                 
+                    defaultValue={field.value}
                     disabled={isPending}
                   >
                     <FormControl>
@@ -173,7 +152,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                   <FormLabel>Priority</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    value={field.value || ""}                  
+                    value={field.value || ""}
                     disabled={isPending}
                   >
                     <FormControl>
@@ -197,17 +176,44 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
               )}
             />
 
-            <DialogFooter className="gap-2 pt-2 sm:space-x-0">
+            <FormField
+              control={form.control}
+              name="label"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Label</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value || ""}
+                    disabled={isPending}
+                  >
+                    <FormControl>
+                      <SelectTrigger
+                        className={cn(
+                          "pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        <SelectValue placeholder="Label (required)" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="ANA">Ana</SelectItem>
+                      <SelectItem value="BELU">Belu</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <DialogFooter className="gap-4 pt-2 sm:space-x-0">
               <DialogClose asChild>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => form.reset()}
-                >
+                <Button type="button" variant="outline" className="h-8">
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit">Submit</Button>
+              <Button type="submit" className="h-8">Submit</Button>
             </DialogFooter>
           </form>
         </Form>

@@ -1,4 +1,4 @@
-import EventCreateForm from "@/components/admin/event-create-form";
+import EventCreateForm from "@/components/admin/events/event-create-form";
 
 export default function CreateEventPage() {
   return <EventCreateForm />;

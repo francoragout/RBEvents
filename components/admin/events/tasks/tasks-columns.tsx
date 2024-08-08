@@ -1,43 +1,17 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-
 import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
-
 import { labels, priorities, statuses } from "@/components/admin/data";
 import { TaskSchema } from "@/lib/validations";
-import { DataTableColumnHeader } from "@/components/admin/data-table-column-header";
-import { DataTableRowActions } from "@/components/admin/data-table-row-actions";
+
 import { z } from "zod";
+import { TasksTableRowActions } from "./tasks-table-row-actions";
+import { DataTableColumnHeader } from "@/components/data-table-column-header";
 
 type Task = z.infer<typeof TaskSchema>;
 
-export const columns: ColumnDef<Task>[] = [
-  // {
-  //   id: "select",
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={
-  //         table.getIsAllPageRowsSelected() ||
-  //         (table.getIsSomePageRowsSelected() && "indeterminate")
-  //       }
-  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //       aria-label="Select all"
-  //       className="translate-y-[2px]"
-  //     />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //       aria-label="Select row"
-  //       className="translate-y-[2px]"
-  //     />
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
+export const TasksColumns: ColumnDef<Task>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
@@ -116,6 +90,6 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => <TasksTableRowActions row={row} />,
   },
 ];

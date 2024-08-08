@@ -24,9 +24,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
-import { DataTablePagination } from "./data-table-pagination"
-import { DataTableToolbar } from "./data-table-toolbar"
+import { TasksTableToolbar } from "./tasks-table-toolbar"
+import { DataTablePagination } from "@/components/data-table-pagination"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -35,7 +34,7 @@ interface DataTableProps<TData, TValue> {
   
 }
 
-export function DataTable<TData, TValue>({
+export function TasksTable<TData, TValue>({
   columns,
   data,
   eventId,
@@ -72,7 +71,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} eventId={eventId}/>
+      <TasksTableToolbar table={table} eventId={eventId}/>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

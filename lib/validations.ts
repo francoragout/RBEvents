@@ -97,7 +97,7 @@ export const ProviderSchema = z.object({
     .string({ required_error: "Address is required" })
     .trim()
     .min(3, "Address must be at least 3 characters.")
-    .max(30, "Address must not be longer than 100 characters."),
+    .max(100, "Address must not be longer than 100 characters."),
   city: z
     .string({ required_error: "City is required" })
     .trim()

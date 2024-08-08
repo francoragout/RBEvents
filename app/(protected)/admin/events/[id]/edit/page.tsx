@@ -1,4 +1,4 @@
-import EventEditForm from "@/components/admin/event-edit-form";
+import EventEditForm from "@/components/admin/events/event-edit-form";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 

@@ -1,4 +1,4 @@
-import Dashboard from "@/components/admin/dashboard";
+import Dashboard from "@/components/admin/dashboard/dashboard";
 
 export default async function DashboardPage() {
   return (

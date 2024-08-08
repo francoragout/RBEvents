@@ -1,10 +1,5 @@
 import { db } from "@/lib/db";
-import {
-  DollarSign,
-  EyeIcon,
-  ListTodo,
-  MoreHorizontal,
-} from "lucide-react";
+import { DollarSign, EyeIcon, ListTodo, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 interface ProtectedLayoutProps {
   children: React.ReactNode;
   params: { id: string };
@@ -30,10 +26,12 @@ const EventLayout = async ({ children, params }: ProtectedLayoutProps) => {
 
   return (
     <main>
-      <div className="flex items-center space-x-4 mb-4 justify-between">
-        <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0">
-          {event?.name}
-        </h2>
+      <div className="flex items-center mb-4 justify-between">
+        <Badge variant="outline">
+          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+            {event?.name}
+          </h4>
+        </Badge>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
@@ -49,6 +47,7 @@ const EventLayout = async ({ children, params }: ProtectedLayoutProps) => {
                 asChild
                 variant="ghost"
                 className="flex justify-start pl-2"
+                size="sm"
               >
                 <Link href={`/admin/events/${event?.id}/overview`}>
                   <EyeIcon className="mr-2 h-4 w-4" />
@@ -60,6 +59,7 @@ const EventLayout = async ({ children, params }: ProtectedLayoutProps) => {
                 asChild
                 variant="ghost"
                 className="flex justify-start pl-2"
+                size="sm"
               >
                 <Link href={`/admin/events/${event?.id}/tasks`}>
                   <ListTodo className="mr-2 h-4 w-4" />
@@ -71,6 +71,7 @@ const EventLayout = async ({ children, params }: ProtectedLayoutProps) => {
                 asChild
                 variant="ghost"
                 className="flex justify-start pl-2"
+                size="sm"
               >
                 <Link href={`/admin/events/${event?.id}/budget`}>
                   <DollarSign className="mr-2 h-4 w-4" />

@@ -1,5 +1,5 @@
-import { EventsColumnsTable } from "@/components/admin/events-columns-table";
-import { EventsTable } from "@/components/admin/events-table";
+import { EventsColumns } from "@/components/admin/events/events-columns";
+import { EventsTable } from "@/components/admin/events/events-table";
 import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
@@ -22,5 +22,5 @@ async function getData(): Promise<Event[]> {
 
 export default async function EventsPage() {
   const data = await getData();
-  return <EventsTable columns={EventsColumnsTable} data={data} />;
+  return <EventsTable columns={EventsColumns} data={data} />;
 }

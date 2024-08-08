@@ -4,6 +4,17 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
+
+import {
+  ArchiveRestore,
+  DollarSign,
+  EyeIcon,
+  ListTodo,
+  MoreHorizontal,
+  Pencil,
+  Trash,
+} from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,9 +27,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ProviderSchema } from "@/lib/validations";
+import { EventSchema, ProviderSchema } from "@/lib/validations";
 import Link from "next/link";
-import { ArchiveRestore, Pencil, Trash } from "lucide-react";
 import { DeleteProvider } from "@/actions/provider";
 import { toast } from "sonner";
 import {
@@ -32,18 +42,29 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { ArchiveEvent, DeleteEvent } from "@/actions/event";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function DataTableRowActions<TData>({
+export function EventsTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const provider = ProviderSchema.parse(row.original);
+  const event = EventSchema.parse(row.original);
 
-  const deleteProvider = () => {
-    DeleteProvider(provider.id ?? "").then((response) => {
+  const handleDelite = () => {
+    DeleteEvent(event.id ?? "").then((response) => {
+      if (response.success) {
+        toast.success(response.message);
+      } else {
+        toast.error(response.message);
+      }
+    });
+  };
+
+  const handleArchive = () => {
+    ArchiveEvent(event.id ?? "").then((response) => {
       if (response.success) {
         toast.success(response.message);
       } else {
@@ -67,16 +88,42 @@ export function DataTableRowActions<TData>({
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col">
-          <Button
-            asChild
-            variant="ghost"
-            className="flex justify-start pl-2"
-            size="sm"
-          >
-            <Link href={`/admin/providers/${provider.id}/edit`}>
+          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
+            <Link href={`/admin/events/${event.id}/overview`}>
+              <EyeIcon className="mr-2 h-4 w-4" />
+              <span>Overview</span>
+            </Link>
+          </Button>
+
+          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
+            <Link href={`/admin/events/${event.id}/tasks`}>
+              <ListTodo className="mr-2 h-4 w-4" />
+              <span>Tasks</span>
+            </Link>
+          </Button>
+
+          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
+            <Link href={`/admin/events/${event.id}/budget`}>
+              <DollarSign className="mr-2 h-4 w-4" />
+              <span>Budget</span>
+            </Link>
+          </Button>
+
+          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
+            <Link href={`/admin/events/${event.id}/edit`}>
               <Pencil className="mr-2 h-4 w-4" />
               <span>Edit</span>
             </Link>
+          </Button>
+
+          <Button
+            variant="ghost"
+            className="flex justify-start pl-2"
+            size="sm"
+            onClick={handleArchive}
+          >
+            <ArchiveRestore className="mr-2 h-4 w-4" />
+            <span>Archive</span>
           </Button>
 
           <AlertDialog>
@@ -94,14 +141,13 @@ export function DataTableRowActions<TData>({
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the
-                  provider &apos;{provider.name}&apos; and remove your data from
-                  our servers.
+                  This action cannot be undone. This will permanently delete
+                  your event &apos;{event.name}&apos; and remove your data from our servers.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={deleteProvider}>
+                <AlertDialogAction onClick={handleDelite}>
                   Continue
                 </AlertDialogAction>
               </AlertDialogFooter>
