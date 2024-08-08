@@ -5,6 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { BarChartMultiple } from "./bar-chart-multiple";
+import { PieChart } from "lucide-react";
+import { PieChartDonut } from "./pie-chart-donut";
 
 export default function Dashboard() {
   return (
@@ -13,7 +16,6 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">$45,231.89</div>
@@ -25,7 +27,6 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
-            
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">+2350</div>
@@ -37,7 +38,6 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Sales</CardTitle>
-            
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">+12,234</div>
@@ -49,7 +49,6 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Active Now</CardTitle>
-            
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">+573</div>
@@ -60,19 +59,8 @@ export default function Dashboard() {
         </Card>
       </div>
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-8">
-        <Card className="col-span-5">
-          <CardHeader>
-            <CardTitle>Overview</CardTitle>
-          </CardHeader>
-          <CardContent></CardContent>
-        </Card>
-        <Card className="col-span-3">
-          <CardHeader>
-            <CardTitle>Recent Sales</CardTitle>
-            <CardDescription>You made 265 sales this month.</CardDescription>
-          </CardHeader>
-          <CardContent></CardContent>
-        </Card>
+        <BarChartMultiple />
+        <PieChartDonut />
       </div>
     </div>
   );

@@ -14,11 +14,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { DataTableRowActions } from "@/components/admin/providers/data-table-row-actions";
+import { ProvidersTableRowActions } from "./providers-table-row-actions";
 
 type Provider = z.infer<typeof ProviderSchema>;
 
-export const columns: ColumnDef<Provider>[] = [
+export const ProvidersColumns: ColumnDef<Provider>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
@@ -75,6 +75,6 @@ export const columns: ColumnDef<Provider>[] = [
 
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => <ProvidersTableRowActions row={row} />,
   },
 ];

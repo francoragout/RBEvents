@@ -37,7 +37,7 @@ interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function DataTableRowActions<TData>({
+export function ProvidersTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const provider = ProviderSchema.parse(row.original);

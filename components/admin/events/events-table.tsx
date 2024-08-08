@@ -26,7 +26,6 @@ import {
 } from "@/components/ui/table";
 
 import { DataTablePagination } from "@/components/data-table-pagination";
-import { DataTableToolbar } from "@/components/admin/providers/data-table-toolbar";
 import { EventsTableToolbar } from "./events-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
