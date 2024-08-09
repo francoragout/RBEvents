@@ -9,9 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { EventSchema, TaskSchema } from "@/lib/validations";
+import { TaskSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -24,7 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../../../ui/form";
-import { Pencil, PlusIcon } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { Textarea } from "../../../ui/textarea";
 import {
   Select,
@@ -34,11 +32,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../ui/select";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
-import { CreateTask, UpdateTask } from "@/actions/task";
+import { UpdateTask } from "@/actions/task";
 import { toast } from "sonner";
-import { statuses } from "../../data";
+import { statuses } from "@/lib/data";
 
 type Task = z.infer<typeof TaskSchema>;
 

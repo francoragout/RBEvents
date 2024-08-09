@@ -34,7 +34,7 @@ import {
 import { cn } from "@/lib/utils";
 import { CreateTask } from "@/actions/task";
 import { toast } from "sonner";
-import { statuses } from "../../data";
+import { statuses } from "@/lib/data";
 import { Input } from "@/components/ui/input";
 
 export default function TaskCreateForm({ eventId }: { eventId: string }) {

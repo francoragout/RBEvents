@@ -47,7 +47,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { toast } from "sonner";
-import { types } from "../data";
+import { types } from "../../../lib/data";
 
 const ExtendedEventSchema = EventSchema.extend({
   id: z.string(),
@@ -67,7 +67,7 @@ export default function EventEditForm({ event }: { event: Event }) {
       date: event.date,
       time: event.time,
       venue: event.venue,
-      description: event.description,
+      income: event.income,
     },
   });
 
@@ -212,46 +212,50 @@ export default function EventEditForm({ event }: { event: Event }) {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="venue"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Venue</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Venue (optional)"
+                        {...field}
+                        value={field.value || ""}
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="income"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Income</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isPending}
+                        placeholder="Income (optional)"
+                        {...field}
+                        type="number"
+                        value={field.value || ""}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          field.onChange(value === "" ? 0 : Number(value));
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-
-            <FormField
-              control={form.control}
-              name="venue"
-              render={({ field }) => (
-                <FormItem className="flex flex-col mt-8">
-                  <FormLabel>Venue</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Venue (optional)"
-                      {...field}
-                      value={field.value || ""}
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem className="flex flex-col mt-8">
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      disabled={isPending}
-                      placeholder="Description (optional)"
-                      {...field}
-                      value={field.value || ""}
-                      className="resize-none"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             <div className="flex justify-end space-x-4 mt-8">
               <Button asChild variant="outline" size="sm" className="h-8">

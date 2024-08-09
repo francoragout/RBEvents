@@ -70,14 +70,14 @@ model Event {
   date        DateTime  @db.Date
   time        String
   venue       String?
-  description String?
+  income      Int?
   archived    Boolean   @default(false)
   tasks       Task[]
 }
 
 enum TaskLabel {
   ANA
-  BELU
+  BELEN
 }
 
 enum TaskStatus {

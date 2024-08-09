@@ -13,7 +13,7 @@ export const TaskSchema = z.object({
   status: z
     .enum(["BACKLOG", "TODO", "IN_PROGRESS", "DONE"]),
   label: z
-    .enum(["ANA", "BELU"])
+    .enum(["ANA", "BELEN"])
     .optional()
     .nullable(),
   priority: z
@@ -44,8 +44,9 @@ export const EventSchema = z.object({
     .string()
     .optional()
     .nullable(),
-  description: z
-    .string()
+  income: z
+    .number()
+    .int()
     .optional()
     .nullable(),
   archived: z

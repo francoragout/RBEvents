@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
-import { labels, priorities, statuses } from "@/components/admin/data";
+import { labels, priorities, statuses } from "@/lib/data";
 import { TaskSchema } from "@/lib/validations";
 
 import { z } from "zod";

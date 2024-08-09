@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
 import { EventSchema, TaskSchema } from "@/lib/validations";
 import { Badge } from "@/components/ui/badge";
-import { types } from "../data";
+import { types } from "../../../lib/data";
 import { EventsTableRowActions } from "./events-table-row-actions";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
 
@@ -39,7 +39,11 @@ export const EventsColumns: ColumnDef<Event>[] = [
     header: () => <div className="text-left">Date</div>,
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"));
-      return <div className="truncate">{date.toUTCString().split(" ").slice(0, 4).join(" ")}</div>;
+      return (
+        <div className="truncate">
+          {date.toUTCString().split(" ").slice(0, 4).join(" ")}
+        </div>
+      );
     },
   },
   {
@@ -95,6 +99,13 @@ export const EventsColumns: ColumnDef<Event>[] = [
         </div>
       );
     },
+  },
+  {
+    accessorKey: "income",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Income" />
+    ),
+    cell: ({ row }) => <div className="flex">$ {row.getValue("income")}</div>,
   },
   {
     id: "actions",
