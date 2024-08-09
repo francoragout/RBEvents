@@ -1,6 +1,6 @@
 import Dashboard from "@/components/admin/dashboard/dashboard";
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
   return (
     <div>
       <Dashboard />

@@ -1,7 +1,9 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { ChartLegend, ChartLegendContent } from "@/components/ui/chart"
+
 
 import {
   Card,
@@ -10,38 +12,40 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
+
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-  { month: "July", desktop: 0, mobile: 0 },
-  { month: "August", desktop: 0, mobile: 0 },
-  { month: "September", desktop: 0, mobile: 0 },
-  { month: "October", desktop: 0, mobile: 0 },
-  { month: "November", desktop: 0, mobile: 0 },
-  { month: "December", desktop: 0, mobile: 0 },
-]
+  { month: "January", events: 4, income: 300 },
+  { month: "February", events: 3, income: 200 },
+  { month: "March", events: 2, income: 300 },
+  { month: "April", events: 5, income: 400 },
+  { month: "May", events: 6, income: 500 },
+  { month: "June", events: 7, income: 600 },
+  { month: "July", events: 6, income: 700 },
+  { month: "August", events: 1, income: 800 },
+  { month: "September", events: 1, income: 100 },
+  { month: "October", events: 2, income: 100 },
+  { month: "November", events: 8, income: 800 },
+  { month: "December", events: 5, income: 500 },
+  
+];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  events: {
+    label: "Events",
     color: "hsl(var(--chart-1))",
   },
-  mobile: {
-    label: "Mobile",
+  income: {
+    label: "Income",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function BarChartMultiple() {
   return (
@@ -61,12 +65,24 @@ export function BarChartMultiple() {
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
+
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar
+              dataKey="events"
+              fill="var(--color-events)"
+              radius={4}
+              yAxisId="left"
+            />
+            <Bar
+              dataKey="income"
+              fill="var(--color-income)"
+              radius={4}
+              yAxisId="right"
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>
@@ -79,5 +95,5 @@ export function BarChartMultiple() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
