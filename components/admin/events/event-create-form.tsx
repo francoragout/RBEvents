@@ -57,6 +57,7 @@ export default function EventCreateForm() {
     defaultValues: {
       name: "",
       time: "00:00",
+      income: 0,
     },
   });
 
