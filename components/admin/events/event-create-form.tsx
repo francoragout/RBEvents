@@ -171,7 +171,7 @@ export default function EventCreateForm() {
                           onSelect={field.onChange}
                           disabled={(date) => {
                             const today = new Date();
-                            today.setHours(0, 0, 0, 0);
+                            today.setUTCHours(0, 0, 0, 0);
                             return date < today;
                           }}
                           initialFocus

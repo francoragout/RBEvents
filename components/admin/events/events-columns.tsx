@@ -64,7 +64,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"));
       const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      today.setUTCHours(0, 0, 0, 0);
       const diffTime = date.getTime() - today.getTime();
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       let daysLeft;
