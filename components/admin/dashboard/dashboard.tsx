@@ -6,7 +6,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BarChartMultiple } from "./bar-chart-multiple";
-import { Activity, Calendar, DollarSign, PieChart } from "lucide-react";
+import {
+  Activity,
+  BarChart,
+  Calendar,
+  DollarSign,
+  PartyPopper,
+  PieChart,
+} from "lucide-react";
 import { PieChartDonut } from "./pie-chart-donut";
 import { db } from "@/lib/db";
 
@@ -24,7 +31,9 @@ export default async function Dashboard() {
 
   const income_this_month = events.reduce((sum, event) => {
     const date = new Date(event.date);
-    return date >= firstDay && date <= lastDay ? sum + (event.income ?? 0) : sum;
+    return date >= firstDay && date <= lastDay
+      ? sum + (event.income ?? 0)
+      : sum;
   }, 0);
 
   const events_this_month = events.filter((event) => {
@@ -32,9 +41,29 @@ export default async function Dashboard() {
     return date >= firstDay && date <= lastDay;
   }).length;
 
+  const months_with_events = new Set(
+    events.map((event) => new Date(event.date).getMonth() + 1)
+  ).size;
+
+  console.log(months_with_events);
+
+  const average_events_per_month = events.length / months_with_events;
+
+  console.log(average_events_per_month);
+
+  const difference_from_avg =
+    (events_this_month - average_events_per_month) * 100;
+
+  console.log(difference_from_avg);
+
   const upcoming_events = events.filter((event) => {
     const date = new Date(event.date);
     return date >= today;
+  }).length;
+
+  const events_this_year = events.filter((event) => {
+    const date = new Date(event.date);
+    return date.getFullYear() === today.getFullYear();
   }).length;
 
   return (
@@ -49,10 +78,16 @@ export default async function Dashboard() {
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{events_this_month}</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
+            <div className="text-2xl font-bold mb-1">{events_this_month}</div>
+            {difference_from_avg >= average_events_per_month ? (
+              <p className="text-xs text-green-500">
+                +{difference_from_avg.toFixed(2)}% Avg Events
+              </p>
+            ) : (
+              <p className="text-xs text-red-500">
+                {difference_from_avg.toFixed(2)}% Avg Events
+              </p>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -63,7 +98,7 @@ export default async function Dashboard() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${income_this_month}</div>
+            <div className="text-2xl font-bold mb-1">$ {income_this_month}</div>
             <p className="text-xs text-muted-foreground">
               +180.1% from last month
             </p>
@@ -77,7 +112,7 @@ export default async function Dashboard() {
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{upcoming_events}</div>
+            <div className="text-2xl font-bold mb-1">{upcoming_events}</div>
             <p className="text-xs text-muted-foreground">
               +19% from last month
             </p>
@@ -85,10 +120,13 @@ export default async function Dashboard() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Now</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Events This Year
+            </CardTitle>
+            <BarChart className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+573</div>
+            <div className="text-2xl font-bold mb-1">{events_this_year}</div>
             <p className="text-xs text-muted-foreground">
               +201 since last hour
             </p>
@@ -102,4 +140,3 @@ export default async function Dashboard() {
     </div>
   );
 }
-

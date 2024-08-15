@@ -166,7 +166,7 @@ export default function EventEditForm({ event }: { event: Event }) {
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "EEE, dd MMM yyyy")
+                              format((field.value).toUTCString().split(" ").slice(0, 4).join(" "), "EEE, dd MMM yyyy")
                             ) : (
                               <span>Pick a date</span>
                             )}

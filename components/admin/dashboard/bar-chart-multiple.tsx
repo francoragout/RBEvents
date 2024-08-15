@@ -57,29 +57,29 @@ export function BarChartMultiple({ events }: { events: Event[] }) {
     }
   });
 
-  console.log(incomePerMonth);
-
-  const chartData = [
-    { month: "January", events: eventsPerMonth[0], income: incomePerMonth[0] },
-    { month: "February", events: eventsPerMonth[1], income: incomePerMonth[1] },
-    { month: "March", events: eventsPerMonth[2], income: incomePerMonth[2] },
-    { month: "April", events: eventsPerMonth[3], income: incomePerMonth[3] },
-    { month: "May", events: eventsPerMonth[4], income: incomePerMonth[4] },
-    { month: "June", events: eventsPerMonth[5], income: incomePerMonth[5] },
-    { month: "July", events: eventsPerMonth[6], income: incomePerMonth[6] },
-    { month: "August", events: eventsPerMonth[7], income: incomePerMonth[7] },
-    { month: "September", events: eventsPerMonth[8], income: incomePerMonth[8] },
-    { month: "October", events: eventsPerMonth[9], income: incomePerMonth[9] },
-    { month: "November", events: eventsPerMonth[10], income: incomePerMonth[10] },
-    { month: "December", events: eventsPerMonth[11], income: incomePerMonth[11] },
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
-  const averageEvents =
-    chartData.reduce((sum, item) => sum + item.events, 0) / chartData.length;
-  const averageIncome =
-    chartData.reduce((sum, item) => sum + item.income, 0) / chartData.length;
+  const chartData = monthNames.map((month, index) => ({
+    month,
+    events: eventsPerMonth[index],
+    income: incomePerMonth[index],
+  }));
 
-  console.log(eventsPerMonth);
+  const averageEvents = chartData.reduce((sum, item) => sum + item.events, 0) / chartData.length;
+  const averageIncome = chartData.reduce((sum, item) => sum + item.income, 0) / chartData.length;
 
   return (
     <Card className="col-span-5">
