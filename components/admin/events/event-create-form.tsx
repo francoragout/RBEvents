@@ -9,7 +9,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
 import { CreateEvent } from "@/actions/event";
 import { EventSchema } from "@/lib/validations";
@@ -17,7 +16,6 @@ import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -40,7 +38,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -158,7 +155,7 @@ export default function EventCreateForm() {
                             {field.value ? (
                               format(field.value, "EEE, dd MMM yyyy")
                             ) : (
-                              <span>Pick a date (required)</span>
+                              <span>Pick a date</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>

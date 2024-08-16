@@ -26,15 +26,9 @@ export default async function Dashboard() {
 
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
+
   const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
   const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
-  const income_this_month = events.reduce((sum, event) => {
-    const date = new Date(event.date);
-    return date >= firstDay && date <= lastDay
-      ? sum + (event.income ?? 0)
-      : sum;
-  }, 0);
 
   const events_this_month = events.filter((event) => {
     const date = new Date(event.date);
@@ -45,17 +39,6 @@ export default async function Dashboard() {
     events.map((event) => new Date(event.date).getMonth() + 1)
   ).size;
 
-  console.log(months_with_events);
-
-  const average_events_per_month = events.length / months_with_events;
-
-  console.log(average_events_per_month);
-
-  const difference_from_avg =
-    (events_this_month - average_events_per_month) * 100;
-
-  console.log(difference_from_avg);
-
   const upcoming_events = events.filter((event) => {
     const date = new Date(event.date);
     return date >= today;
@@ -65,6 +48,11 @@ export default async function Dashboard() {
     const date = new Date(event.date);
     return date.getFullYear() === today.getFullYear();
   }).length;
+
+  const average_events_per_month = events_this_year / months_with_events;
+
+  const difference_from_avg =
+    (events_this_month - average_events_per_month) * 100;
 
   return (
     <div className="space-y-8">
@@ -81,11 +69,11 @@ export default async function Dashboard() {
             <div className="text-2xl font-bold mb-1">{events_this_month}</div>
             {difference_from_avg >= average_events_per_month ? (
               <p className="text-xs text-green-500">
-                +{difference_from_avg.toFixed(2)}% Avg Events
+                +{difference_from_avg.toFixed(2)}% from average
               </p>
             ) : (
               <p className="text-xs text-red-500">
-                {difference_from_avg.toFixed(2)}% Avg Events
+                {difference_from_avg.toFixed(2)}% from average
               </p>
             )}
           </CardContent>
@@ -98,7 +86,7 @@ export default async function Dashboard() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold mb-1">$ {income_this_month}</div>
+            <div className="text-2xl font-bold mb-1">$ {}</div>
             <p className="text-xs text-muted-foreground">
               +180.1% from last month
             </p>
@@ -134,9 +122,16 @@ export default async function Dashboard() {
         </Card>
       </div>
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-8">
-        <BarChartMultiple events={events} />
+        <BarChartMultiple events={events} avg={average_events_per_month} />
         <PieChartDonut />
       </div>
     </div>
   );
 }
+
+// const income_this_month = events.reduce((sum, event) => {
+//   const date = new Date(event.date);
+//   return date >= firstDay && date <= lastDay
+//     ? sum + (event.income ?? 0)
+//     : sum;
+// }, 0);

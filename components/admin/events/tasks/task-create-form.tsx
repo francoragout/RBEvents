@@ -191,7 +191,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="ANA">Ana</SelectItem>
-                      <SelectItem value="BELU">Belu</SelectItem>
+                      <SelectItem value="BELEN">Belen</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

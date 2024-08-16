@@ -41,9 +41,14 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+interface BarChartMultipleProps {
+  events: Event[];
+  avg: number;
+}
+
 type Event = z.infer<typeof EventSchema>;
 
-export function BarChartMultiple({ events }: { events: Event[] }) {
+export function BarChartMultiple({ events, avg }: BarChartMultipleProps) {
   const currentYear = new Date().getFullYear();
   const eventsPerMonth = Array(12).fill(0);
   const incomePerMonth = Array(12).fill(0);
@@ -78,11 +83,8 @@ export function BarChartMultiple({ events }: { events: Event[] }) {
     income: incomePerMonth[index],
   }));
 
-  const averageEvents = chartData.reduce((sum, item) => sum + item.events, 0) / chartData.length;
-  const averageIncome = chartData.reduce((sum, item) => sum + item.income, 0) / chartData.length;
-
   return (
-    <Card className="col-span-5">
+    <Card className="col-span-4">
       <CardHeader>
         <CardTitle>Bar Chart - Multiple</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
@@ -121,7 +123,7 @@ export function BarChartMultiple({ events }: { events: Event[] }) {
               activeBar={<Rectangle fillOpacity={1} />}
             />
             <ReferenceLine
-              y={averageEvents}
+              y={avg}
               stroke="hsl(var(--muted-foreground))"
               strokeDasharray="3 3"
               strokeWidth={1}
@@ -135,14 +137,14 @@ export function BarChartMultiple({ events }: { events: Event[] }) {
               />
               <Label
                 position="insideTopLeft"
-                value={averageEvents.toFixed(2)}
+                value={avg.toFixed(2)}
                 className="text-lg"
                 fill="hsl(var(--foreground))"
                 offset={10}
                 startOffset={100}
               />
             </ReferenceLine>
-            <ReferenceLine
+            {/* <ReferenceLine
               y={averageIncome}
               stroke="hsl(var(--muted-foreground))"
               strokeDasharray="3 3"
@@ -163,18 +165,18 @@ export function BarChartMultiple({ events }: { events: Event[] }) {
                 offset={10}
                 startOffset={100}
               />
-            </ReferenceLine>
+            </ReferenceLine> */}
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
+      {/* <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           Showing total visitors for the last 6 months
         </div>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }

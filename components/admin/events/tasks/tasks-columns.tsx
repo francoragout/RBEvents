@@ -47,13 +47,9 @@ export const TasksColumns: ColumnDef<Task>[] = [
       return (
         <div className="flex w-[100px] items-center">
           {status.icon && (
-            <status.icon
-              className={`mr-2 h-4 w-4 ${
-                status.textColor || "text-muted-foreground"
-              }`}
-            />
+            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
-          <span className={status.textColor}>{status.label}</span>
+          <span>{status.label}</span>
         </div>
       );
     },

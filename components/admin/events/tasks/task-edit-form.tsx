@@ -196,7 +196,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="ANA">Ana</SelectItem>
-                      <SelectItem value="BELU">Belu</SelectItem>
+                      <SelectItem value="BELEN">Belen</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

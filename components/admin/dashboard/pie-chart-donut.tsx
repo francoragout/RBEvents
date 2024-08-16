@@ -58,7 +58,7 @@ export function PieChartDonut() {
   }, [])
 
   return (
-    <Card className="col-span-3">
+    <Card className="col-span-2">
       <CardHeader className="items-center pb-0">
         <CardTitle>Pie Chart - Donut with Text</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
