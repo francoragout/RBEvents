@@ -105,7 +105,7 @@ export function BarChartMultiple({ events, avg }: BarChartMultipleProps) {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <ChartLegend content={<ChartLegendContent />} />
+            {/* <ChartLegend content={<ChartLegendContent />} /> */}
             <Bar
               dataKey="events"
               fill="var(--color-events)"
@@ -114,14 +114,14 @@ export function BarChartMultiple({ events, avg }: BarChartMultipleProps) {
               fillOpacity={0.6}
               activeBar={<Rectangle fillOpacity={1} />}
             />
-            <Bar
+            {/* <Bar
               dataKey="income"
               fill="var(--color-income)"
               radius={4}
               yAxisId="right"
               fillOpacity={0.6}
               activeBar={<Rectangle fillOpacity={1} />}
-            />
+            /> */}
             <ReferenceLine
               y={avg}
               stroke="hsl(var(--muted-foreground))"

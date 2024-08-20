@@ -14,7 +14,6 @@ import {
   PartyPopper,
   PieChart,
 } from "lucide-react";
-import { PieChartDonut } from "./pie-chart-donut";
 import { db } from "@/lib/db";
 
 export default async function Dashboard() {
@@ -66,13 +65,13 @@ export default async function Dashboard() {
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold mb-1">{events_this_month}</div>
+            <div className="text-2xl font-bold mb-1" color="hsl(var(--chart-1))">{events_this_month}</div>
             {difference_from_avg >= average_events_per_month ? (
-              <p className="text-xs text-green-500">
+              <p className="text-xs">
                 +{difference_from_avg.toFixed(2)}% from average
               </p>
             ) : (
-              <p className="text-xs text-red-500">
+              <p className="text-xs">
                 {difference_from_avg.toFixed(2)}% from average
               </p>
             )}
@@ -123,7 +122,6 @@ export default async function Dashboard() {
       </div>
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-8">
         <BarChartMultiple events={events} avg={average_events_per_month} />
-        <PieChartDonut />
       </div>
     </div>
   );
