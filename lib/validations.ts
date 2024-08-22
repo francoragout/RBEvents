@@ -34,7 +34,8 @@ export const EventSchema = z.object({
     .trim()
     .min(3, "Name must be at least 3 characters.")
     .max(30, "Name must not be longer than 30 characters."),
-  type: z.enum(["WEDDING", "BIRTHDAY", "OPENING", "MEETING", "OTHER"], {required_error: "Please select type"}),
+  type: z
+    .enum(["WEDDING", "BIRTHDAY", "OPENING", "MEETING", "OTHER"], {required_error: "Please select type"}),
   date: z
     .date({ required_error: "Please select date" }),
   time: z
@@ -44,11 +45,8 @@ export const EventSchema = z.object({
     .string()
     .optional()
     .nullable(),
-  income: z
-    .number()
-    .int()
-    .optional()
-    .nullable(),
+  organization: z
+    .enum(["COORDINATION", "PARTIAL", "COMPREHENSIVE"], {required_error: "Please select organization"}),
   archived: z
     .boolean()
     .default(false),
@@ -107,5 +105,44 @@ export const ProviderSchema = z.object({
   phone: z
     .string()
     .optional()
+    .nullable(),
+  in_charge: z
+    .string()
+    .optional()
+    .nullable(),
+  genset: z
+    .boolean()
+    .default(false),
+  green_space: z
+    .boolean()
+    .default(false),
+  bridal_suite: z
+    .boolean()
+    .default(false),
+  parking_space: z
+    .boolean()
+    .default(false),
+  catering: z
+    .boolean()
+    .default(false),
+  capacity: z
+    .number()
+    .int()
+    .nullable(),
+  rental_price: z
+    .number()
+    .int()
+    .nullable(),
+  dinner_card: z
+    .number()
+    .int()
+    .nullable(),
+  lunch_card: z
+    .number()
+    .int()
+    .nullable(),
+  after_meal_card: z
+    .number()
+    .int()
     .nullable(),
 });

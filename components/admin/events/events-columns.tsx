@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
 import { EventSchema, TaskSchema } from "@/lib/validations";
 import { Badge } from "@/components/ui/badge";
-import { types } from "../../../lib/data";
+import { organizations, types } from "../../../lib/data";
 import { EventsTableRowActions } from "./events-table-row-actions";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
 
@@ -29,9 +29,6 @@ export const EventsColumns: ColumnDef<Event>[] = [
 
       if (!type) return null;
       return type.label;
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
     },
   },
   {
@@ -64,7 +61,8 @@ export const EventsColumns: ColumnDef<Event>[] = [
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"));
       const today = new Date();
-      today.setUTCHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+      console.log(date, today);
       const diffTime = date.getTime() - today.getTime();
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       let daysLeft;
@@ -101,11 +99,16 @@ export const EventsColumns: ColumnDef<Event>[] = [
     },
   },
   {
-    accessorKey: "income",
+    accessorKey: "organization",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Income" />
+      <DataTableColumnHeader column={column} title="Organization" />
     ),
-    cell: ({ row }) => <div className="flex">$ {row.getValue("income")}</div>,
+    cell: ({ row }) => {
+      const organization = organizations.find((organization) => organization.value === row.getValue("organization"));
+
+      if (!organization) return null;
+      return organization.label;
+    },
   },
   {
     id: "actions",

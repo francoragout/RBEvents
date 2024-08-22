@@ -101,3 +101,13 @@ export const DeleteProvider = async (id: string) => {
     };
   }
 };
+
+export const getProviders = async () => {
+  try {
+    const providers = await db.provider.findMany();
+    return providers;
+  } catch (error) {
+    console.error("Error getting providers:", error);
+    return [];
+  }
+}

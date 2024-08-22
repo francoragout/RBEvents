@@ -8,6 +8,21 @@ import {
   StopwatchIcon,
 } from "@radix-ui/react-icons";
 
+export const organizations = [
+  {
+    value: "COORDINATION",
+    label: "Coordination",
+  },
+  {
+    value: "PARTIAL",
+    label: "Partial",
+  },
+  {
+    value: "COMPREHENSIVE",
+    label: "Comprehensive",
+  },
+];
+
 export const types = [
   {
     value: "WEDDING",

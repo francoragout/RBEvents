@@ -43,7 +43,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { toast } from "sonner";
-import { types } from "../../../lib/data";
+import { organizations, types } from "../../../lib/data";
 
 export default function EventCreateForm() {
   const [isPending, startTransition] = useTransition();
@@ -54,7 +54,6 @@ export default function EventCreateForm() {
     defaultValues: {
       name: "",
       time: "00:00",
-      income: 0,
     },
   });
 
@@ -168,7 +167,7 @@ export default function EventCreateForm() {
                           onSelect={field.onChange}
                           disabled={(date) => {
                             const today = new Date();
-                            today.setUTCHours(0, 0, 0, 0);
+                            today.setHours(0, 0, 0, 0);
                             return date < today;
                           }}
                           initialFocus
@@ -221,23 +220,35 @@ export default function EventCreateForm() {
 
               <FormField
                 control={form.control}
-                name="income"
+                name="organization"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Income</FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isPending}
-                        placeholder="Income (optional)"
-                        {...field}
-                        type="number"
-                        value={field.value || ""}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          field.onChange(value === "" ? 0 : Number(value));
-                        }}
-                      />
-                    </FormControl>
+                    <FormLabel>Organization</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={isPending}
+                    >
+                      <FormControl>
+                        <SelectTrigger
+                          className={cn(
+                            "pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          <SelectValue placeholder="Organization (required)" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          {organizations.map((org) => (
+                            <SelectItem key={org.value} value={org.value}>
+                              {org.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

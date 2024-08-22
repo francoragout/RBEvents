@@ -16,7 +16,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     };
   }
 
-  const { name, type, date, time, venue, income } = validatedFields.data;
+  const { name, type, date, time, venue, organization } = validatedFields.data;
 
   try {
     await db.event.create({
@@ -26,7 +26,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         date,
         time,
         venue,
-        income,
+        organization,
       },
     });
     revalidatePath("/admin/events");
@@ -57,7 +57,7 @@ export const EditEvent = async (
     };
   }
 
-  const { name, type, date, time, venue, income } = validatedFields.data;
+  const { name, type, date, time, venue, organization } = validatedFields.data;
 
   try {
     await db.event.update({
@@ -68,7 +68,7 @@ export const EditEvent = async (
         date,
         time,
         venue,
-        income,
+        organization,
       },
     });
     revalidatePath("/admin/events");

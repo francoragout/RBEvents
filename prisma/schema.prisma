@@ -63,16 +63,22 @@ enum EventType {
   OTHER
 }
 
+enum EventOrganization {
+  COORDINATION
+  PARTIAL
+  COMPREHENSIVE
+}
+
 model Event {
-  id          String    @id @default(cuid())
-  name        String
-  type        EventType
-  date        DateTime  @db.Date
-  time        String
-  venue       String?
-  income      Int?
-  archived    Boolean   @default(false)
-  tasks       Task[]
+  id           String            @id @default(cuid())
+  name         String
+  type         EventType
+  date         DateTime          @db.Date
+  time         String
+  venue        String?
+  organization EventOrganization
+  archived     Boolean           @default(false)
+  tasks        Task[]
 }
 
 enum TaskLabel {
@@ -104,9 +110,22 @@ model Task {
 }
 
 model Provider {
-  id          String   @id @default(cuid())
-  name        String
-  address     String
-  city        String
-  phone       String?
+  id        String  @id @default(cuid())
+  name      String
+  address   String
+  city      String
+  phone     String?
+  in_charge String?
+
+  genset        Boolean @default(false)
+  green_space   Boolean @default(false)
+  bridal_suite  Boolean @default(false)
+  parking_space Boolean @default(false)
+  catering      Boolean @default(false)
+
+  capacity        Int?
+  rental_price    Int?
+  dinner_card     Int?
+  lunch_card      Int?
+  after_meal_card Int?
 }
