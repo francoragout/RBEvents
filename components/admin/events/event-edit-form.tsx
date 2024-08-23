@@ -56,7 +56,7 @@ const ExtendedEventSchema = EventSchema.extend({
 
 type Event = z.infer<typeof ExtendedEventSchema>;
 
-export default function EventEditForm({ event }: { event: Event }) {
+export default function EventEditForm({ event }: { event: Event }, { providers }: { providers: any }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -67,7 +67,7 @@ export default function EventEditForm({ event }: { event: Event }) {
       type: event.type,
       date: event.date,
       time: event.time,
-      venue: event.venue,
+      providerId: event.providerId,
       organization: event.organization,
     },
   });
@@ -221,18 +221,34 @@ export default function EventEditForm({ event }: { event: Event }) {
 
               <FormField
                 control={form.control}
-                name="venue"
+                name="providerId"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Venue</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Venue (optional)"
-                        {...field}
-                        value={field.value || ""}
-                        disabled={isPending}
-                      />
-                    </FormControl>
+                    <FormLabel>Provider</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      disabled={isPending}
+                    >
+                      <FormControl>
+                        <SelectTrigger
+                          className={cn(
+                            "pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          <SelectValue placeholder="Venue (required)" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          {providers.map((provider: any) => (
+                            <SelectItem key={provider.id} value={provider.name}>
+                              {provider.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

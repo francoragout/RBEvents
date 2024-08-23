@@ -7,6 +7,12 @@ export default async function EditEventPage({
 }: {
   params: { id: string };
 }) {
+  const providers = await db.provider.findMany({
+    select: {
+      id: true,
+      name: true,
+    },
+  });
   const id = params.id;
   const event = await db.event.findUnique({
     where: {
@@ -23,7 +29,7 @@ export default async function EditEventPage({
 
   return (
     <div>
-      <EventEditForm event={event} />
+      <EventEditForm event={event} providers={providers} />
     </div>
   );
 }

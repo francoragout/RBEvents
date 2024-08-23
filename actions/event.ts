@@ -7,6 +7,7 @@ import { z } from "zod";
 
 export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   const validatedFields = EventSchema.safeParse(values);
+  console.log(values) 
 
   if (!validatedFields.success) {
     return {
@@ -16,7 +17,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     };
   }
 
-  const { name, type, date, time, venue, organization } = validatedFields.data;
+  const { name, type, date, time, providerId, organization } = validatedFields.data;
 
   try {
     await db.event.create({
@@ -25,8 +26,8 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         type,
         date,
         time,
-        venue,
         organization,
+        provider: { connect: { id: providerId } }
       },
     });
     revalidatePath("/admin/events");
@@ -57,7 +58,7 @@ export const EditEvent = async (
     };
   }
 
-  const { name, type, date, time, venue, organization } = validatedFields.data;
+  const { name, type, date, time, providerId, organization } = validatedFields.data;
 
   try {
     await db.event.update({
@@ -67,7 +68,7 @@ export const EditEvent = async (
         type,
         date,
         time,
-        venue,
+        providerId,
         organization,
       },
     });

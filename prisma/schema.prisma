@@ -75,7 +75,8 @@ model Event {
   type         EventType
   date         DateTime          @db.Date
   time         String
-  venue        String?
+  providerId   String
+  provider     Provider          @relation(fields: [providerId], references: [id])
   organization EventOrganization
   archived     Boolean           @default(false)
   tasks        Task[]
@@ -109,23 +110,24 @@ model Task {
   eventId  String
 }
 
+enum City {
+  SAN_MIGHUEL_DE_TUCUMAN
+  TAFI_VIEJO
+  YERBA_BUENA
+  LULES
+  TAFI_DEL_VALLE
+}
 model Provider {
-  id        String  @id @default(cuid())
-  name      String
-  address   String
-  city      String
-  phone     String?
-  in_charge String?
-
-  genset        Boolean @default(false)
-  green_space   Boolean @default(false)
-  bridal_suite  Boolean @default(false)
-  parking_space Boolean @default(false)
-  catering      Boolean @default(false)
-
-  capacity        Int?
-  rental_price    Int?
-  dinner_card     Int?
-  lunch_card      Int?
-  after_meal_card Int?
+  id      String  @id @default(cuid())
+  name    String
+  address String
+  city    City
+  phone   String?
+  features String[]
+  capacity    Int?
+  rent        Int?
+  dinner_card Int?
+  lunch_card  Int?
+  after_card  Int?
+  event Event[]
 }

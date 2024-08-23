@@ -1,4 +1,4 @@
-import { add } from "date-fns";
+import { features } from "process";
 import { z } from "zod";
 
 export const TaskSchema = z.object({
@@ -41,10 +41,8 @@ export const EventSchema = z.object({
   time: z
     .string()
     .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Please select time"),
-  venue: z
-    .string()
-    .optional()
-    .nullable(),
+  providerId: z
+    .string({ required_error: "Provider ID is required" }),
   organization: z
     .enum(["COORDINATION", "PARTIAL", "COMPREHENSIVE"], {required_error: "Please select organization"}),
   archived: z
@@ -98,51 +96,39 @@ export const ProviderSchema = z.object({
     .min(3, "Address must be at least 3 characters.")
     .max(100, "Address must not be longer than 100 characters."),
   city: z
-    .string({ required_error: "City is required" })
-    .trim()
-    .min(3, "City must be at least 3 characters.")
-    .max(30, "City must not be longer than 30 characters."),
+  .enum(["SAN_MIGUEL_DE_TUCUMAN", "TAFI_VIEJO", "YERBA_BUENA", "LULES", "TAFI_DEL_VALLE"], {required_error: "Please select city"}),
   phone: z
     .string()
     .optional()
     .nullable(),
-  in_charge: z
-    .string()
-    .optional()
-    .nullable(),
-  genset: z
-    .boolean()
-    .default(false),
-  green_space: z
-    .boolean()
-    .default(false),
-  bridal_suite: z
-    .boolean()
-    .default(false),
-  parking_space: z
-    .boolean()
-    .default(false),
-  catering: z
-    .boolean()
-    .default(false),
+  features: z
+  .array(z.string())
+  .refine((value) => value.some((feature) => feature), {
+      message: "You have to select at least one item.",
+    }),
   capacity: z
     .number()
     .int()
-    .nullable(),
-  rental_price: z
+    .nullable()
+    .optional(),
+  rent: z
     .number()
     .int()
-    .nullable(),
+    .nullable()
+    .optional(),
   dinner_card: z
     .number()
     .int()
-    .nullable(),
+    .nullable()
+    .optional(),
   lunch_card: z
     .number()
     .int()
-    .nullable(),
-  after_meal_card: z
+    .nullable()
+    .optional(),
+  after_card: z
     .number()
     .int()
-    .nullable(),
+    .nullable()
+    .optional(),
 });

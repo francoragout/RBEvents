@@ -49,11 +49,11 @@ export const EventsColumns: ColumnDef<Event>[] = [
     cell: ({ row }) => <div>{row.getValue("time")}</div>,
   },
   {
-    accessorKey: "venue",
+    accessorKey: "provider",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="venue" />
+      <DataTableColumnHeader column={column} title="Provider" />
     ),
-    cell: ({ row }) => <div>{row.getValue("venue")}</div>,
+    cell: ({ row }) => <div>{row.getValue("provider")}</div>,
   },
   {
     accessorKey: "days left",

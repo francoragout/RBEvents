@@ -18,7 +18,7 @@ export const CreateProvider = async (
     };
   }
 
-  const { name, address, city, phone } = validatedFields.data;
+  const { name, address, city, phone, rent, dinner_card, lunch_card, after_card, capacity, features } = validatedFields.data;
 
   try {
     await db.provider.create({
@@ -27,6 +27,12 @@ export const CreateProvider = async (
         address,
         city,
         phone,
+        rent,
+        dinner_card,
+        lunch_card,
+        after_card,
+        capacity,
+        features
       },
     });
     revalidatePath("/admin/providers");
