@@ -7,7 +7,6 @@ import { z } from "zod";
 
 export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   const validatedFields = EventSchema.safeParse(values);
-  console.log(values) 
 
   if (!validatedFields.success) {
     return {
@@ -26,8 +25,8 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         type,
         date,
         time,
+        provider : { connect: { id: providerId } },
         organization,
-        provider: { connect: { id: providerId } }
       },
     });
     revalidatePath("/admin/events");

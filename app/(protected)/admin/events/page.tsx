@@ -14,9 +14,11 @@ async function getData(): Promise<Event[]> {
     },
     include: {
       tasks: true,
+      provider: true,
     },
   })
-    
+  console.log(events)
+
   return events.map((event) => EventSchema.parse(event));
 }
 

@@ -2,11 +2,12 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
-import { EventSchema, TaskSchema } from "@/lib/validations";
+import { EventSchema, ProviderSchema, TaskSchema } from "@/lib/validations";
 import { Badge } from "@/components/ui/badge";
 import { organizations, types } from "../../../lib/data";
 import { EventsTableRowActions } from "./events-table-row-actions";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
+
 
 type Event = z.infer<typeof EventSchema>;
 type Task = z.infer<typeof TaskSchema>;
@@ -49,12 +50,15 @@ export const EventsColumns: ColumnDef<Event>[] = [
     cell: ({ row }) => <div>{row.getValue("time")}</div>,
   },
   {
-    accessorKey: "provider",
+    accessorKey: "providerId",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Provider" />
     ),
-    cell: ({ row }) => <div>{row.getValue("provider")}</div>,
+    
+    
+    
   },
+  
   {
     accessorKey: "days left",
     header: "Days Left",
@@ -62,7 +66,6 @@ export const EventsColumns: ColumnDef<Event>[] = [
       const date = new Date(row.getValue("date"));
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      console.log(date, today);
       const diffTime = date.getTime() - today.getTime();
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       let daysLeft;

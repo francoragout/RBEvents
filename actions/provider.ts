@@ -18,7 +18,18 @@ export const CreateProvider = async (
     };
   }
 
-  const { name, address, city, phone, rent, dinner_card, lunch_card, after_card, capacity, features } = validatedFields.data;
+  const {
+    name,
+    address,
+    city,
+    phone,
+    rent,
+    dinner_card,
+    lunch_card,
+    after_card,
+    capacity,
+    features,
+  } = validatedFields.data;
 
   try {
     await db.provider.create({
@@ -32,7 +43,7 @@ export const CreateProvider = async (
         lunch_card,
         after_card,
         capacity,
-        features
+        features,
       },
     });
     revalidatePath("/admin/providers");
@@ -116,4 +127,4 @@ export const getProviders = async () => {
     console.error("Error getting providers:", error);
     return [];
   }
-}
+};
