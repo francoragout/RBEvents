@@ -1,4 +1,3 @@
-import { features } from "process";
 import { z } from "zod";
 
 export const TaskSchema = z.object({
@@ -23,34 +22,6 @@ export const TaskSchema = z.object({
   eventId: z
     .string()
     .optional(),
-});
-
-export const EventSchema = z.object({
-  id: z
-    .string()
-    .optional(),
-  name: z
-    .string({ required_error: "Name is required" })
-    .trim()
-    .min(3, "Name must be at least 3 characters.")
-    .max(30, "Name must not be longer than 30 characters."),
-  type: z
-    .enum(["WEDDING", "BIRTHDAY", "OPENING", "MEETING", "OTHER"], {required_error: "Please select type"}),
-  date: z
-    .date({ required_error: "Please select date" }),
-  time: z
-    .string()
-    .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Please select time"),
-  providerId: z
-    .string({ required_error: "Provider ID is required" }),
-  organization: z
-    .enum(["COORDINATION", "PARTIAL", "COMPREHENSIVE"], {required_error: "Please select organization"}),
-  archived: z
-    .boolean()
-    .default(false),
-  tasks: z
-    .array(TaskSchema)
-    .default([]),
 });
 
 export const LoginSchema = z.object({
@@ -131,4 +102,33 @@ export const ProviderSchema = z.object({
     .int()
     .nullable()
     .optional(),
+});
+
+export const EventSchema = z.object({
+  id: z
+    .string()
+    .optional(),
+  name: z
+    .string({ required_error: "Name is required" })
+    .trim()
+    .min(3, "Name must be at least 3 characters.")
+    .max(30, "Name must not be longer than 30 characters."),
+  type: z
+    .enum(["WEDDING", "BIRTHDAY", "OPENING", "MEETING", "OTHER"], {required_error: "Please select type"}),
+  date: z
+    .date({ required_error: "Please select date" }),
+  time: z
+    .string()
+    .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Please select time"),
+  providerId: z
+    .string({ required_error: "Provider ID is required" }),
+  provider: ProviderSchema,
+  organization: z
+    .enum(["COORDINATION", "PARTIAL", "COMPREHENSIVE"], {required_error: "Please select organization"}),
+  archived: z
+    .boolean()
+    .default(false),
+  tasks: z
+    .array(TaskSchema)
+    .default([]),
 });

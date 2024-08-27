@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
-import { EventSchema, ProviderSchema, TaskSchema } from "@/lib/validations";
+import { EventSchema, TaskSchema } from "@/lib/validations";
 import { Badge } from "@/components/ui/badge";
 import { organizations, types } from "../../../lib/data";
 import { EventsTableRowActions } from "./events-table-row-actions";
@@ -54,11 +54,8 @@ export const EventsColumns: ColumnDef<Event>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Provider" />
     ),
-    
-    
-    
+    cell: ({ row }) => <div>{row.original.provider.name}</div>, 
   },
-  
   {
     accessorKey: "days left",
     header: "Days Left",

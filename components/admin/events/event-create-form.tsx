@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { CreateEvent } from "@/actions/event";
-import { EventSchema } from "@/lib/validations";
+import { EventSchema, ProviderSchema } from "@/lib/validations";
 import { useRouter } from "next/navigation";
 import {
   Form,
@@ -45,7 +45,9 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { organizations, types } from "../../../lib/data";
 
-export default function EventCreateForm({ providers }: { providers: any }) {
+type Provider = z.infer<typeof ProviderSchema>;
+
+export default function EventCreateForm({ providers }: { providers: Provider[] }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -221,8 +223,8 @@ export default function EventCreateForm({ providers }: { providers: any }) {
                       </FormControl>
                       <SelectContent>
                         <SelectGroup>
-                          {providers.map((provider: any) => (
-                            <SelectItem key={provider.id} value={provider.id}>
+                          {providers.map((provider) => (
+                            <SelectItem key={provider.id} value={provider.id || ''}>
                               {provider.name}
                             </SelectItem>
                           ))}

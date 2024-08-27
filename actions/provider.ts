@@ -128,3 +128,19 @@ export const getProviders = async () => {
     return [];
   }
 };
+
+export const getProviderById = async (id: string) => {
+  try {
+    const provider = await db.provider.findUnique({
+      where: { id },
+    });
+    if (provider) {
+      return provider.name; // Asumiendo que el campo del nombre es 'name'
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error getting provider:", error);
+    return null;
+  }
+};
