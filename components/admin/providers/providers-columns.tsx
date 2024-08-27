@@ -6,7 +6,7 @@ import { DataTableColumnHeader } from "@/components/data-table-column-header";
 import { z } from "zod";
 import { ProviderSchema } from "@/lib/validations";
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Copy, UserRound } from "lucide-react";
 import { toast } from "sonner";
 import {
   Tooltip,
@@ -86,35 +86,39 @@ export const ProvidersColumns: ColumnDef<Provider>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Capacity" />
     ),
-    cell: ({ row }) => <div>{row.getValue("capacity")}</div>,
+    cell: ({ row }) => {
+      const capacity = row.getValue("capacity") as number;
+      if (!capacity) return null;
+      return <div className="flex">{capacity}<UserRound className="h-4 w-4 ml-2" /></div>;
+    },
   },
   {
     accessorKey: "rent",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Rent" />
     ),
-    cell: ({ row }) => <div>{row.getValue("rent")}</div>,
+    cell: ({ row }) => <div>${row.getValue("rent")}</div>,
   },
   {
-    accessorKey: "dinner_card",
+    accessorKey: "dinner",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Dinner Card" />
+      <DataTableColumnHeader column={column} title="Dinner" />
     ),
-    cell: ({ row }) => <div>{row.getValue("dinner_card")}</div>,
+    cell: ({ row }) => <div>${row.getValue("dinner")}</div>,
   },
   {
-    accessorKey: "lunch_card",
+    accessorKey: "lunch",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Lunch Card" />
+      <DataTableColumnHeader column={column} title="Lunch" />
     ),
-    cell: ({ row }) => <div>{row.getValue("lunch_card")}</div>,
+    cell: ({ row }) => <div>${row.getValue("lunch")}</div>,
   },
   {
-    accessorKey: "after_card",
+    accessorKey: "after",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="After Card" />
+      <DataTableColumnHeader column={column} title="After" />
     ),
-    cell: ({ row }) => <div>{row.getValue("after_card")}</div>,
+    cell: ({ row }) => <div>${row.getValue("after")}</div>,
   },
   {
     accessorKey: "features",
@@ -131,7 +135,6 @@ export const ProvidersColumns: ColumnDef<Provider>[] = [
       return <div className="flex">{featureLabels}</div>;
     },
   },
-
   {
     id: "actions",
     cell: ({ row }) => <ProvidersTableRowActions row={row} />,

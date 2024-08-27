@@ -49,6 +49,10 @@ export default function ProviderCreateForm() {
       name: "",
       address: "",
       features: [],
+      rent: 0,
+      dinner: 0,
+      lunch: 0,
+      after: 0,
     },
   });
 
@@ -214,7 +218,7 @@ export default function ProviderCreateForm() {
 
               <FormField
                 control={form.control}
-                name="dinner_card"
+                name="dinner"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Dinner Card</FormLabel>
@@ -237,7 +241,7 @@ export default function ProviderCreateForm() {
 
               <FormField
                 control={form.control}
-                name="lunch_card"
+                name="lunch"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Lunch Card</FormLabel>
@@ -260,7 +264,7 @@ export default function ProviderCreateForm() {
 
               <FormField
                 control={form.control}
-                name="after_card"
+                name="after"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>After Card</FormLabel>

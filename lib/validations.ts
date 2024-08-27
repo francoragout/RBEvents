@@ -87,17 +87,17 @@ export const ProviderSchema = z.object({
     .int()
     .nullable()
     .optional(),
-  dinner_card: z
+  dinner: z
     .number()
     .int()
     .nullable()
     .optional(),
-  lunch_card: z
+  lunch: z
     .number()
     .int()
     .nullable()
     .optional(),
-  after_card: z
+  after: z
     .number()
     .int()
     .nullable()
@@ -121,8 +121,8 @@ export const EventSchema = z.object({
     .string()
     .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Please select time"),
   providerId: z
-    .string({ required_error: "Provider ID is required" }),
-  provider: ProviderSchema,
+    .string({ required_error: "Please select provider" }),
+  provider: ProviderSchema.optional(),
   organization: z
     .enum(["COORDINATION", "PARTIAL", "COMPREHENSIVE"], {required_error: "Please select organization"}),
   archived: z

@@ -50,9 +50,9 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
       city: provider.city,
       phone: provider.phone,
       rent: provider.rent,
-      dinner_card: provider.dinner_card,
-      lunch_card: provider.lunch_card,
-      after_card: provider.after_card,
+      dinner: provider.dinner,
+      lunch: provider.lunch,
+      after: provider.after,
       capacity: provider.capacity,
       features: provider.features,
     },
@@ -220,7 +220,7 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
 
               <FormField
                 control={form.control}
-                name="dinner_card"
+                name="dinner"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Dinner Card</FormLabel>
@@ -243,7 +243,7 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
 
               <FormField
                 control={form.control}
-                name="lunch_card"
+                name="lunch"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Lunch Card</FormLabel>
@@ -266,7 +266,7 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
 
               <FormField
                 control={form.control}
-                name="after_card"
+                name="after"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>After Card</FormLabel>

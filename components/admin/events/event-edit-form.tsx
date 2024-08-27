@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
 import { CreateEvent, EditEvent } from "@/actions/event";
-import { EventSchema } from "@/lib/validations";
+import { EventSchema, ProviderSchema } from "@/lib/validations";
 import { redirect, useRouter } from "next/navigation";
 import {
   Form,
@@ -55,8 +55,14 @@ const ExtendedEventSchema = EventSchema.extend({
 });
 
 type Event = z.infer<typeof ExtendedEventSchema>;
+type Provider = z.infer<typeof ProviderSchema>;
 
-export default function EventEditForm({ event }: { event: Event }, { providers }: { providers: any }) {
+interface EventEditFormProps {
+  event: Event;
+  providers: Provider[];
+}
+
+export default function EventEditForm({ event, providers }: EventEditFormProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -71,8 +77,6 @@ export default function EventEditForm({ event }: { event: Event }, { providers }
       organization: event.organization,
     },
   });
-
-  console.log(event.date);
 
   function onSubmit(values: z.infer<typeof EventSchema>) {
     startTransition(() => {
@@ -225,10 +229,8 @@ export default function EventEditForm({ event }: { event: Event }, { providers }
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Provider</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      disabled={isPending}
-                    >
+                    <Select onValueChange={field.onChange} disabled={isPending}
+                    defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger
                           className={cn(
@@ -241,8 +243,11 @@ export default function EventEditForm({ event }: { event: Event }, { providers }
                       </FormControl>
                       <SelectContent>
                         <SelectGroup>
-                          {providers.map((provider: any) => (
-                            <SelectItem key={provider.id} value={provider.name}>
+                          {providers.map((provider) => (
+                            <SelectItem
+                              key={provider.id}
+                              value={provider.id || ""}
+                            >
                               {provider.name}
                             </SelectItem>
                           ))}

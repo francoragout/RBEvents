@@ -24,9 +24,9 @@ export const CreateProvider = async (
     city,
     phone,
     rent,
-    dinner_card,
-    lunch_card,
-    after_card,
+    dinner,
+    lunch,
+    after,
     capacity,
     features,
   } = validatedFields.data;
@@ -39,9 +39,9 @@ export const CreateProvider = async (
         city,
         phone,
         rent,
-        dinner_card,
-        lunch_card,
-        after_card,
+        dinner,
+        lunch,
+        after,
         capacity,
         features,
       },
@@ -126,21 +126,5 @@ export const getProviders = async () => {
   } catch (error) {
     console.error("Error getting providers:", error);
     return [];
-  }
-};
-
-export const getProviderById = async (id: string) => {
-  try {
-    const provider = await db.provider.findUnique({
-      where: { id },
-    });
-    if (provider) {
-      return provider.name; // Asumiendo que el campo del nombre es 'name'
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error("Error getting provider:", error);
-    return null;
   }
 };

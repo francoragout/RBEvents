@@ -111,23 +111,24 @@ model Task {
 }
 
 enum City {
-  SAN_MIGHUEL_DE_TUCUMAN
+  SAN_MIGUEL_DE_TUCUMAN
   TAFI_VIEJO
   YERBA_BUENA
   LULES
   TAFI_DEL_VALLE
 }
+
 model Provider {
-  id      String  @id @default(cuid())
-  name    String
-  address String
-  city    City
-  phone   String?
+  id       String   @id @default(cuid())
+  name     String
+  address  String
+  city     City
+  phone    String?
   features String[]
-  capacity    Int?
-  rent        Int?
-  dinner_card Int?
-  lunch_card  Int?
-  after_card  Int?
-  event Event[]
+  capacity Int?
+  rent     Int?
+  dinner   Int?
+  lunch    Int?
+  after    Int?
+  event    Event[]
 }
