@@ -54,7 +54,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Provider" />
     ),
-    cell: ({ row }) => <div>{row.original.provider.name}</div>, 
+    cell: ({ row }) => <div>{row.original.provider?.name}</div>, 
   },
   {
     accessorKey: "days left",

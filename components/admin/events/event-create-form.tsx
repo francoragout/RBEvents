@@ -218,7 +218,7 @@ export default function EventCreateForm({ providers }: { providers: Provider[] }
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <SelectValue placeholder="Venue (required)" />
+                          <SelectValue placeholder="Provider (required)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>

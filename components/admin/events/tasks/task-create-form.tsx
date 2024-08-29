@@ -22,7 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../../../ui/form";
-import { Textarea } from "../../../ui/textarea";
 import {
   Select,
   SelectContent,
@@ -92,6 +91,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                     <Input
                       placeholder="Title (required)"
                       className="resize-none"
+                      disabled={isPending}
                       {...field}
                     />
                   </FormControl>

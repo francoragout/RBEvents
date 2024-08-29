@@ -238,7 +238,7 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <SelectValue placeholder="Venue (required)" />
+                          <SelectValue placeholder="Provider (required)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>

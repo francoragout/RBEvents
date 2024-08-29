@@ -24,8 +24,8 @@ export default async function EditEventPage({
   }
 
   return (
-    <div>
-      <EventEditForm event={event} providers={providers}/>
-    </div>
-  );
+      <div>
+        <EventEditForm event={{ ...event, budget: [] }} providers={providers}/>
+      </div>
+    );
 }
