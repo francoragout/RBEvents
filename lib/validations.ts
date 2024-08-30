@@ -76,18 +76,6 @@ export const TaskSchema = z.object({
   eventId: z.string().optional(),
 });
 
-// export const BudgetSchema = z.object({
-//   id: z.string().optional(),
-//   category: z.string(),
-//   name: z.string(),
-//   description: z.string().optional(),
-//   paid_method: z.string().optional(),
-//   amount: z.number().int().optional(),
-//   amount_paid: z.number().int().optional(),
-//   observation: z.string().optional(),
-//   eventId: z.string().optional(),
-// });
-
 export const BudgetSchema = z.object({
   id: z.string().optional(),
   category: z
@@ -128,6 +116,6 @@ export const EventSchema = z.object({
     required_error: "Please select organization",
   }),
   archived: z.boolean().default(false),
-  tasks: z.array(TaskSchema).default([]),
+  task: z.array(TaskSchema).default([]),
   budget: z.array(BudgetSchema).default([]),
 });

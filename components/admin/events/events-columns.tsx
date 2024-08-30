@@ -8,9 +8,7 @@ import { organizations, types } from "../../../lib/data";
 import { EventsTableRowActions } from "./events-table-row-actions";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
 
-
 type Event = z.infer<typeof EventSchema>;
-type Task = z.infer<typeof TaskSchema>;
 
 export const EventsColumns: ColumnDef<Event>[] = [
   {
@@ -54,7 +52,21 @@ export const EventsColumns: ColumnDef<Event>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Provider" />
     ),
-    cell: ({ row }) => <div>{row.original.provider?.name}</div>, 
+    cell: ({ row }) => <div>{row.original.provider?.name}</div>,
+  },
+  {
+    accessorKey: "organization",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Organization" />
+    ),
+    cell: ({ row }) => {
+      const organization = organizations.find(
+        (organization) => organization.value === row.getValue("organization")
+      );
+
+      if (!organization) return null;
+      return organization.label;
+    },
   },
   {
     accessorKey: "days left",
@@ -86,7 +98,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
     accessorKey: "tasks",
     header: () => <div className="text-left">Tasks</div>,
     cell: ({ row }) => {
-      const tasks: Task[] = row.getValue("tasks");
+      const tasks = row.original.task;
       const totalTasks = tasks.length;
       const completedTasks = tasks.filter(
         (task) => task.status === "DONE"
@@ -99,15 +111,19 @@ export const EventsColumns: ColumnDef<Event>[] = [
     },
   },
   {
-    accessorKey: "organization",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Organization" />
-    ),
+    accessorKey: "budget",
+    header: () => <div className="text-left">Budget</div>,
     cell: ({ row }) => {
-      const organization = organizations.find((organization) => organization.value === row.getValue("organization"));
-
-      if (!organization) return null;
-      return organization.label;
+      const budget = row.original.budget;
+      const totalBudget = budget.length;
+      const paidBudget = budget.filter(
+        (budget) => budget.amount_paid === budget.amount
+      ).length;
+      return (
+        <div>
+          {paidBudget} / {totalBudget}
+        </div>
+      );
     },
   },
   {

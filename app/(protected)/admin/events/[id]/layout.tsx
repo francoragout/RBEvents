@@ -73,9 +73,9 @@ const EventLayout = async ({ children, params }: ProtectedLayoutProps) => {
                 className="flex justify-start pl-2"
                 size="sm"
               >
-                <Link href={`/admin/events/${event?.id}/budgets`}>
+                <Link href={`/admin/events/${event?.id}/budget`}>
                   <DollarSign className="mr-2 h-4 w-4" />
-                  <span>Budgets</span>
+                  <span>Budget</span>
                 </Link>
               </Button>
             </div>

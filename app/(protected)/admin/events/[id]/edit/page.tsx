@@ -10,22 +10,22 @@ export default async function EditEventPage({
   const providers = await db.provider.findMany();
   
   const id = params.id;
+  console.log(id);
   const event = await db.event.findUnique({
     where: {
       id: id,
     },
-    include: {
-      tasks: true,
-    },
+    
+    
   });
-
+console.log(event);
   if (!event) {
     notFound();
   }
 
   return (
       <div>
-        <EventEditForm event={{ ...event, budget: [] }} providers={providers}/>
+        <EventEditForm event={event} providers={providers}/>
       </div>
     );
 }

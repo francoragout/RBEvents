@@ -76,8 +76,8 @@ model Event {
   provider     Provider          @relation(fields: [providerId], references: [id])
   organization EventOrganization
   archived     Boolean           @default(false)
-  tasks        Task[]
-  budgets       Budget[]
+  task         Task[]
+  budget       Budget[]
 }
 
 enum TaskLabel {

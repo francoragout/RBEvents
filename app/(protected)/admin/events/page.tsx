@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
 
-
 type Event = z.infer<typeof EventSchema>;
 
 async function getData(): Promise<Event[]> {
@@ -13,9 +12,9 @@ async function getData(): Promise<Event[]> {
       archived: false,
     },
     include: {
-      tasks: true,
       provider: true,
-      budgets: true,
+      task: true,
+      budget: true,
     },
   });
   return events.map((event) => EventSchema.parse(event));

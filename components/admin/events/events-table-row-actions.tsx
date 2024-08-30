@@ -103,9 +103,9 @@ export function EventsTableRowActions<TData>({
           </Button>
 
           <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
-            <Link href={`/admin/events/${event.id}/budgets`}>
+            <Link href={`/admin/events/${event.id}/budget`}>
               <DollarSign className="mr-2 h-4 w-4" />
-              <span>Budgets</span>
+              <span>Budget</span>
             </Link>
           </Button>
 

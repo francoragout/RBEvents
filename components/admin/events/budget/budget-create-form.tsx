@@ -223,6 +223,7 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
                   variant="outline"
                   size="sm"
                   onClick={() => form.reset()}
+                  disabled={isPending}
                 >
                   Cancel
                 </Button>

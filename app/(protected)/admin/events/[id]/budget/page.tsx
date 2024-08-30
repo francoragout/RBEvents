@@ -1,5 +1,5 @@
-import { BudgetColumns } from "@/components/admin/events/budgets/budget-columns";
-import { BudgetTable } from "@/components/admin/events/budgets/budget-table";
+import { BudgetColumns } from "@/components/admin/events/budget/budget-columns";
+import { BudgetTable } from "@/components/admin/events/budget/budget-table";
 import { db } from "@/lib/db";
 import { BudgetSchema } from "@/lib/validations";
 import { z } from "zod";
@@ -16,7 +16,7 @@ async function getData(eventId: string): Promise<Budget[]> {
   return budgets.map((budget) => BudgetSchema.parse(budget));
 }
 
-export default async function BudgetsPage({
+export default async function BudgetPage({
   params,
 }: {
   params: { id: string };

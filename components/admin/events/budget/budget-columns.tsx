@@ -5,6 +5,7 @@ import { BudgetSchema } from "@/lib/validations";
 import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
 import { BudgetTableRowActions } from "./budget-table-row-actions";
+import { Badge } from "@/components/ui/badge";
 
 type Budget = z.infer<typeof BudgetSchema>;
 
@@ -56,7 +57,16 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Settled" />
     ),
-    cell: ({ row }) => <div>{row.getValue("settled")}</div>,
+    cell: ({ row }) => {
+      const amount = row.getValue("amount") as number;
+      const amountPaid = row.getValue("amount_paid") as number;
+      const settled = amount - amountPaid;
+      if (settled !== 0) {
+        return <Badge variant="destructive">{settled}</Badge>;
+      } else {
+        return <Badge className="bg-green-500">{settled}</Badge>;
+      }
+    },
   },
   {
     accessorKey: "observation",
