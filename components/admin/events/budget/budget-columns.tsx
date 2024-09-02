@@ -43,14 +43,14 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Amount" />
     ),
-    cell: ({ row }) => <div>{row.getValue("amount")}</div>,
+    cell: ({ row }) => <div>${row.getValue("amount")}</div>,
   },
   {
     accessorKey: "amount_paid",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Amount Paid" />
     ),
-    cell: ({ row }) => <div>{row.getValue("amount_paid")}</div>,
+    cell: ({ row }) => <div>${row.getValue("amount_paid")}</div>,
   },
   {
     accessorKey: "settled",
@@ -62,9 +62,9 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
       const amountPaid = row.getValue("amount_paid") as number;
       const settled = amount - amountPaid;
       if (settled !== 0) {
-        return <Badge variant="destructive">{settled}</Badge>;
+        return <Badge variant="destructive">${settled}</Badge>;
       } else {
-        return <Badge className="bg-green-500">{settled}</Badge>;
+        return <Badge className="bg-green-500">Yes</Badge>;
       }
     },
   },

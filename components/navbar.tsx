@@ -20,7 +20,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import LogoutButton from "./auth/logout-button";
 import { LogIn } from "lucide-react";
 
-const clientLinks = [{ name: "Dashboard", href: "/client/dashboard" }];
+const clientLinks = [
+  { name: "Events", href: "/client/events" },
+];
 
 const adminLinks = [
   { name: "Dashboard", href: "/admin/dashboard" },

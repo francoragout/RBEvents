@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 
 import { redirect } from "next/navigation";
-export default async function ClientPage() {
+export default async function ProtectedClientLayout() {
   const session = await auth();
 
   if (session?.user?.role !== "USER") {

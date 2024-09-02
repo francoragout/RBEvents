@@ -96,6 +96,7 @@ export default function BudgetEditForm({ budget }: { budget: Budget }) {
                       placeholder="Category (required)"
                       {...field}
                       disabled={isPending}
+                      
                     />
                   </FormControl>
                   <FormMessage />

@@ -23,6 +23,7 @@ model User {
   accounts      Account[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  events        Event[]
 }
 
 model Account {
@@ -78,6 +79,48 @@ model Event {
   archived     Boolean           @default(false)
   task         Task[]
   budget       Budget[]
+  information  Information?
+  list         List[]
+  userEmail    String
+  user         User              @relation(fields: [userEmail], references: [email])
+}
+
+model Information {
+  id              String @id @default(cuid())
+  fn_couple_1     String
+  fn_couple_2     String
+  fn_chiildrens   String
+  fn_father_1     String
+  fn_father_2     String
+  fn_mother_1     String
+  fn_mother_2     String
+  fn_brothers_1   String
+  fn_brothers_2   String
+  fn_godparents_1 String
+  fn_godparents_2 String
+  fn_witnesses_1  String
+  fn_witnesses_2  String
+  nutrition_1     String
+  nutrition_2     String
+  alergies_1      String
+  alergies_2      String
+  drinks_1        String
+  drinks_2        String
+  attendant       String
+  obseravtion     String
+  event           Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId         String @unique
+}
+
+model List {
+  id           String  @id @default(cuid())
+  first_name   String
+  last_name    String
+  after_guest  Boolean @default(false)
+  observation  String?
+  table_number Int?
+  event        Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId      String
 }
 
 enum TaskLabel {

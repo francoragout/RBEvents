@@ -5,7 +5,7 @@ interface ProtectedLayoutProps {
   children: React.ReactNode;
 }
 
-const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
+const ProtectedAdminLayout = async ({ children }: ProtectedLayoutProps) => {
   const session = await auth();
   
   if (session?.user?.role !== "ADMIN") {
@@ -14,11 +14,9 @@ const ProtectedLayout = async ({ children }: ProtectedLayoutProps) => {
 
   return (
     <main>
-      {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
-      
       {children}
     </main>
   );
 };
 
-export default ProtectedLayout;
+export default ProtectedAdminLayout;
