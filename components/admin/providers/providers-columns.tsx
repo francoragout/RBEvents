@@ -86,11 +86,7 @@ export const ProvidersColumns: ColumnDef<Provider>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Capacity" />
     ),
-    cell: ({ row }) => {
-      const capacity = row.getValue("capacity") as number;
-      if (!capacity) return null;
-      return <div className="flex">{capacity}<UserRound className="h-4 w-4 ml-2" /></div>;
-    },
+    cell: ({ row }) => <div>{row.getValue("capacity")}</div>,
   },
   {
     accessorKey: "rent",

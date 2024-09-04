@@ -75,6 +75,8 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
       time: event.time,
       providerId: event.providerId,
       organization: event.organization,
+      
+     
     },
   });
 
@@ -101,7 +103,7 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <FormField
+            <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
@@ -158,49 +160,46 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
               <FormField
                 control={form.control}
                 name="date"
-                render={({ field }) => {
-                  const utcDate = toZonedTime(field.value, "UTC");
-                  return (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Date</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              disabled={isPending}
-                              variant={"outline"}
-                              className={cn(
-                                "pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {utcDate ? (
-                                format(utcDate, "EEE, dd MMM yyyy")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={utcDate}
-                            onSelect={field.onChange}
-                            disabled={(date) => {
-                              const today = new Date();
-                              today.setHours(0, 0, 0, 0);
-                              return date < today;
-                            }}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Date</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            disabled={isPending}
+                            variant={"outline"}
+                            className={cn(
+                              "pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "EEE, dd MMM yyyy")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) => {
+                            const today = new Date();
+                            today.setHours(0, 0, 0, 0);
+                            return date < today;
+                          }}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
 
               <FormField
@@ -229,8 +228,9 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Provider</FormLabel>
-                    <Select onValueChange={field.onChange} disabled={isPending}
-                    defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} disabled={isPending} defaultValue={
+                      field.value || ""
+                    }>
                       <FormControl>
                         <SelectTrigger
                           className={cn(
@@ -238,7 +238,7 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <SelectValue placeholder="Provider (required)" />
+                          <SelectValue placeholder="Provider (opcional)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -290,6 +290,25 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
                         </SelectGroup>
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="userEmail"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Email (opcional)"
+                        {...field}
+                        disabled={isPending}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

@@ -11,11 +11,6 @@ async function getData(): Promise<Event[]> {
     where: {
       archived: false,
     },
-    include: {
-      provider: true,
-      task: true,
-      budget: true,
-    },
   });
   return events.map((event) => EventSchema.parse(event));
 }

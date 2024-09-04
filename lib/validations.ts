@@ -1,3 +1,4 @@
+import { User } from "lucide-react";
 import { z } from "zod";
 
 export const LoginSchema = z.object({
@@ -96,6 +97,19 @@ export const BudgetSchema = z.object({
   eventId: z.string().optional(),
 });
 
+
+const EventTypeEnum = z.enum([
+  "WEDDING",
+  "BIRTHDAY",
+  "OPENING",
+  "ANNIVERSARY",
+  "PARTY",
+  "PARADE",
+  "CONGRESS",
+  "PRODUCT_LAUNCH",
+  "OTHER",
+]);
+
 export const EventSchema = z.object({
   id: z.string().optional(),
   name: z
@@ -103,19 +117,18 @@ export const EventSchema = z.object({
     .trim()
     .min(3, "Name must be at least 3 characters.")
     .max(30, "Name must not be longer than 30 characters."),
-  type: z.enum(["WEDDING", "BIRTHDAY", "OPENING", "MEETING", "OTHER"], {
-    required_error: "Please select type",
-  }),
+  type: EventTypeEnum,
   date: z.date({ required_error: "Please select date" }),
   time: z
     .string()
     .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Please select time"),
-  providerId: z.string({ required_error: "Please select provider" }),
-  provider: ProviderSchema.optional(),
-  organization: z.enum(["COORDINATION", "PARTIAL", "COMPREHENSIVE"], {
-    required_error: "Please select organization",
+    organization: z.enum(["COORDINATION", "PARTIAL", "COMPREHENSIVE"], {
+      required_error: "Please select organization",
   }),
   archived: z.boolean().default(false),
   task: z.array(TaskSchema).default([]),
   budget: z.array(BudgetSchema).default([]),
+  
+  providerId: z.string().nullish(),
+  userEmail: z.string().email().nullish(),
 });

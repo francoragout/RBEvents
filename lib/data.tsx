@@ -37,8 +37,24 @@ export const types = [
     label: "Opening",
   },
   {
-    value: "MEETING",
-    label: "Meeting",
+    value: "ANNIVERSARY",
+    label: "Anniversary",
+  },
+  {
+    value: "PARTY",
+    label: "Party",
+  },
+  {
+    value: "PARADE",
+    label: "Parade",
+  },
+  {
+    value: "CONGRESS",
+    label: "Congress",
+  },
+  {
+    value: "PRODUCT_LAUNCH",
+    label: "Product Launch",
   },
   {
     value: "OTHER",
@@ -147,4 +163,3 @@ export const cities = [
     label: "Tafí del Valle",
   },
 ];
-

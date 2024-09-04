@@ -43,11 +43,15 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { toast } from "sonner";
-import { organizations, types } from "../../../lib/data";
+import { organizations, types } from "@/lib/data";
 
 type Provider = z.infer<typeof ProviderSchema>;
 
-export default function EventCreateForm({ providers }: { providers: Provider[] }) {
+export default function EventCreateForm({
+  providers,
+}: {
+  providers: Provider[];
+}) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -207,10 +211,7 @@ export default function EventCreateForm({ providers }: { providers: Provider[] }
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Provider</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      disabled={isPending}
-                    >
+                    <Select onValueChange={field.onChange} disabled={isPending}>
                       <FormControl>
                         <SelectTrigger
                           className={cn(
@@ -218,13 +219,16 @@ export default function EventCreateForm({ providers }: { providers: Provider[] }
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <SelectValue placeholder="Provider (required)" />
+                          <SelectValue placeholder="Provider (opcional)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         <SelectGroup>
                           {providers.map((provider) => (
-                            <SelectItem key={provider.id} value={provider.id || ''}>
+                            <SelectItem
+                              key={provider.id}
+                              value={provider.id || ""}
+                            >
                               {provider.name}
                             </SelectItem>
                           ))}
@@ -267,6 +271,25 @@ export default function EventCreateForm({ providers }: { providers: Provider[] }
                         </SelectGroup>
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="userEmail"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Email (opcional)"
+                        {...field}
+                        disabled={isPending}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

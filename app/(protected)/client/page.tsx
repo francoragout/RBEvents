@@ -13,7 +13,6 @@ export default async function ProtectedClientLayout() {
       <h1>Client Page</h1>
       <p>This page is only visible to authenticated users.</p>
       <pre>{JSON.stringify(session, null, 2)}</pre>
-     
     </div>
   );
 }

@@ -74,7 +74,18 @@ export const UpdateProvider = async (
     };
   }
 
-  const { name, address, city, phone } = validatedFields.data;
+  const {
+    name,
+    address,
+    city,
+    phone,
+    capacity,
+    rent,
+    dinner,
+    lunch,
+    after,
+    features,
+  } = validatedFields.data;
 
   try {
     await db.provider.update({
@@ -84,6 +95,12 @@ export const UpdateProvider = async (
         address,
         city,
         phone,
+        capacity,
+        rent,
+        dinner,
+        lunch,
+        after,
+        features,
       },
     });
     revalidatePath("/admin/providers");

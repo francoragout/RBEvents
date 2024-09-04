@@ -16,7 +16,25 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     };
   }
 
-  const { name, type, date, time, providerId, organization } = validatedFields.data;
+  const { name, type, date, time, providerId, organization, userEmail } = validatedFields.data;
+
+  const user = await db.user.findUnique({
+    where: {
+      email: userEmail!,
+    },
+    select: {
+      id: true,
+    },
+  });
+  
+  if (!user) {
+    return {
+      success: false,
+      message: "User not found.",
+    };
+  }
+  
+  const userId = user.id;
 
   try {
     await db.event.create({
@@ -25,8 +43,9 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         type,
         date,
         time,
-        provider : { connect: { id: providerId } },
         organization,
+        providerId,
+        userId,
       },
     });
     revalidatePath("/admin/events");
@@ -57,7 +76,8 @@ export const EditEvent = async (
     };
   }
 
-  const { name, type, date, time, providerId, organization } = validatedFields.data;
+  const { name, type, date, time, providerId, organization } =
+    validatedFields.data;
 
   try {
     await db.event.update({
@@ -125,4 +145,3 @@ export const ArchiveEvent = async (id: string) => {
     };
   }
 };
-
