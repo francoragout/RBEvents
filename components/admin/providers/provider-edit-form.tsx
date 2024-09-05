@@ -20,7 +20,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cities, features } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { ProviderSchema } from "@/lib/validations";
@@ -49,11 +56,11 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
       address: provider.address,
       city: provider.city,
       phone: provider.phone,
-      rent: provider.rent,
-      dinner: provider.dinner,
-      lunch: provider.lunch,
-      after: provider.after,
-      capacity: provider.capacity,
+      rent: provider.rent || undefined,
+      dinner: provider.dinner || undefined,
+      lunch: provider.lunch || undefined,
+      after: provider.after || undefined,
+      capacity: provider.capacity || undefined,
       features: provider.features,
     },
   });
@@ -80,7 +87,7 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <FormField
+              <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
@@ -106,7 +113,7 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                     <FormLabel>Address</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Address (required)"
+                        placeholder="Address (optional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -164,7 +171,7 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                         type="number"
                         {...field}
                         disabled={isPending}
-                        value={field.value || ""}
+                        value={field.value ?? ""}
                       />
                     </FormControl>
                     <FormMessage />
@@ -184,10 +191,6 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                         type="number"
                         {...field}
                         disabled={isPending}
-                        value={field.value || ""}
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value));
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -207,10 +210,6 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                         type="number"
                         {...field}
                         disabled={isPending}
-                        value={field.value || ""}
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value));
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -230,10 +229,6 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                         type="number"
                         {...field}
                         disabled={isPending}
-                        value={field.value || ""}
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value));
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -253,10 +248,6 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                         type="number"
                         {...field}
                         disabled={isPending}
-                        value={field.value || ""}
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value));
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -273,71 +264,72 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                     <FormControl>
                       <Input
                         placeholder="After card (optional)"
-                        type="number"
                         {...field}
                         disabled={isPending}
-                        value={field.value || ""}
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value));
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            <FormField
-              control={form.control}
-              name="features"
-              render={() => (
-                <FormItem>
-                  <div className="mb-4">
-                    <FormLabel className="text-base">Features</FormLabel>
-                    <FormDescription>
-                      Select the features that the provider offers
-                    </FormDescription>
-                  </div>
-                  {features.map((feature) => (
-                    <FormField
-                      key={feature.id}
-                      control={form.control}
-                      name="features"
-                      render={({ field }) => {
-                        return (
-                          <FormItem
-                            key={feature.id}
-                            className="flex flex-row items-start space-x-3 space-y-0"
-                          >
-                            <FormControl>
-                              <Checkbox
-                                checked={field.value?.includes(feature.id)}
-                                onCheckedChange={(checked) => {
-                                  return checked
-                                    ? field.onChange([
-                                        ...field.value,
-                                        feature.id,
-                                      ])
-                                    : field.onChange(
-                                        field.value?.filter(
-                                          (value) => value !== feature.id
-                                        )
-                                      );
-                                }}
-                              />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              {feature.label}
-                            </FormLabel>
-                          </FormItem>
-                        );
-                      }}
-                    />
-                  ))}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             </div>
+              <FormField
+                control={form.control}
+                name="features"
+                render={() => (
+                  <FormItem>
+                    <div className="mt-8">
+                      <FormLabel className="text-base">Features</FormLabel>
+                      <FormDescription>
+                        Select the features that the provider offers (optional)
+                      </FormDescription>
+                    </div>
+                    <Card>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+                        {features.map((feature) => (
+                          <FormField
+                            key={feature.id}
+                            control={form.control}
+                            name="features"
+                            render={({ field }) => {
+                              return (
+                                <FormItem
+                                  key={feature.id}
+                                  className="flex flex-row items-start space-x-3 space-y-0"
+                                >
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={field.value?.includes(
+                                        feature.id
+                                      )}
+                                      onCheckedChange={(checked) => {
+                                        return checked
+                                          ? field.onChange([
+                                              ...field.value,
+                                              feature.id,
+                                            ])
+                                          : field.onChange(
+                                              field.value?.filter(
+                                                (value) => value !== feature.id
+                                              )
+                                            );
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    {feature.label}
+                                  </FormLabel>
+                                </FormItem>
+                              );
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </Card>
+                  </FormItem>
+                )}
+              />
+
             <div className="flex justify-end space-x-4 mt-8">
               <Button asChild variant="outline" size="sm" className="h-8">
                 <Link href="/admin/providers">Cancel</Link>

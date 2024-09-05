@@ -139,6 +139,78 @@ export const features = [
     id: "bar",
     label: "Bar",
   },
+  {
+    id: "security",
+    label: "Security",
+  },
+  {
+    id: "wifi",
+    label: "Wifi",
+  },
+  {
+    id: "audiovisual_equipment",
+    label: "Audiovisual Equipment",
+  },
+  {
+    id: "air_conditioning",
+    label: "Air Conditioning",
+  },
+  {
+    id: "heating",
+    label: "Heating",
+  },
+  {
+    id: "elevator",
+    label: "Elevator",
+  },
+  {
+    id: "wheelchair_access",
+    label: "Wheelchair Access",
+  },
+  {
+    id: "stage",
+    label: "Stage",
+  },
+  {
+    id: "dance_floor",
+    label: "Dance Floor",
+  },
+  {
+    id: "sound_system",
+    label: "Sound System",
+  },
+  {
+    id: "lighting",
+    label: "Lighting",
+  },
+  {
+    id: "furniture",
+    label: "Furniture",
+  },
+  {
+    id: "tables",
+    label: "Tables",
+  },
+  {
+    id: "chairs",
+    label: "Chairs",
+  },
+  {
+    id: "tableware",
+    label: "Tableware",
+  },
+  {
+    id: "tablecloths",
+    label: "Tablecloths",
+  },
+  {
+    id: "glassware",
+    label: "Glassware",
+  },
+  {
+    id: "decorations",
+    label: "Decorations",
+  },
 ];
 
 export const cities = [

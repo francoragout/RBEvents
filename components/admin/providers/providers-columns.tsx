@@ -28,13 +28,6 @@ export const ProvidersColumns: ColumnDef<Provider>[] = [
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "address",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Address" />
-    ),
-    cell: ({ row }) => <div className="flex">{row.getValue("address")}</div>,
-  },
-  {
     accessorKey: "city",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="City" />
@@ -45,6 +38,13 @@ export const ProvidersColumns: ColumnDef<Provider>[] = [
       if (!city) return null;
       return city.label;
     },
+  },
+  {
+    accessorKey: "address",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Address" />
+    ),
+    cell: ({ row }) => <div className="flex">{row.getValue("address")}</div>,
   },
   {
     accessorKey: "phone",
@@ -86,35 +86,55 @@ export const ProvidersColumns: ColumnDef<Provider>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Capacity" />
     ),
-    cell: ({ row }) => <div>{row.getValue("capacity")}</div>,
+    cell: ({ row }) => {
+      const capacity = row.getValue("capacity") as number;
+      if (!capacity) return null;
+      return <div>{capacity}</div>;
+    },
   },
   {
     accessorKey: "rent",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Rent" />
     ),
-    cell: ({ row }) => <div>${row.getValue("rent")}</div>,
+    cell: ({ row }) => {
+      const rent = row.getValue("rent") as number;
+      if (!rent) return null;
+      return <div>${rent}</div>;
+    }
   },
   {
     accessorKey: "dinner",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Dinner" />
     ),
-    cell: ({ row }) => <div>${row.getValue("dinner")}</div>,
+    cell: ({ row }) => {
+      const dinner = row.getValue("dinner") as number;
+      if (!dinner) return null;
+      return <div>${dinner}</div>;
+    },
   },
   {
     accessorKey: "lunch",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Lunch" />
     ),
-    cell: ({ row }) => <div>${row.getValue("lunch")}</div>,
+    cell: ({ row }) => {
+      const lunch = row.getValue("lunch") as number;
+      if (!lunch) return null;
+      return <div>${lunch}</div>;
+    },
   },
   {
     accessorKey: "after",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="After" />
     ),
-    cell: ({ row }) => <div>${row.getValue("after")}</div>,
+    cell: ({ row }) => {
+      const after = row.getValue("after") as number;
+      if (!after) return null;
+      return <div>${after}</div>;
+    },
   },
   {
     accessorKey: "features",

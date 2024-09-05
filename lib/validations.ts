@@ -29,6 +29,14 @@ export const RegisterSchema = z.object({
     .max(32, "Password must be less than 32 characters"),
 });
 
+const CityEnum = z.enum([
+  "SAN_MIGUEL_DE_TUCUMAN",
+  "TAFI_VIEJO",
+  "YERBA_BUENA",
+  "LULES",
+  "TAFI_DEL_VALLE",
+]);
+
 export const ProviderSchema = z.object({
   id: z.string().optional(),
   name: z
@@ -36,32 +44,16 @@ export const ProviderSchema = z.object({
     .trim()
     .min(3, "Name must be at least 3 characters.")
     .max(30, "Name must not be longer than 30 characters."),
-  address: z
-    .string({ required_error: "Address is required" })
-    .trim()
-    .min(3, "Address must be at least 3 characters.")
-    .max(100, "Address must not be longer than 100 characters."),
-  city: z.enum(
-    [
-      "SAN_MIGUEL_DE_TUCUMAN",
-      "TAFI_VIEJO",
-      "YERBA_BUENA",
-      "LULES",
-      "TAFI_DEL_VALLE",
-    ],
-    { required_error: "Please select city" }
-  ),
-  phone: z.string().optional().nullable(),
+  address: z.string().optional(),
+  city: CityEnum,
+  phone: z.string().nullish(),
   features: z
-    .array(z.string())
-    .refine((value) => value.some((feature) => feature), {
-      message: "You have to select at least one item.",
-    }),
-  capacity: z.number().int().nullable().optional(),
-  rent: z.number().int().nullable().optional(),
-  dinner: z.number().int().nullable().optional(),
-  lunch: z.number().int().nullable().optional(),
-  after: z.number().int().nullable().optional(),
+    .array(z.string()),
+  capacity: z.coerce.number().nonnegative().optional(),
+  rent: z.coerce.number().nonnegative().optional(),
+  dinner: z.coerce.number().nonnegative().optional(),
+  lunch: z.coerce.number().nonnegative().optional(),
+  after: z.coerce.number().nonnegative().optional(),
 });
 
 export const TaskSchema = z.object({
@@ -97,7 +89,6 @@ export const BudgetSchema = z.object({
   eventId: z.string().optional(),
 });
 
-
 const EventTypeEnum = z.enum([
   "WEDDING",
   "BIRTHDAY",
@@ -122,13 +113,13 @@ export const EventSchema = z.object({
   time: z
     .string()
     .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Please select time"),
-    organization: z.enum(["COORDINATION", "PARTIAL", "COMPREHENSIVE"], {
-      required_error: "Please select organization",
+  organization: z.enum(["COORDINATION", "PARTIAL", "COMPREHENSIVE"], {
+    required_error: "Please select organization",
   }),
   archived: z.boolean().default(false),
   task: z.array(TaskSchema).default([]),
   budget: z.array(BudgetSchema).default([]),
-  
   providerId: z.string().nullish(),
+  provider: ProviderSchema.nullish(),
   userEmail: z.string().email().nullish(),
 });

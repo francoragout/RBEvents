@@ -76,15 +76,15 @@ model Event {
   name         String
   time         String
   date         DateTime          @db.Date
+  archived     Boolean           @default(false)
   type         EventType
   organization EventOrganization
-  provider     Provider?         @relation(fields: [providerId], references: [id])
-  providerId   String?
-  archived     Boolean           @default(false)
-  information  Information?
   task         Task[]
   budget       Budget[]
   list         List[]
+  information  Information?
+  provider     Provider?         @relation(fields: [providerId], references: [id])
+  providerId   String?
   user         User?             @relation(fields: [userId], references: [id])
   userId       String?
 }
@@ -166,7 +166,7 @@ enum City {
 model Provider {
   id       String   @id @default(cuid())
   name     String
-  address  String
+  address  String?
   city     City
   phone    String?
   features String[]

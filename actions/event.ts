@@ -16,25 +16,30 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     };
   }
 
-  const { name, type, date, time, providerId, organization, userEmail } = validatedFields.data;
+  const { name, type, date, time, providerId, organization, userEmail } =
+    validatedFields.data;
 
-  const user = await db.user.findUnique({
-    where: {
-      email: userEmail!,
-    },
-    select: {
-      id: true,
-    },
-  });
-  
-  if (!user) {
-    return {
-      success: false,
-      message: "User not found.",
-    };
+  let userId: string | null = null;
+
+  if (userEmail) {
+    const user = await db.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!user) {
+      return {
+        success: false,
+        message: "Email not found",
+      };
+    }
+
+    userId = user.id;
   }
-  
-  const userId = user.id;
 
   try {
     await db.event.create({
@@ -45,19 +50,18 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         time,
         organization,
         providerId,
-        userId,
+        userId: userId,
       },
     });
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: "Event was created successfully!",
+      message: "Event created successfully.",
     };
   } catch (error) {
-    console.error("Error creating event:", error);
     return {
       success: false,
-      message: "Failed to create event!",
+      message: "Failed to create event.",
     };
   }
 };
