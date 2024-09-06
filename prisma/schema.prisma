@@ -190,3 +190,11 @@ model Budget {
   event       Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId     String
 }
+
+model Meeting {
+  id    String   @id @default(cuid())
+  note  String
+  date  DateTime
+  place String?
+  remind Boolean @default(false)
+}
