@@ -181,10 +181,10 @@ model Provider {
 model Budget {
   id          String  @id @default(cuid())
   category    String
-  name        String
+  name        String?
   description String?
   paid_method String?
-  amount      Int?
+  total_price Int?
   amount_paid Int?
   observation String?
   event       Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)

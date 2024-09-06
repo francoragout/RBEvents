@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -10,20 +9,16 @@ import {
   BarChart,
   Calendar,
   DollarSign,
-  PartyPopper,
-  PieChart,
 } from "lucide-react";
-import { db } from "@/lib/db";
 import { EventsBarChart } from "./events-bar-chart";
 import { z } from "zod";
 import { EventSchema } from "@/lib/validations";
 
-type Events = z.infer<typeof EventSchema>;
-interface DashboardProps {
-  events: Events;
-}
 
-export default function Dashboard({ events }: DashboardProps) {
+type Event = z.infer<typeof EventSchema>;
+
+export default function Dashboard({ events } : { events: Event[] }) {
+  
   return (
     <div className="space-y-8">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

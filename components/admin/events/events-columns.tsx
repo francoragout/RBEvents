@@ -48,7 +48,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
     cell: ({ row }) => <div>{row.getValue("time")}</div>,
   },
   {
-    accessorKey: "providerId",
+    accessorKey: "provider",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Provider" />
     ),
@@ -95,10 +95,11 @@ export const EventsColumns: ColumnDef<Event>[] = [
     },
   },
   {
-    accessorKey: "tasks",
+    accessorKey: "task",
     header: () => <div className="text-left">Tasks</div>,
     cell: ({ row }) => {
-      const tasks = row.original.task;
+      
+      const tasks = row.original.task?? [];
       const totalTasks = tasks.length;
       const completedTasks = tasks.filter(
         (task) => task.status === "DONE"
@@ -114,10 +115,10 @@ export const EventsColumns: ColumnDef<Event>[] = [
     accessorKey: "budget",
     header: () => <div className="text-left">Budget</div>,
     cell: ({ row }) => {
-      const budget = row.original.budget;
+      const budget = row.original.budget?? [];
       const totalBudget = budget.length;
       const paidBudget = budget.filter(
-        (budget) => budget.amount_paid === budget.amount
+        (budget) => budget.amount_paid === budget.total_price
       ).length;
       return (
         <div>

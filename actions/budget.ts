@@ -24,7 +24,7 @@ export const CreateBudget = async (
     name,
     description,
     paid_method,
-    amount,
+    total_price,
     amount_paid,
     observation,
   } = validatedFields.data;
@@ -36,13 +36,13 @@ export const CreateBudget = async (
         name,
         description,
         paid_method,
-        amount,
+        total_price,
         amount_paid,
         observation,
-        event: { connect: { id: eventId } },
+        eventId
       },
     });
-    revalidatePath(`/admin/events/${eventId}/budgets`);
+    revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
       message: "Budget created successfully.",
@@ -76,7 +76,7 @@ export const UpdateBudget = async (
     name,
     description,
     paid_method,
-    amount,
+    total_price,
     amount_paid,
     observation,
   } = validatedFields.data;
@@ -89,12 +89,12 @@ export const UpdateBudget = async (
         name,
         description,
         paid_method,
-        amount,
+        total_price,
         amount_paid,
         observation,
       },
     });
-    revalidatePath(`/admin/events/${eventId}/budgets`);
+    revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
       message: "Budget updated successfully.",
@@ -111,7 +111,7 @@ export const UpdateBudget = async (
 export const DeleteBudget = async (budgetId: string, eventId: string) => {
   try {
     await db.budget.delete({ where: { id: budgetId } });
-    revalidatePath(`/admin/events/${eventId}/budgets`);
+    revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
       message: "Budget deleted successfully.",

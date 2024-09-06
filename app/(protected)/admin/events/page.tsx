@@ -12,7 +12,14 @@ async function getData(): Promise<Event[]> {
       archived: false,
     },
     include: {
-      provider: true,
+      provider: {
+        select: {
+          name: true,
+          city: true,
+        },
+      },
+      task: true,
+      budget: true,
     },
   });
   return events.map((event) => EventSchema.parse(event));

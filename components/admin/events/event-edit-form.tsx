@@ -62,7 +62,10 @@ interface EventEditFormProps {
   providers: Provider[];
 }
 
-export default function EventEditForm({ event, providers }: EventEditFormProps) {
+export default function EventEditForm({
+  event,
+  providers,
+}: EventEditFormProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -75,8 +78,6 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
       time: event.time,
       providerId: event.providerId,
       organization: event.organization,
-      
-     
     },
   });
 
@@ -103,7 +104,7 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <FormField
+              <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
@@ -228,9 +229,11 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Provider</FormLabel>
-                    <Select onValueChange={field.onChange} disabled={isPending} defaultValue={
-                      field.value || ""
-                    }>
+                    <Select
+                      onValueChange={field.onChange}
+                      disabled={isPending}
+                      defaultValue={field.value || ""}
+                    >
                       <FormControl>
                         <SelectTrigger
                           className={cn(
@@ -316,10 +319,21 @@ export default function EventEditForm({ event, providers }: EventEditFormProps) 
             </div>
 
             <div className="flex justify-end space-x-4 mt-8">
-              <Button asChild variant="outline" size="sm" className="h-8">
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="h-8"
+                disabled={isPending}
+              >
                 <Link href="/admin/events">Cancel</Link>
               </Button>
-              <Button type="submit" size="sm" className="h-8">
+              <Button
+                type="submit"
+                size="sm"
+                className="h-8"
+                disabled={isPending}
+              >
                 Submit
               </Button>
             </div>

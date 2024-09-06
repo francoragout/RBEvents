@@ -291,7 +291,7 @@ export default function ProviderCreateForm() {
                                     onCheckedChange={(checked) => {
                                       return checked
                                         ? field.onChange([
-                                            ...field.value,
+                                            ...(field.value ?? []),
                                             feature.id,
                                           ])
                                         : field.onChange(

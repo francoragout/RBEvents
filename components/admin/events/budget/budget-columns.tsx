@@ -39,32 +39,42 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
     cell: ({ row }) => <div>{row.getValue("paid_method")}</div>,
   },
   {
-    accessorKey: "amount",
+    accessorKey: "total_price",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Amount" />
+      <DataTableColumnHeader column={column} title="Total Price" />
     ),
-    cell: ({ row }) => <div>${row.getValue("amount")}</div>,
+    cell: ({ row }) => {
+      const total_price = row.getValue("total_price") as number;
+      if (total_price) {
+        return <div>${total_price}</div>;
+      }
+    },
   },
   {
     accessorKey: "amount_paid",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Amount Paid" />
     ),
-    cell: ({ row }) => <div>${row.getValue("amount_paid")}</div>,
+    cell: ({ row }) => {
+      const amountPaid = row.getValue("amount_paid") as number;
+      if (amountPaid) {
+        return <div>${amountPaid}</div>;
+      }
+    },
   },
   {
-    accessorKey: "settled",
+    accessorKey: "due",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Settled" />
+      <DataTableColumnHeader column={column} title="Due" />
     ),
     cell: ({ row }) => {
-      const amount = row.getValue("amount") as number;
-      const amountPaid = row.getValue("amount_paid") as number;
-      const settled = amount - amountPaid;
-      if (settled !== 0) {
-        return <Badge variant="destructive">${settled}</Badge>;
+      const total_price = row.getValue("total_price") as number;
+      const amount_paid = row.getValue("amount_paid") as number;
+      const due = total_price - amount_paid;
+      if (due !== 0) {
+        return <Badge variant="destructive">${due}</Badge>;
       } else {
-        return <Badge className="bg-green-500">Yes</Badge>;
+        return <Badge className="bg-green-500">Paid</Badge>;
       }
     },
   },

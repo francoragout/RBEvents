@@ -80,8 +80,30 @@ export const EditEvent = async (
     };
   }
 
-  const { name, type, date, time, providerId, organization } =
+  const { name, type, date, time, providerId, organization, userEmail } =
     validatedFields.data;
+
+  let userId: string | null = null;
+
+  if (userEmail) {
+    const user = await db.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!user) {
+      return {
+        success: false,
+        message: "Email not found",
+      };
+    }
+
+    userId = user.id;
+  }
 
   try {
     await db.event.update({
@@ -91,20 +113,20 @@ export const EditEvent = async (
         type,
         date,
         time,
-        providerId,
         organization,
+        providerId,
+        userId: userId,
       },
     });
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: "Event was edited successfully!",
+      message: "Event edited successfully.",
     };
   } catch (error) {
-    console.error("Error editing event:", error);
     return {
       success: false,
-      message: "Failed to edit event!",
+      message: "Failed to edit event.",
     };
   }
 };

@@ -27,7 +27,7 @@ import {
 import { Textarea } from "../../../ui/textarea";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import { CreateBudget, UpdateBudget } from "@/actions/budget";
+import { UpdateBudget } from "@/actions/budget";
 import { Pencil } from "lucide-react";
 
 type Budget = z.infer<typeof BudgetSchema>;
@@ -43,8 +43,8 @@ export default function BudgetEditForm({ budget }: { budget: Budget }) {
       name: budget.name,
       description: budget.description,
       paid_method: budget.paid_method,
-      amount: budget.amount,
-      amount_paid: budget.amount_paid,
+      total_price: budget.total_price || undefined,
+      amount_paid: budget.amount_paid || undefined,
       observation: budget.observation,
     },
   });
@@ -96,13 +96,13 @@ export default function BudgetEditForm({ budget }: { budget: Budget }) {
                       placeholder="Category (required)"
                       {...field}
                       disabled={isPending}
-                      
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="name"
@@ -111,7 +111,7 @@ export default function BudgetEditForm({ budget }: { budget: Budget }) {
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Name (required)"
+                      placeholder="Name (optional)"
                       {...field}
                       disabled={isPending}
                     />
@@ -160,19 +160,16 @@ export default function BudgetEditForm({ budget }: { budget: Budget }) {
             <div className="flex justify-between">
               <FormField
                 control={form.control}
-                name="amount"
+                name="total_price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Amount</FormLabel>
+                    <FormLabel>Total Price</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Amount"
+                        placeholder="Total Price"
                         type="number"
                         {...field}
                         disabled={isPending}
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value));
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -192,9 +189,6 @@ export default function BudgetEditForm({ budget }: { budget: Budget }) {
                         type="number"
                         {...field}
                         disabled={isPending}
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value));
-                        }}
                       />
                     </FormControl>
                     <FormMessage />

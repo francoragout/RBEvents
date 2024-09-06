@@ -40,10 +40,7 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
       name: "",
       description: "",
       paid_method: "",
-      amount: 0,
-      amount_paid: 0,
       observation: "",
-      eventId: "",
     },
   });
 
@@ -105,7 +102,7 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Name (required)"
+                      placeholder="Name (optional)"
                       {...field}
                       disabled={isPending}
                     />
@@ -154,19 +151,16 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
             <div className="flex justify-between">
               <FormField
                 control={form.control}
-                name="amount"
+                name="total_price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Amount</FormLabel>
+                    <FormLabel>Total Price</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Amount"
+                        placeholder="Total Price"
                         type="number"
                         {...field}
                         disabled={isPending}
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value));
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -186,9 +180,6 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
                         type="number"
                         {...field}
                         disabled={isPending}
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value));
-                        }}
                       />
                     </FormControl>
                     <FormMessage />
