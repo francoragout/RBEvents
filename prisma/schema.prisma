@@ -192,9 +192,9 @@ model Budget {
 }
 
 model Meeting {
-  id    String   @id @default(cuid())
-  note  String
-  date  DateTime
-  place String?
-  remind Boolean @default(false)
+  id     String   @id @default(cuid())
+  note   String
+  date   DateTime @db.Date
+  time   String
+  reminder Boolean  @default(false)
 }

@@ -1,5 +1,5 @@
 import { User } from "lucide-react";
-import { z } from "zod";
+import { date, z } from "zod";
 
 export const LoginSchema = z.object({
   email: z
@@ -122,3 +122,15 @@ export const EventSchema = z.object({
   budget: z.array(BudgetSchema).optional(),
   userEmail: z.string().email().nullish(),
 });
+
+const MeetingSchema = z.object({
+  id: z.string().optional(),
+  note: z.string({ required_error: "Note is required" }).trim().min(1, "Note must be at least 1 character."),
+  date: z.date({ required_error: "Please select date" }),
+  time: z
+    .string()
+    .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Please select time"),
+  reminder: z.boolean().default(false),
+});
+
+export { MeetingSchema };

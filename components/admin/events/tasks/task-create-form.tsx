@@ -90,7 +90,6 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                   <FormControl>
                     <Input
                       placeholder="Title (required)"
-                      className="resize-none"
                       disabled={isPending}
                       {...field}
                     />
@@ -202,16 +201,22 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
             <DialogFooter className="gap-4 pt-2 sm:space-x-0">
               <DialogClose asChild>
                 <Button
-                className="h-8"
+                  className="h-8"
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => form.reset()}
+                  disabled={isPending}
                 >
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit" size="sm" className="h-8">
+              <Button
+                type="submit"
+                size="sm"
+                className="h-8"
+                disabled={isPending}
+              >
                 Submit
               </Button>
             </DialogFooter>

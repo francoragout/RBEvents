@@ -78,7 +78,7 @@ export default function Dashboard({ events } : { events: Event[] }) {
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-8">
         <EventsBarChart />
         <EventsMeetings />
-        <EventsPieChart />
+        {/* <EventsPieChart /> */}
       </div>
     </div>
   );
