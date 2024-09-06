@@ -12,15 +12,18 @@ import {
 } from "lucide-react";
 import { EventsBarChart } from "./events-bar-chart";
 import { z } from "zod";
-import { EventSchema } from "@/lib/validations";
+import { EventSchema, MeetingSchema } from "@/lib/validations";
 import EventsMeetings from "./events-meetings";
-import { EventsPieChart } from "./events-pie-chart";
-
 
 type Event = z.infer<typeof EventSchema>;
+type Meeting = z.infer<typeof MeetingSchema>;
+interface DashboardProps {
+  events: Event[];
+  meetings: Meeting[];
+}
 
-export default function Dashboard({ events } : { events: Event[] }) {
-  
+export default function Dashboard({ events, meetings }: DashboardProps) {
+  console.log(meetings);
   return (
     <div className="space-y-8">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -77,8 +80,7 @@ export default function Dashboard({ events } : { events: Event[] }) {
       </div>
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-8">
         <EventsBarChart />
-        <EventsMeetings />
-        {/* <EventsPieChart /> */}
+        <EventsMeetings meetings={meetings}/>
       </div>
     </div>
   );
