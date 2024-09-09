@@ -84,6 +84,32 @@ export const ProviderSchema = z.object({
   after: z.coerce.number().nonnegative().optional(),
 });
 
+const GuestTypeEnum = z.enum([
+  "AT_THE_BEGINNING",
+  "AFTERWARDS",
+  "TO_BE_CONFIRMED",
+]);
+
+const GuestSchema = z.object({
+  id: z.string().optional(),
+  first_name: z
+    .string({
+      required_error: "First name is required",
+    })
+    .trim()
+    .min(1, "First name must be at least 1 character."),
+  last_name: z
+    .string({
+      required_error: "Last name is required",
+    })
+    .trim()
+    .min(1, "Last name must be at least 1 character."),
+  type: GuestTypeEnum,
+  observation: z.string().optional(),
+  table_number: z.coerce.number().nonnegative().optional(),
+  eventId: z.string().optional(),
+});
+
 const EventTypeEnum = z.enum([
   "WEDDING",
   "BIRTHDAY",
@@ -120,12 +146,16 @@ export const EventSchema = z.object({
   provider: ProviderSchema.optional(),
   task: z.array(TaskSchema).optional(),
   budget: z.array(BudgetSchema).optional(),
+  guests: z.array(GuestSchema).optional(),
   userEmail: z.string().email().nullish(),
 });
 
 const MeetingSchema = z.object({
   id: z.string().optional(),
-  note: z.string({ required_error: "Note is required" }).trim().min(1, "Note must be at least 1 character."),
+  note: z
+    .string({ required_error: "Note is required" })
+    .trim()
+    .min(1, "Note must be at least 1 character."),
   date: z.date({ required_error: "Please select date" }),
   time: z
     .string()
@@ -133,4 +163,4 @@ const MeetingSchema = z.object({
   reminder: z.boolean().default(false),
 });
 
-export { MeetingSchema };
+export { MeetingSchema, GuestSchema };

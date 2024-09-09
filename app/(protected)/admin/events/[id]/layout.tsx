@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { DollarSign, EyeIcon, ListTodo, MoreHorizontal } from "lucide-react";
+import { DollarSign, EyeIcon, List, ListTodo, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -49,7 +49,7 @@ const EventLayout = async ({ children, params }: ProtectedLayoutProps) => {
                 className="flex justify-start pl-2"
                 size="sm"
               >
-                <Link href={`/admin/events/${event?.id}/overview`}>
+                <Link href={`/admin/events/${event?.id}/information`}>
                   <EyeIcon className="mr-2 h-4 w-4" />
                   <span>Overview</span>
                 </Link>
@@ -64,6 +64,18 @@ const EventLayout = async ({ children, params }: ProtectedLayoutProps) => {
                 <Link href={`/admin/events/${event?.id}/tasks`}>
                   <ListTodo className="mr-2 h-4 w-4" />
                   <span>Tasks</span>
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                variant="ghost"
+                className="flex justify-start pl-2"
+                size="sm"
+              >
+                <Link href={`/admin/events/${event?.id}/guests`}>
+                  <List className="mr-2 h-4 w-4" />
+                  <span>Guests</span>
                 </Link>
               </Button>
 

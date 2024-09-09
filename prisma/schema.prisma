@@ -81,7 +81,7 @@ model Event {
   organization EventOrganization
   task         Task[]
   budget       Budget[]
-  list         List[]
+  guest        Guest[]
   information  Information?
   provider     Provider?         @relation(fields: [providerId], references: [id])
   providerId   String?
@@ -116,11 +116,16 @@ model Information {
   eventId         String  @unique
 }
 
-model List {
+enum GuestType {
+  AT_THE_BEGINNING
+  AFTERWARDS
+  TO_BE_CONFIRMED
+}
+model Guest {
   id           String  @id @default(cuid())
   first_name   String
   last_name    String
-  after_guest  Boolean @default(false)
+  guest_type   GuestType
   observation  String?
   table_number Int?
   event        Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)

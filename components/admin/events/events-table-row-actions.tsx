@@ -9,6 +9,7 @@ import {
   ArchiveRestore,
   DollarSign,
   EyeIcon,
+  List,
   ListTodo,
   MoreHorizontal,
   Pencil,
@@ -89,7 +90,7 @@ export function EventsTableRowActions<TData>({
         <DropdownMenuSeparator />
         <div className="flex flex-col">
           <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
-            <Link href={`/admin/events/${event.id}/overview`}>
+            <Link href={`/admin/events/${event.id}/information`}>
               <EyeIcon className="mr-2 h-4 w-4" />
               <span>Overview</span>
             </Link>
@@ -106,6 +107,13 @@ export function EventsTableRowActions<TData>({
             <Link href={`/admin/events/${event.id}/budget`}>
               <DollarSign className="mr-2 h-4 w-4" />
               <span>Budget</span>
+            </Link>
+          </Button>
+
+          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
+            <Link href={`/admin/events/${event.id}/guests`}>
+              <List className="mr-2 h-4 w-4" />
+              <span>Guests</span>
             </Link>
           </Button>
 

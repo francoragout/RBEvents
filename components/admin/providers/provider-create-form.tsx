@@ -317,10 +317,21 @@ export default function ProviderCreateForm() {
             />
 
             <div className="flex justify-end space-x-4 mt-8">
-              <Button asChild variant="outline" size="sm" className="h-8">
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="h-8"
+                disabled={isPending}
+              >
                 <Link href="/admin/providers">Cancel</Link>
               </Button>
-              <Button type="submit" size="sm" className="h-8">
+              <Button
+                type="submit"
+                size="sm"
+                className="h-8"
+                disabled={isPending}
+              >
                 Submit
               </Button>
             </div>

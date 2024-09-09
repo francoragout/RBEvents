@@ -235,3 +235,18 @@ export const cities = [
     label: "Tafí del Valle",
   },
 ];
+
+export const guestTypes = [
+  {
+    value: "AT_THE_BEGINNING",
+    label: "At the beginning",
+  },
+  {
+    value: "AFTERWARDS",
+    label: "Afterwards",
+  },
+  {
+    value: "TO_BE_CONFIRMED",
+    label: "To be confirmed",
+  },
+];
