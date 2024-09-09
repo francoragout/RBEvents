@@ -14,6 +14,7 @@ import { EventsBarChart } from "./events-bar-chart";
 import { z } from "zod";
 import { EventSchema, MeetingSchema } from "@/lib/validations";
 import EventsMeetings from "./events-meetings";
+import { EventsPieChart } from "./events-pie-chart";
 
 type Event = z.infer<typeof EventSchema>;
 type Meeting = z.infer<typeof MeetingSchema>;
@@ -79,8 +80,9 @@ export default function Dashboard({ events, meetings }: DashboardProps) {
         </Card>
       </div>
       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-8">
-        <EventsBarChart />
         <EventsMeetings meetings={meetings}/>
+        <EventsPieChart />
+        <EventsBarChart />
       </div>
     </div>
   );
