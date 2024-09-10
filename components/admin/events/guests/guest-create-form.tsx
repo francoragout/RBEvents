@@ -32,25 +32,32 @@ import { z } from "zod";
 import { guestTypes } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { CreateGuest } from "@/actions/guest";
+import { toast } from "sonner";
 
-export default function GuestCreateForm() {
+export default function GuestCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof GuestSchema>>({
     resolver: zodResolver(GuestSchema),
-    defaultValues: {},
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      observation: "",
+      table_number: null,
+    },
   });
 
   function onSubmit(values: z.infer<typeof GuestSchema>) {
     startTransition(() => {
-      //   CreateEvent(values).then((response) => {
-      //     if (response.success) {
-      //       toast.success(response.message);
-      //       router.push("/admin/events");
-      //     } else {
-      //       toast.error(response.message);
-      //     }
-      //   });
+      CreateGuest(eventId, values).then((response) => {
+        if (response.success) {
+          toast.success(response.message);
+          form.reset();
+        } else {
+          toast.error(response.message);
+        }
+      });
     });
   }
 
@@ -64,14 +71,14 @@ export default function GuestCreateForm() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8"
           >
             <FormField
               control={form.control}
               name="first_name"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>First Name</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="First Name (required)"
@@ -88,7 +95,7 @@ export default function GuestCreateForm() {
               name="last_name"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Last Name</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Last Name (required)"
@@ -103,13 +110,13 @@ export default function GuestCreateForm() {
 
             <FormField
               control={form.control}
-              name="type"
+              name="guest_type"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Type</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value || ""}
                     disabled={isPending}
                   >
                     <FormControl>
@@ -139,15 +146,20 @@ export default function GuestCreateForm() {
 
             <FormField
               control={form.control}
-              name="observation"
+              name="table_number"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Observation</FormLabel>
+                  <FormLabel>Table Number</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Observation"
-                      {...field}
-                      disabled={true}
+                      placeholder="Table Number"
+                      type="number"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      disabled={
+                        form.watch("guest_type") !== "AT_THE_BEGINNING" ||
+                        isPending
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -157,16 +169,18 @@ export default function GuestCreateForm() {
 
             <FormField
               control={form.control}
-              name="table_number"
+              name="observation"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Table Number</FormLabel>
+                  <FormLabel>Observation</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Table Number"
-                      type="number"
+                      placeholder="Observation"
                       {...field}
-                      disabled={true}
+                      disabled={
+                        form.watch("guest_type") !== "AT_THE_BEGINNING" ||
+                        isPending
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -174,14 +188,11 @@ export default function GuestCreateForm() {
               )}
             />
 
-            <Button
-              type="submit"
-              size="sm"
-              className="h-8"
-              disabled={isPending}
-            >
-              Submit
-            </Button>
+            <div className="col-span-full">
+              <Button type="submit" disabled={isPending}>
+                Submit
+              </Button>
+            </div>
           </form>
         </Form>
       </CardContent>

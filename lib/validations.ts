@@ -104,9 +104,9 @@ const GuestSchema = z.object({
     })
     .trim()
     .min(1, "Last name must be at least 1 character."),
-  type: GuestTypeEnum,
+  guest_type: GuestTypeEnum,
   observation: z.string().optional(),
-  table_number: z.coerce.number().nonnegative().optional(),
+  table_number: z.coerce.number().nonnegative().nullish(),
   eventId: z.string().optional(),
 });
 
