@@ -26,7 +26,7 @@ export function TasksTableRowActions<TData>({
   const task = TaskSchema.parse(row.original);
 
   const handleDelete = async () => {
-    DeleteTask(task.id ?? "", task.eventId ?? "").then((response) => {
+    DeleteTask(task.id ?? "").then((response) => {
       if (response.success) {
         toast.success(response.message);
       } else {

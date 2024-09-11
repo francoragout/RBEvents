@@ -7,13 +7,16 @@ import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/data-table-view-options";
 import { guestTypes } from "@/lib/data";
+import GuestCreateForm from "./guest-create-form";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  eventId: string;
 }
 
 export function GuestsTableToolbar<TData>({
   table,
+  eventId,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -51,6 +54,7 @@ export function GuestsTableToolbar<TData>({
       </div>
       <div className="flex space-x-4">
         <DataTableViewOptions table={table} />
+        <GuestCreateForm eventId={eventId} />
       </div>
     </div>
   );

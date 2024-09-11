@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -69,7 +69,7 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
         <DialogHeader>
           <DialogTitle>Create Budget</DialogTitle>
           <DialogDescription>
-            Fill in the details below to create a new budget.
+            Use Tabs and Enter keys to navigate faster between fields.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -219,7 +219,12 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit" size="sm" className="h-8" disabled={isPending}>
+              <Button
+                type="submit"
+                size="sm"
+                className="h-8"
+                disabled={isPending}
+              >
                 Submit
               </Button>
             </DialogFooter>

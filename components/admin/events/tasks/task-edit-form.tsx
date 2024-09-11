@@ -79,7 +79,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
         <DialogHeader>
           <DialogTitle>Edit task</DialogTitle>
           <DialogDescription>
-            Update the details below to edit the task.
+            Use Tabs and Enter keys to navigate faster between fields.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -210,7 +210,9 @@ export default function TaskEditForm({ task }: { task: Task }) {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit" className="h-8">Submit</Button>
+              <Button type="submit" className="h-8">
+                Submit
+              </Button>
             </DialogFooter>
           </form>
         </Form>

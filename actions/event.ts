@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
+import { CreateBudget } from "./budget";
 
 export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   const validatedFields = EventSchema.safeParse(values);
@@ -53,6 +54,24 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         userId: userId,
       },
     });
+
+    if (providerId) {
+      const provider = await db.provider.findUnique({
+        where: {
+          id: providerId,
+        },
+        select: {
+          name: true,
+          event : true
+          
+        },
+      });
+
+      
+    }
+
+    
+
     revalidatePath("/admin/events");
     return {
       success: true,

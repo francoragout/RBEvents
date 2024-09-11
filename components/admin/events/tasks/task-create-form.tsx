@@ -73,7 +73,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
         <DialogHeader>
           <DialogTitle>Create task</DialogTitle>
           <DialogDescription>
-            Fill in the details below to create a new task.
+            Use Tabs and Enter keys to navigate faster between fields.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

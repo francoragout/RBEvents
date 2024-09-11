@@ -1,12 +1,21 @@
-"use client";
+'use client';
 
+import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { GuestSchema } from "@/lib/validations";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -14,7 +23,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "../../../ui/form";
 import {
   Select,
   SelectContent,
@@ -22,21 +31,16 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { GuestSchema } from "@/lib/validations";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { guestTypes } from "@/lib/data";
+} from "../../../ui/select";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { CreateGuest } from "@/actions/guest";
 import { toast } from "sonner";
+import { guestTypes } from "@/lib/data";
+import { Input } from "@/components/ui/input";
+import { CreateGuest } from "@/actions/guest";
 
 export default function GuestCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
+  const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof GuestSchema>>({
     resolver: zodResolver(GuestSchema),
@@ -62,16 +66,23 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Create Guest</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
-      </CardHeader>
-      <CardContent>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="default" className="h-8" size="sm">
+          New Guest
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Create Guest</DialogTitle>
+          <DialogDescription>
+            Use Tabs and Enter keys to navigate faster between fields.
+          </DialogDescription>
+        </DialogHeader>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8"
+            className="flex flex-col gap-4"
           >
             <FormField
               control={form.control}
@@ -188,14 +199,31 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
               )}
             />
 
-            <div className="col-span-full">
-              <Button type="submit" disabled={isPending}>
+            <DialogFooter className="gap-4 pt-2 sm:space-x-0">
+              <DialogClose asChild>
+                <Button
+                  className="h-8"
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => form.reset()}
+                  disabled={isPending}
+                >
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button
+                type="submit"
+                size="sm"
+                className="h-8"
+                disabled={isPending}
+              >
                 Submit
               </Button>
-            </div>
+            </DialogFooter>
           </form>
         </Form>
-      </CardContent>
-    </Card>
+      </DialogContent>
+    </Dialog>
   );
 }

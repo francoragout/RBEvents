@@ -77,7 +77,7 @@ export default function BudgetEditForm({ budget }: { budget: Budget }) {
         <DialogHeader>
           <DialogTitle>Edit Budget</DialogTitle>
           <DialogDescription>
-            Update the details below to edit a new budget.
+            Use Tabs and Enter keys to navigate faster between fields.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

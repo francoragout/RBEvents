@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { db } from "@/lib/db";
 import { TaskSchema } from "@/lib/validations";
@@ -81,9 +81,9 @@ export const UpdateTask = async (
   }
 };
 
-export const DeleteTask = async (id: string, eventId: string) => {
+export const DeleteTask = async (eventId: string) => {
   try {
-    await db.task.delete({ where: { id } });
+    await db.task.delete({ where: { id: eventId } });
     revalidatePath(`/admin/events/${eventId}/tasks`);
     return {
       success: true,
@@ -96,4 +96,4 @@ export const DeleteTask = async (id: string, eventId: string) => {
       message: "Failed to delete task!",
     };
   }
-}
+};

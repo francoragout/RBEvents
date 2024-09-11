@@ -46,3 +46,63 @@ export const CreateGuest = async (
     };
   }
 };
+
+export const UpdateGuest = async (
+  id: string,
+  guestId: string,
+  values: z.infer<typeof GuestSchema>
+) => {
+  const validatedFields = GuestSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return {
+      success: false,
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update guest.",
+    };
+  }
+
+  const { first_name, last_name, guest_type, table_number, observation } =
+    validatedFields.data;
+
+  try {
+    await db.guest.update({
+      where: { id },
+      data: {
+        first_name,
+        last_name,
+        guest_type,
+        table_number,
+        observation,
+      },
+    });
+    revalidatePath(`/admin/events/${guestId}/guests`);
+    return {
+      success: true,
+      message: "Guest was updated successfully!",
+    };
+  } catch (error) {
+    console.error("Error updating guest:", error);
+    return {
+      success: false,
+      message: "Failed to update guest!",
+    };
+  }
+}
+
+export const DeleteGuest = async (guestId: string) => {
+  try {
+    await db.guest.delete({ where: { id: guestId } });
+    revalidatePath(`/admin/events/${guestId}/guests`);
+    return {
+      success: true,
+      message: "Guest was deleted successfully!",
+    };
+  } catch (error) {
+    console.error("Error deleting guest:", error);
+    return {
+      success: false,
+      message: "Failed to delete guest!",
+    };
+  }
+}

@@ -31,11 +31,13 @@ import { GuestsTableToolbar } from "./guests-table-toolbar"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  eventId: string
 }
 
 export function GuestsTable<TData, TValue>({
   columns,
   data,
+  eventId,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -69,7 +71,7 @@ export function GuestsTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <GuestsTableToolbar table={table} />
+      <GuestsTableToolbar table={table} eventId={eventId}/>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

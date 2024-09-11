@@ -26,9 +26,8 @@ export default async function GuestsPage({
   const eventId = params.id;
   const guests = await getData(eventId);
   return (
-    <div className="h-full flex-col space-y-12">
-      <GuestCreateForm eventId={eventId}/>
-      <GuestsTable data={guests} columns={GuestsColumns} />
+    <div className="h-full flex-col">
+      <GuestsTable data={guests} columns={GuestsColumns} eventId={eventId}/>
     </div>
   );
 }
