@@ -98,8 +98,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
     accessorKey: "task",
     header: () => <div className="text-left">Tasks</div>,
     cell: ({ row }) => {
-      
-      const tasks = row.original.task?? [];
+      const tasks = row.original.task ?? [];
       const totalTasks = tasks.length;
       const completedTasks = tasks.filter(
         (task) => task.status === "DONE"
@@ -115,11 +114,16 @@ export const EventsColumns: ColumnDef<Event>[] = [
     accessorKey: "budget",
     header: () => <div className="text-left">Budget</div>,
     cell: ({ row }) => {
-      const budget = row.original.budget?? [];
+      const budget = row.original.budget ?? [];
       const totalBudget = budget.length;
-      const paidBudget = budget.filter(
-        (budget) => budget.amount_paid === budget.total_price
-      ).length;
+      const paidBudget = budget.filter((budget) => {
+        if (budget.amount_paid === 0 && budget.total_price === 0) {
+          return false;
+        } else {
+          return budget.amount_paid === budget.total_price;
+        }
+      }).length;
+
       return (
         <div>
           {paidBudget} / {totalBudget}

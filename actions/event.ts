@@ -43,7 +43,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   }
 
   try {
-    await db.event.create({
+    const event = await db.event.create({
       data: {
         name,
         type,
@@ -52,6 +52,9 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         organization,
         providerId,
         userId: userId,
+      },
+      select: {
+        id: true,
       },
     });
 
@@ -62,15 +65,21 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         },
         select: {
           name: true,
-          event : true
-          
         },
       });
 
-      
+      if (provider) {
+        await CreateBudget(event.id, {
+          name: provider.name,
+          category: "Provider",
+          observation: "",
+          description: "",
+          paid_method: "",
+          amount_paid: undefined,
+          total_price: undefined,
+        });
+      }
     }
-
-    
 
     revalidatePath("/admin/events");
     return {
@@ -137,6 +146,29 @@ export const EditEvent = async (
         userId: userId,
       },
     });
+
+    if (providerId) {
+      const provider = await db.provider.findUnique({
+        where: {
+          id: providerId,
+        },
+        select: {
+          name: true,
+        },
+      });
+
+      if (provider) {
+        await CreateBudget(id, {
+          name: provider.name,
+          category: "Provider",
+          observation: "",
+          description: "",
+          paid_method: "",
+          amount_paid: undefined,
+          total_price: undefined,
+        });
+      }
+    }
     revalidatePath("/admin/events");
     return {
       success: true,

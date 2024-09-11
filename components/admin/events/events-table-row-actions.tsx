@@ -14,6 +14,7 @@ import {
   MoreHorizontal,
   Pencil,
   Trash,
+  Users,
 } from "lucide-react";
 
 import {
@@ -92,7 +93,7 @@ export function EventsTableRowActions<TData>({
           <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
             <Link href={`/admin/events/${event.id}/information`}>
               <EyeIcon className="mr-2 h-4 w-4" />
-              <span>Overview</span>
+              <span>Information</span>
             </Link>
           </Button>
 
@@ -112,7 +113,7 @@ export function EventsTableRowActions<TData>({
 
           <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
             <Link href={`/admin/events/${event.id}/guests`}>
-              <List className="mr-2 h-4 w-4" />
+              <Users className="mr-2 h-4 w-4" />
               <span>Guests</span>
             </Link>
           </Button>

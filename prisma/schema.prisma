@@ -82,7 +82,7 @@ model Event {
   task         Task[]
   budget       Budget[]
   guest        Guest[]
-  information  Information?
+  information  Information[]
   provider     Provider?         @relation(fields: [providerId], references: [id])
   providerId   String?
   user         User?             @relation(fields: [userId], references: [id])
@@ -90,30 +90,19 @@ model Event {
 }
 
 model Information {
-  id              String  @id @default(cuid())
-  fn_couple_1     String
-  fn_couple_2     String
-  fn_children     String?
-  fn_father_1     String?
-  fn_father_2     String?
-  fn_mother_1     String?
-  fn_mother_2     String?
-  fn_brothers_1   String?
-  fn_brothers_2   String?
-  fn_godparents_1 String?
-  fn_godparents_2 String?
-  fn_witnesses_1  String?
-  fn_witnesses_2  String?
-  nutrition_1     String?
-  nutrition_2     String?
-  allergies_1     String?
-  allergies_2     String?
-  drinks_1        String?
-  drinks_2        String?
-  attendant       String?
-  observation     String?
-  event           Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  eventId         String  @unique
+  id         String  @id @default(cuid())
+  full_name  String
+  children   String?
+  father     String?
+  mother     String?
+  brothers   String?
+  godparents String?
+  witnesses  String?
+  nutrition  String?
+  allergies  String?
+  drinks     String?
+  event      Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId    String
 }
 
 enum GuestType {
@@ -121,14 +110,15 @@ enum GuestType {
   AFTERWARDS
   TO_BE_CONFIRMED
 }
+
 model Guest {
-  id           String  @id @default(cuid())
+  id           String    @id @default(cuid())
   first_name   String
   last_name    String
   guest_type   GuestType
   observation  String?
   table_number Int?
-  event        Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  event        Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId      String
 }
 
@@ -197,9 +187,9 @@ model Budget {
 }
 
 model Meeting {
-  id     String   @id @default(cuid())
-  note   String
-  date   DateTime @db.Date
-  time   String
+  id       String   @id @default(cuid())
+  note     String
+  date     DateTime @db.Date
+  time     String
   reminder Boolean  @default(false)
 }

@@ -1,7 +1,6 @@
-import { User } from "lucide-react";
-import { date, z } from "zod";
+import { z } from "zod";
 
-export const LoginSchema = z.object({
+const LoginSchema = z.object({
   email: z
     .string({ required_error: "Email is required" })
     .min(1, "Email is required")
@@ -13,7 +12,7 @@ export const LoginSchema = z.object({
     .max(32, "Password must be less than 32 characters"),
 });
 
-export const RegisterSchema = z.object({
+const RegisterSchema = z.object({
   name: z
     .string({ required_error: "Name is required" })
     .min(1, "Name is required")
@@ -29,7 +28,7 @@ export const RegisterSchema = z.object({
     .max(32, "Password must be less than 32 characters"),
 });
 
-export const TaskSchema = z.object({
+const TaskSchema = z.object({
   id: z.string().optional(),
   title: z
     .string()
@@ -42,7 +41,7 @@ export const TaskSchema = z.object({
   eventId: z.string().optional(),
 });
 
-export const BudgetSchema = z.object({
+const BudgetSchema = z.object({
   id: z.string().optional(),
   category: z
     .string({ required_error: "Category is required" })
@@ -66,7 +65,7 @@ const CityEnum = z.enum([
   "TAFI_DEL_VALLE",
 ]);
 
-export const ProviderSchema = z.object({
+const ProviderSchema = z.object({
   id: z.string().optional(),
   name: z
     .string({ required_error: "Name is required" })
@@ -110,6 +109,21 @@ const GuestSchema = z.object({
   eventId: z.string().optional(),
 });
 
+const InformationSchema = z.object({
+  id: z.string().optional(),
+  full_name: z.string(),
+  children: z.string().optional(),
+  father: z.string().optional(),
+  mother: z.string().optional(),
+  brothers: z.string().optional(),
+  godparents: z.string().optional(),
+  witnesses: z.string().optional(),
+  nutrition: z.string().optional(),
+  allergies: z.string().optional(),
+  drinks: z.string().optional(),
+  eventId: z.string().optional(),
+});
+
 const EventTypeEnum = z.enum([
   "WEDDING",
   "BIRTHDAY",
@@ -128,7 +142,7 @@ const EventOrganizationEnum = z.enum([
   "COMPREHENSIVE",
 ]);
 
-export const EventSchema = z.object({
+const EventSchema = z.object({
   id: z.string().optional(),
   name: z
     .string({ required_error: "Name is required" })
@@ -143,11 +157,12 @@ export const EventSchema = z.object({
   organization: EventOrganizationEnum,
   archived: z.boolean().default(false),
   providerId: z.string().nullish(),
-  provider: ProviderSchema.optional(),
+  provider: ProviderSchema.nullish(),
   task: z.array(TaskSchema).optional(),
   budget: z.array(BudgetSchema).optional(),
   guests: z.array(GuestSchema).optional(),
   userEmail: z.string().email().nullish(),
+  information: InformationSchema.optional(),
 });
 
 const MeetingSchema = z.object({
@@ -163,4 +178,12 @@ const MeetingSchema = z.object({
   reminder: z.boolean().default(false),
 });
 
-export { MeetingSchema, GuestSchema };
+export {
+  MeetingSchema,
+  GuestSchema,
+  ProviderSchema,
+  EventSchema,
+  TaskSchema,
+  BudgetSchema,
+  InformationSchema,
+};
