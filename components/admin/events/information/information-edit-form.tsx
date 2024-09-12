@@ -29,12 +29,15 @@ import {
 
 import Link from "next/link";
 import { toast } from "sonner";
-import { CreateInformation } from "@/actions/information";
+import { CreateInformation, UpdateInformation } from "@/actions/information";
+import { Pencil } from "lucide-react";
 
-export default function InformationCreateForm({
-  eventId,
+type Information = z.infer<typeof InformationSchema>;
+
+export default function InformationEditForm({
+  information,
 }: {
-  eventId: string;
+  information: Information;
 }) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
@@ -42,25 +45,28 @@ export default function InformationCreateForm({
   const form = useForm<z.infer<typeof InformationSchema>>({
     resolver: zodResolver(InformationSchema),
     defaultValues: {
-      full_name: "",
-      mother: "",
-      father: "",
-      brothers: "",
-      children: "",
-      godparents: "",
-      witnesses: "",
-      nutrition: "",
-      allergies: "",
-      drinks: "",
+      full_name: information.full_name,
+      mother: information.mother,
+      father: information.father,
+      brothers: information.brothers,
+      children: information.children,
+      godparents: information.godparents,
+      witnesses: information.witnesses,
+      nutrition: information.nutrition,
+      allergies: information.allergies,
+      drinks: information.drinks,
     },
   });
 
   function onSubmit(values: z.infer<typeof InformationSchema>) {
     startTransition(() => {
-      CreateInformation(eventId, values).then((response) => {
+      UpdateInformation(
+        information.id ?? "",
+        information.eventId ?? "",
+        values
+      ).then((response) => {
         if (response.success) {
           toast.success(response.message);
-          form.reset();
           setOpen(false);
         } else {
           toast.error(response.message);
@@ -72,13 +78,13 @@ export default function InformationCreateForm({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="h-8" size="sm">
-          New Info
+        <Button variant="outline" className="flex justify-start pl-2" size="sm">
+          <Pencil className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create task</DialogTitle>
+          <DialogTitle>Edite Information</DialogTitle>
           <DialogDescription>
             Use Tabs and Enter keys to navigate faster between fields.
           </DialogDescription>

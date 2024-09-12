@@ -58,6 +58,7 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
         if (response.success) {
           toast.success(response.message);
           form.reset();
+          setOpen(false);
         } else {
           toast.error(response.message);
         }

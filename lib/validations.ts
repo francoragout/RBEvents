@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { array, z } from "zod";
 
 const LoginSchema = z.object({
   email: z
@@ -111,7 +111,12 @@ const GuestSchema = z.object({
 
 const InformationSchema = z.object({
   id: z.string().optional(),
-  full_name: z.string(),
+  full_name: z
+    .string({
+      required_error: "Full name is required",
+    })
+    .trim()
+    .min(1, "Full name must be at least 1 character."),
   children: z.string().optional(),
   father: z.string().optional(),
   mother: z.string().optional(),
@@ -161,8 +166,8 @@ const EventSchema = z.object({
   task: z.array(TaskSchema).optional(),
   budget: z.array(BudgetSchema).optional(),
   guests: z.array(GuestSchema).optional(),
+  information: array(InformationSchema).optional(),
   userEmail: z.string().email().nullish(),
-  information: InformationSchema.optional(),
 });
 
 const MeetingSchema = z.object({
@@ -186,4 +191,6 @@ export {
   TaskSchema,
   BudgetSchema,
   InformationSchema,
+  LoginSchema,
+  RegisterSchema,
 };
