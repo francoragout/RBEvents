@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { db } from "@/lib/db";
 import { MeetingSchema } from "@/lib/validations";
@@ -37,6 +37,27 @@ export const CreateMeeting = async (values: z.infer<typeof MeetingSchema>) => {
     return {
       success: false,
       message: "Failed to create meeting!",
+    };
+  }
+};
+
+export const DeleteMeeting = async (id: string) => {
+  try {
+    await db.meeting.delete({
+      where: {
+        id,
+      },
+    });
+    revalidatePath("/admin/dashboard");
+    return {
+      success: true,
+      message: "Meeting was deleted successfully!",
+    };
+  } catch (error) {
+    console.error("Error deleting meeting:", error);
+    return {
+      success: false,
+      message: "Failed to delete meeting!",
     };
   }
 };

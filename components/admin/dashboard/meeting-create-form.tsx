@@ -69,8 +69,8 @@ export default function MeetingCreateForm() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="h-8" size="sm">
-          <PlusIcon className="h-4 w-4" />
+        <Button variant="default" className="h-8 me-6" size="sm">
+          New Meeting
         </Button>
       </DialogTrigger>
       <DialogContent>

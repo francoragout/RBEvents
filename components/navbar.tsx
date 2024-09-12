@@ -41,7 +41,7 @@ export default function Navbar({ session }: { session: any }) {
   return (
     <nav className="flex items-center justify-between py-2 px-8">
       <div className="flex space-x-8 items-center">
-        <h1 className="text-2xl font-bold">RBEvents</h1>
+        <h1 className="text-2xl font-bold">RBE</h1>
         {session && (
           <Tabs value={activeLink?.href}>
             <TabsList className="hidden sm:flex">
