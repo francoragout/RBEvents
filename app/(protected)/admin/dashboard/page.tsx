@@ -24,7 +24,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="grid grid-cols-1 gap-y-4 lg:grid-cols-8 lg:gap-4">
-      <DashboardCalendar meetings={meetings} />
+      <DashboardCalendar meetings={meetings} events={events}/>
       <DashboardTable meetings={meetings} />
       <DashboardBarChart events={events} />
     </div>

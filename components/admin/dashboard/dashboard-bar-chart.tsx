@@ -40,7 +40,7 @@ import { useState } from "react";
 const chartConfig = {
   events: {
     label: "Events",
-    color: "hsl(var(--chart-1))",
+    color: "hsl(var(--orange))",
   },
 } satisfies ChartConfig;
 
@@ -49,20 +49,16 @@ type Event = z.infer<typeof EventSchema>;
 export function DashboardBarChart({ events }: { events: Event[] }) {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
-  // Extract unique years from events
   const years = Array.from(
     new Set(events.map((event) => new Date(event.date).getFullYear()))
   );
 
-  // Filter events based on the selected year
   const filteredEvents = events.filter(
     (event) => new Date(event.date).getFullYear() === selectedYear
   );
 
-  // Initialize eventsPerMonth array
   const eventsPerMonth = new Array(12).fill(0);
 
-  // Count events per month for the selected year
   filteredEvents.forEach((event) => {
     const month = new Date(event.date).getMonth();
     eventsPerMonth[month]++;
@@ -95,6 +91,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
   const averageEvents = filteredEvents.length / (months_with_events || 1); // Avoid division by zero
 
   const currentMonth = new Date().getMonth();
+  
   const difference = eventsPerMonth[currentMonth] - averageEvents;
 
   return (
