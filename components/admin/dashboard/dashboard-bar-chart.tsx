@@ -1,6 +1,15 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
+import { TrendingDown, TrendingUp } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Bar,
   BarChart,
@@ -10,7 +19,6 @@ import {
   ReferenceLine,
   XAxis,
 } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -25,38 +33,98 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-export const description = "A bar chart";
-
-const chartData = [
-  { month: "January", desktop: 1 },
-  { month: "February", desktop: 4 },
-  { month: "March", desktop: 4 },
-  { month: "April", desktop: 0 },
-  { month: "May", desktop: 2 },
-  { month: "June", desktop: 2 },
-  { month: "July", desktop: 1 },
-  { month: "August", desktop: 5 },
-  { month: "September", desktop: 6 },
-  { month: "October", desktop: 2 },
-  { month: "November", desktop: 0 },
-  { month: "December", desktop: 0 },
-];
+import { z } from "zod";
+import { EventSchema } from "@/lib/validations";
+import { useState } from "react";
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  events: {
+    label: "Events",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
-export function DashboardBarChart() {
+type Event = z.infer<typeof EventSchema>;
+
+export function DashboardBarChart({ events }: { events: Event[] }) {
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
+  // Extract unique years from events
+  const years = Array.from(
+    new Set(events.map((event) => new Date(event.date).getFullYear()))
+  );
+
+  // Filter events based on the selected year
+  const filteredEvents = events.filter(
+    (event) => new Date(event.date).getFullYear() === selectedYear
+  );
+
+  // Initialize eventsPerMonth array
+  const eventsPerMonth = new Array(12).fill(0);
+
+  // Count events per month for the selected year
+  filteredEvents.forEach((event) => {
+    const month = new Date(event.date).getMonth();
+    eventsPerMonth[month]++;
+  });
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const chartData = monthNames.map((month, index) => ({
+    month,
+    events: eventsPerMonth[index],
+  }));
+
+  const months_with_events = new Set(
+    filteredEvents.map((event) => new Date(event.date).getMonth() + 1)
+  ).size;
+
+  const averageEvents = filteredEvents.length / (months_with_events || 1); // Avoid division by zero
+
+  const currentMonth = new Date().getMonth();
+  const difference = eventsPerMonth[currentMonth] - averageEvents;
+
   return (
     <Card className="col-span-1 lg:col-span-3">
-      <CardHeader>
-        <CardTitle>Events Bar Chart</CardTitle>
-        <CardDescription>January - Dicember 2024</CardDescription>
-      </CardHeader>
+      <div className="flex justify-between items-center">
+        <CardHeader>
+          <CardTitle>Events Bar Chart</CardTitle>
+          <CardDescription>January - Dicember {selectedYear}</CardDescription>
+        </CardHeader>
+        <div>
+          <Select
+            value={selectedYear.toString()}
+            onValueChange={(value) => setSelectedYear(Number(value))}
+          >
+            <SelectTrigger className="w-32 me-6">
+              <SelectValue placeholder="Select Year" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Years</SelectLabel>
+                {years.map((year) => (
+                  <SelectItem key={year} value={year.toString()}>
+                    {year}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={chartData}>
@@ -73,27 +141,27 @@ export function DashboardBarChart() {
               content={<ChartTooltipContent hideLabel />}
             />
             <Bar
-              dataKey="desktop"
-              fill="var(--color-desktop)"
+              dataKey="events"
+              fill="var(--color-events)"
               radius={8}
               fillOpacity={0.6}
               activeBar={<Rectangle fillOpacity={1} />}
             />
             <ReferenceLine
-              y={4}
+              y={averageEvents}
               stroke="hsl(var(--muted-foreground))"
               strokeDasharray="3 3"
               strokeWidth={1}
             >
               <Label
                 position="insideBottomLeft"
-                value="Average Steps"
+                value="Average Events"
                 offset={10}
                 fill="hsl(var(--foreground))"
               />
               <Label
                 position="insideTopLeft"
-                value="12,343"
+                value={averageEvents.toFixed(2)}
                 className="text-lg"
                 fill="hsl(var(--foreground))"
                 offset={10}
@@ -104,11 +172,19 @@ export function DashboardBarChart() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
+        {difference > 0 ? (
+          <div className="flex gap-2">
+            Trending Up by +{difference.toFixed(2)} this month
+            <TrendingUp className="h-4 w-4" />
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            Trending Down by {difference.toFixed(2)} this month
+            <TrendingDown className="h-4 w-4" />
+          </div>
+        )}
         <div className="leading-none text-muted-foreground">
-          Showing total events of 2024
+          Total {filteredEvents.length} events this year
         </div>
       </CardFooter>
     </Card>
