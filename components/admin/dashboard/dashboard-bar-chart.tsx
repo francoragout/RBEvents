@@ -40,7 +40,7 @@ import { useState } from "react";
 const chartConfig = {
   events: {
     label: "Events",
-    color: "hsl(var(--orange))",
+    color: "hsl(var(--main))",
   },
 } satisfies ChartConfig;
 
@@ -91,14 +91,14 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
   const averageEvents = filteredEvents.length / (months_with_events || 1); // Avoid division by zero
 
   const currentMonth = new Date().getMonth();
-  
+
   const difference = eventsPerMonth[currentMonth] - averageEvents;
 
   return (
     <Card className="col-span-1 lg:col-span-3">
       <div className="flex justify-between items-center">
         <CardHeader>
-          <CardTitle>Events Bar Chart</CardTitle>
+          <CardTitle>Events</CardTitle>
           <CardDescription>January - Dicember {selectedYear}</CardDescription>
         </CardHeader>
         <div>
@@ -170,18 +170,22 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         {difference > 0 ? (
-          <div className="flex gap-2">
-            Trending Up by +{difference.toFixed(2)} this month
+          <div className="flex gap-1">
+            Trending up by
+            <span className="font-bold">{difference.toFixed(2)}</span>
+            from average this month
             <TrendingUp className="h-4 w-4" />
           </div>
         ) : (
-          <div className="flex gap-2">
-            Trending Down by {difference.toFixed(2)} this month
+          <div className="flex gap-1">
+            Trending down by
+            <span className="font-bold">{difference.toFixed(2)}</span>
+            from average this month
             <TrendingDown className="h-4 w-4" />
           </div>
         )}
         <div className="leading-none text-muted-foreground">
-          Total {filteredEvents.length} events this year
+          {filteredEvents.length} events this year
         </div>
       </CardFooter>
     </Card>

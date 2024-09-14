@@ -3,6 +3,7 @@ import { ProviderSchema } from "@/lib/validations";
 import { db } from "@/lib/db";
 import { ProvidersTable } from "@/components/admin/providers/providers-table";
 import { ProvidersColumns } from "@/components/admin/providers/providers-columns";
+import { Suspense } from "react";
 
 type Provider = z.infer<typeof ProviderSchema>;
 

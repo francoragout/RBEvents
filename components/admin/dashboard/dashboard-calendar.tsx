@@ -3,10 +3,10 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { EventSchema, MeetingSchema } from "@/lib/validations";
 import { z } from "zod";
 
@@ -34,11 +34,8 @@ export default function DashboardCalendar({
 
   const dates = [...meetingsDates, ...eventsDates];
 
-  const bothDates = eventsDates.filter((date) => meetingsDates.includes(date));
   const modifiers = {
     events: eventsDates,
-    meetings: meetingsDates,
-    both: bothDates,
   };
 
   return (
@@ -47,9 +44,9 @@ export default function DashboardCalendar({
         <CardTitle>Calendar</CardTitle>
         <CardDescription className="flex gap-1">
           Keep track of your
-          <p className="font-bold text-primary">Meetings</p>
+          <span className="font-bold text-primary">Meetings</span>
           and
-          <p className="font-bold text-orange">Events</p>
+          <span className="font-bold text-main">Events</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="flex justify-center">
@@ -59,10 +56,7 @@ export default function DashboardCalendar({
           modifiers={modifiers}
           modifiersClassNames={{
             events:
-              "bg-orange text-orange-foreground hover:bg-orange hover:text-orange-foreground focus:bg-orange focus:text-orange-foreground",
-            meetings:
-              "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-            both: "bg-orange text-orange-foreground hover:bg-orange hover:text-orange-foreground focus:bg-orange focus:text-orange-foreground",
+              "bg-[hsl(12,76%,61%)] text-primary-foreground hover:bg-[hsl(12,76%,61%)] hover:text-primary-foreground focus:bg-[hsl(12,76%,61%)] focus:text-primary-foreground dark:bg-[hsl(220,70%,50%)] dark:text-primary-foreground dark:hover:bg-[hsl(220,70%,50%)] dark:hover:text-primary-foreground dark:focus:bg-[hsl(220,70%,50%)] dark:focus:text-primary-foreground",
           }}
         />
       </CardContent>
