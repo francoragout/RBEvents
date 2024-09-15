@@ -7,7 +7,6 @@ export function TableSkeleton() {
         <Skeleton className="h-[32px] w-[150px] lg:w-[250px]" />
         <Skeleton className="h-[32px] w-[194px]" />
       </div>
-
       <div className="space-y-2">
         <Skeleton className="h-[48px]" />
         <Skeleton className="h-[57px]" />
@@ -21,7 +20,6 @@ export function TableSkeleton() {
         <Skeleton className="h-[57px]" />
         <Skeleton className="h-[57px]" />
       </div>
-
       <div className="flex justify-end">
         <Skeleton className="h-[32px] w-[493px]" />
       </div>
