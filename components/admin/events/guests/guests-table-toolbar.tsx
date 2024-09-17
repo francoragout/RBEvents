@@ -8,17 +8,28 @@ import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/data-table-view-options";
 import { guestTypes } from "@/lib/data";
 import GuestCreateForm from "./guest-create-form";
+import { Download } from "lucide-react";
+import * as XLSX from "xlsx";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
   eventId: string;
+  guestsList: any[];
 }
 
 export function GuestsTableToolbar<TData>({
   table,
   eventId,
+  guestsList,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+
+  const DownloadGuests = () => {
+    const ws = XLSX.utils.json_to_sheet(guestsList);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Guests");
+    XLSX.writeFile(wb, "guests.xlsx");
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -53,6 +64,15 @@ export function GuestsTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-4">
+        <Button
+          variant="outline"
+          size="sm"
+          className="ml-auto"
+          onClick={DownloadGuests}
+        >
+          <Download className="mr-2 h-4 w-4" />
+          Export
+        </Button>
         <DataTableViewOptions table={table} />
         <GuestCreateForm eventId={eventId} />
       </div>

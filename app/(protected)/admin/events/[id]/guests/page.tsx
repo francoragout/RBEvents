@@ -25,9 +25,20 @@ export default async function GuestsPage({
 }) {
   const eventId = params.id;
   const guests = await getData(eventId);
+
+  const guestList = guests.map((guest) => {
+    return {
+      "Last Name": guest.last_name,
+      "First Name": guest.first_name,
+      "Guest Type": guest.guest_type,
+      "Table Number": guest.table_number,
+    };
+  }
+
+  );
   return (
     <div className="h-full flex-col">
-      <GuestsTable data={guests} columns={GuestsColumns} eventId={eventId}/>
+      <GuestsTable data={guests} columns={GuestsColumns} eventId={eventId} guestList={guestList}/>
     </div>
   );
 }

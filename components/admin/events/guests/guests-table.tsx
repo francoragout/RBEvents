@@ -32,12 +32,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   eventId: string
+  guestList: any[]
 }
 
 export function GuestsTable<TData, TValue>({
   columns,
   data,
   eventId,
+  guestList,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -71,7 +73,7 @@ export function GuestsTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <GuestsTableToolbar table={table} eventId={eventId}/>
+      <GuestsTableToolbar table={table} eventId={eventId}  guestsList={guestList}/>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

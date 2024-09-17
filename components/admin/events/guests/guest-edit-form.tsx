@@ -81,7 +81,7 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create Guest</DialogTitle>
+          <DialogTitle>Edit Guest</DialogTitle>
           <DialogDescription>
             Use Tabs and Enter keys to navigate faster between fields.
           </DialogDescription>
