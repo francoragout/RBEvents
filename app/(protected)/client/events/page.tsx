@@ -1,18 +1,61 @@
 import { auth } from "@/auth";
+import { EventsColumns } from "@/components/admin/events/events-columns";
+import { EventsTable } from "@/components/admin/events/events-table";
+import { db } from "@/lib/db";
+import { EventSchema } from "@/lib/validations";
+import { SessionProvider } from "next-auth/react";
 
 import { redirect } from "next/navigation";
-export default async function EventsPage() {
-  const session = await auth();
+import { z } from "zod";
 
-  if (session?.user?.role !== "USER") {
-    redirect("/admin/dashboard");
+type Event = z.infer<typeof EventSchema>;
+
+async function getData(session: any): Promise<Event[]> {
+  const email = session?.user?.email;
+
+  if (!email) {
+    redirect("/login");
   }
 
+  const user = await db.user.findUnique({
+    where: {
+      email: email,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const events = await db.event.findMany({
+    where: {
+      userId: user.id,
+    },
+    include: {
+      provider: {
+        select: {
+          name: true,
+          city: true,
+        },
+      },
+      task: true,
+      budget: true,
+      guest: true,
+    },
+  });
+  return events.map((event) => EventSchema.parse(event));
+}
+
+export default async function EventsPage() {
+  const session = await auth();
+  const data = await getData(session);
+
   return (
-    <div>
-      <h1>Client Page</h1>
-      <p>This page is only visible to authenticated users.</p>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-    </div>
+    <SessionProvider session={session}>
+      <EventsTable columns={EventsColumns} data={data} />
+    </SessionProvider>
   );
 }

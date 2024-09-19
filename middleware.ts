@@ -24,9 +24,9 @@ export default auth(async (req) => {
     return NextResponse.next();
   }
 
-  // Redirigir a /dashboard si el usuario está logueado y trata de acceder a rutas de autenticación
+  // Redirigir a / si el usuario está logueado y trata de acceder a rutas de autenticación
   if (isLoggedIn && authRoutes.includes(nextUrl.pathname)) {
-    return NextResponse.redirect(new URL("/client/events", nextUrl));
+    return NextResponse.redirect(new URL("/", nextUrl));
   }
 
   // Redirigir a /login si el usuario no está logueado y trata de acceder a una ruta protegida

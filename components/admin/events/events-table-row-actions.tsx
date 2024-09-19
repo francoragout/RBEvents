@@ -45,6 +45,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { ArchiveEvent, DeleteEvent } from "@/actions/event";
+import { useSession } from "next-auth/react";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -54,6 +55,9 @@ export function EventsTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const event = EventSchema.parse(row.original);
+
+  const { data: session } = useSession();
+  const role = session?.user?.role;
 
   const handleDelite = () => {
     DeleteEvent(event.id ?? "").then((response) => {
@@ -90,78 +94,122 @@ export function EventsTableRowActions<TData>({
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col">
-          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
-            <Link href={`/admin/events/${event.id}/information`}>
+          <Button
+            asChild
+            variant="ghost"
+            className="flex justify-start pl-2"
+            size="sm"
+          >
+            <Link
+              href={`/${role === "ADMIN" ? "admin" : "client"}/events/${
+                event.id
+              }/information`}
+            >
               <EyeIcon className="mr-2 h-4 w-4" />
               <span>Information</span>
             </Link>
           </Button>
 
-          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
-            <Link href={`/admin/events/${event.id}/tasks`}>
-              <ListTodo className="mr-2 h-4 w-4" />
-              <span>Tasks</span>
-            </Link>
-          </Button>
-
-          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
-            <Link href={`/admin/events/${event.id}/budget`}>
+          <Button
+            asChild
+            variant="ghost"
+            className="flex justify-start pl-2"
+            size="sm"
+          >
+            <Link
+              href={`/${role === "ADMIN" ? "admin" : "client"}/events/${
+                event.id
+              }/budget`}
+            >
               <DollarSign className="mr-2 h-4 w-4" />
               <span>Budget</span>
             </Link>
           </Button>
 
-          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
-            <Link href={`/admin/events/${event.id}/guests`}>
+          <Button
+            asChild
+            variant="ghost"
+            className="flex justify-start pl-2"
+            size="sm"
+          >
+            <Link
+              href={`/${role === "ADMIN" ? "admin" : "client"}/events/${
+                event.id
+              }/guests`}
+            >
               <Users className="mr-2 h-4 w-4" />
               <span>Guests</span>
             </Link>
           </Button>
 
-          <Button asChild variant="ghost" className="flex justify-start pl-2" size="sm">
-            <Link href={`/admin/events/${event.id}/edit`}>
-              <Pencil className="mr-2 h-4 w-4" />
-              <span>Edit</span>
-            </Link>
-          </Button>
+          {role === "ADMIN" && (
+            <>
+              <Button
+                asChild
+                variant="ghost"
+                className="flex justify-start pl-2"
+                size="sm"
+              >
+                <Link href={`/admin/events/${event.id}/tasks`}>
+                  <ListTodo className="mr-2 h-4 w-4" />
+                  <span>Tasks</span>
+                </Link>
+              </Button>
+              
+              <Button
+                asChild
+                variant="ghost"
+                className="flex justify-start pl-2"
+                size="sm"
+              >
+                <Link href={`/admin/events/${event.id}/edit`}>
+                  <Pencil className="mr-2 h-4 w-4" />
+                  <span>Edit</span>
+                </Link>
+              </Button>
 
-          <Button
-            variant="ghost"
-            className="flex justify-start pl-2"
-            size="sm"
-            onClick={handleArchive}
-          >
-            <ArchiveRestore className="mr-2 h-4 w-4" />
-            <span>Archive</span>
-          </Button>
-
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
               <Button
                 variant="ghost"
+                className="flex justify-start pl-2"
                 size="sm"
-                className="flex justify-start pl-2 w-full"
+                onClick={handleArchive}
               >
-                <Trash className="mr-2 h-4 w-4" />
-                Delete
+                <ArchiveRestore className="mr-2 h-4 w-4" />
+                <span>Archive</span>
               </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your event &apos;{event.name}&apos; and remove your data from our servers.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelite}>
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex justify-start pl-2 w-full"
+                  >
+                    <Trash className="mr-2 h-4 w-4" />
+                    Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your event &apos;{event.name}&apos; and remove your data
+                      from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelite}>
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </>
+          )}
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

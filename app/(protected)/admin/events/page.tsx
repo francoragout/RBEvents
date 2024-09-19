@@ -1,7 +1,9 @@
+import { auth } from "@/auth";
 import { EventsColumns } from "@/components/admin/events/events-columns";
 import { EventsTable } from "@/components/admin/events/events-table";
 import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
+import { SessionProvider } from "next-auth/react";
 import { z } from "zod";
 
 type Event = z.infer<typeof EventSchema>;
@@ -20,6 +22,7 @@ async function getData(): Promise<Event[]> {
       },
       task: true,
       budget: true,
+      guest: true,
     },
   });
   return events.map((event) => EventSchema.parse(event));
@@ -27,5 +30,10 @@ async function getData(): Promise<Event[]> {
 
 export default async function EventsPage() {
   const data = await getData();
-  return <EventsTable columns={EventsColumns} data={data} />;
+  const session = await auth();
+  return (
+    <SessionProvider session={session}>
+      <EventsTable columns={EventsColumns} data={data} />
+    </SessionProvider>
+  );
 }

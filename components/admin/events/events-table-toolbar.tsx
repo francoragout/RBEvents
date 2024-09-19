@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/data-table-view-options";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -13,7 +14,9 @@ interface DataTableToolbarProps<TData> {
 export function EventsTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+
+  const { data: session } = useSession()
+  const role = session?.user?.role
 
   return (
     <div className="flex items-center justify-between">
@@ -29,9 +32,11 @@ export function EventsTableToolbar<TData>({
       </div>
       <div className="flex space-x-4">
         <DataTableViewOptions table={table} />
-        <Button variant="default" size="sm" className="h-8" asChild>
-          <Link href="/admin/events/create">New Event</Link>
-        </Button>
+        {role === "ADMIN" && (
+          <Button variant="default" size="sm" className="h-8" asChild>
+            <Link href="/admin/events/create">New Event</Link>
+          </Button>
+        )}
       </div>
     </div>
   );

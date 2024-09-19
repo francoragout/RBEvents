@@ -165,7 +165,7 @@ const EventSchema = z.object({
   provider: ProviderSchema.nullish(),
   task: z.array(TaskSchema).optional(),
   budget: z.array(BudgetSchema).optional(),
-  guests: z.array(GuestSchema).optional(),
+  guest: z.array(GuestSchema).optional(),
   information: array(InformationSchema).optional(),
   userEmail: z.string().email().nullish(),
 });

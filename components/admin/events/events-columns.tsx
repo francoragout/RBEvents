@@ -111,6 +111,24 @@ export const EventsColumns: ColumnDef<Event>[] = [
     },
   },
   {
+    accessorKey: "guest",
+    header: () => <div className="text-left">Guests</div>,
+    cell: ({ row }) => {
+      const guests = row.original.guest ?? [];
+      const totalGuests = guests.length;
+      const confirmedGuests = guests.filter(
+        (guest) =>
+          guest.guest_type === "AT_THE_BEGINNING" ||
+          guest.guest_type === "AFTERWARDS"
+      ).length;
+      return (
+        <div>
+          {confirmedGuests} / {totalGuests}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "budget",
     header: () => <div className="text-left">Budget</div>,
     cell: ({ row }) => {

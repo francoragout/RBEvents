@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   DollarSign,
@@ -23,24 +23,27 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { EventSchema } from "@/lib/validations";
+import { useSession } from "next-auth/react";
 
 type Event = z.infer<typeof EventSchema>;
 
-export default function SubNavbar({ event } : { event : Event }) {
-    const [title, setTitle] = useState("");
-    const path = usePathname();
-   
-    useEffect(() => {
-        if (path.endsWith("/tasks")) {
-            setTitle("Tasks");
-        } else if (path.endsWith("/guests")) {
-            setTitle("Guests");
-        } else if (path.endsWith("/budget")) {
-            setTitle("Budget");
-        } else {
-            setTitle("Information");
-        }
-    }, [path]);
+export default function SubNavbar({ event }: { event: Event }) {
+  const [title, setTitle] = useState("");
+  const path = usePathname();
+  const { data: session } = useSession();
+  const role = session?.user?.role;
+
+  useEffect(() => {
+    if (path.endsWith("/tasks")) {
+      setTitle("Tasks");
+    } else if (path.endsWith("/guests")) {
+      setTitle("Guests");
+    } else if (path.endsWith("/budget")) {
+      setTitle("Budget");
+    } else {
+      setTitle("Information");
+    }
+  }, [path]);
 
   return (
     <div className="flex items-center mb-4 justify-between">
@@ -65,35 +68,14 @@ export default function SubNavbar({ event } : { event : Event }) {
               variant={path.endsWith("/information") ? "secondary" : "ghost"}
               className="flex justify-start pl-2"
               size="sm"
-              
             >
-              <Link href={`/admin/events/${event?.id}/information`}>
+              <Link
+                href={`/${role === "ADMIN" ? "admin" : "client"}/events/${
+                  event?.id
+                }/information`}
+              >
                 <EyeIcon className="mr-2 h-4 w-4" />
                 <span>Information</span>
-              </Link>
-            </Button>
-
-            <Button
-              asChild
-              variant={path.endsWith("/tasks") ? "secondary" : "ghost"}
-              className="flex justify-start pl-2"
-              size="sm"
-            >
-              <Link href={`/admin/events/${event?.id}/tasks`}>
-                <ListTodo className="mr-2 h-4 w-4" />
-                <span>Tasks</span>
-              </Link>
-            </Button>
-
-            <Button
-              asChild
-              variant={path.endsWith("/guests") ? "secondary" : "ghost"}
-              className="flex justify-start pl-2"
-              size="sm"
-            >
-              <Link href={`/admin/events/${event?.id}/guests`}>
-                <Users className="mr-2 h-4 w-4" />
-                <span>Guests</span>
               </Link>
             </Button>
 
@@ -103,11 +85,45 @@ export default function SubNavbar({ event } : { event : Event }) {
               className="flex justify-start pl-2"
               size="sm"
             >
-              <Link href={`/admin/events/${event?.id}/budget`}>
+              <Link
+                href={`/${role === "ADMIN" ? "admin" : "client"}/events/${
+                  event?.id
+                }/budget`}
+              >
                 <DollarSign className="mr-2 h-4 w-4" />
                 <span>Budget</span>
               </Link>
             </Button>
+
+            <Button
+              asChild
+              variant={path.endsWith("/guests") ? "secondary" : "ghost"}
+              className="flex justify-start pl-2"
+              size="sm"
+            >
+              <Link
+                href={`/${role === "ADMIN" ? "admin" : "client"}/events/${
+                  event?.id
+                }/guests`}
+              >
+                <Users className="mr-2 h-4 w-4" />
+                <span>Guests</span>
+              </Link>
+            </Button>
+
+            {role === "ADMIN" && (
+              <Button
+                asChild
+                variant={path.endsWith("/tasks") ? "secondary" : "ghost"}
+                className="flex justify-start pl-2"
+                size="sm"
+              >
+                <Link href={`/admin/events/${event?.id}/tasks`}>
+                  <ListTodo className="mr-2 h-4 w-4" />
+                  <span>Tasks</span>
+                </Link>
+              </Button>
+            )}
           </div>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -115,6 +131,5 @@ export default function SubNavbar({ event } : { event : Event }) {
   );
 }
 function endsWith(arg0: string) {
-    throw new Error("Function not implemented.");
+  throw new Error("Function not implemented.");
 }
-
