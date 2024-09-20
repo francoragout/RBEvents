@@ -44,7 +44,7 @@ export default function DashboardCalendar({
   };
 
   return (
-    <Card className="col-span-1 lg:col-span-2">
+    <Card className="col-span-1 md:col-span-5 lg:col-span-2">
       <CardHeader>
         <CardTitle>Calendar</CardTitle>
         <CardDescription className="flex gap-1">

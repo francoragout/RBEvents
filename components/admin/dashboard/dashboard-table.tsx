@@ -47,7 +47,7 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
   };
 
   return (
-    <Card className="col-span-1 lg:col-span-3">
+    <Card className="col-span-1 md:col-span-7 lg:col-span-3">
       <div className="flex justify-between items-center">
         <CardHeader>
           <CardTitle>Meetings</CardTitle>

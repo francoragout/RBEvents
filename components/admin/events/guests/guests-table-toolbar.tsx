@@ -10,6 +10,7 @@ import { guestTypes } from "@/lib/data";
 import GuestCreateForm from "./guest-create-form";
 import { Download } from "lucide-react";
 import * as XLSX from "xlsx";
+import { useSession } from "next-auth/react";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -23,6 +24,9 @@ export function GuestsTableToolbar<TData>({
   guestsList,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+
+  const { data: session } = useSession();
+  const role = session?.user?.role;
 
   const DownloadGuests = () => {
     const ws = XLSX.utils.json_to_sheet(guestsList);
@@ -64,15 +68,17 @@ export function GuestsTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-4">
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto"
-          onClick={DownloadGuests}
-        >
-          <Download className="mr-2 h-4 w-4" />
-          Export
-        </Button>
+        {role === "ADMIN" && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="ml-auto h-8"
+            onClick={DownloadGuests}
+          >
+            <Download className="mr-2 h-4 w-4" />
+            Export
+          </Button>
+        )}
         <DataTableViewOptions table={table} />
         <GuestCreateForm eventId={eventId} />
       </div>

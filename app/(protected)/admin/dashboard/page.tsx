@@ -1,5 +1,6 @@
 import { DashboardBarChart } from "@/components/admin/dashboard/dashboard-bar-chart";
 import DashboardCalendar from "@/components/admin/dashboard/dashboard-calendar";
+import { DashboardPieChart } from "@/components/admin/dashboard/dashboard-pie-chart";
 import DashboardTable from "@/components/admin/dashboard/dashboard-table";
 import { db } from "@/lib/db";
 
@@ -23,10 +24,11 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div className="grid grid-cols-1 gap-y-4 lg:grid-cols-8 lg:gap-4">
+    <div className="grid grid-cols-1 gap-y-4 md:grid-cols-12 md:gap-4 lg:grid-cols-8 lg:gap-4">
       <DashboardCalendar meetings={meetings} events={events} />
       <DashboardTable meetings={meetings} />
       <DashboardBarChart events={events} />
+      <DashboardPieChart events={events} />
     </div>
   );
 }
