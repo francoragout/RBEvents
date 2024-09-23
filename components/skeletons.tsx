@@ -36,3 +36,11 @@ export function DashboardSkeleton() {
     </div>
   );
 }
+
+export function EventFormSkeleton() {
+  return <Skeleton className="h-[532px] w-full" />;
+}
+
+export default function ProviderFormSkeleton() {
+  return <Skeleton className="h-[984px] w-full" />;
+}

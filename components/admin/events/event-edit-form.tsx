@@ -3,18 +3,15 @@
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
-import { toZonedTime } from "date-fns-tz";
-import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { useTransition } from "react";
-import { CreateEvent, EditEvent } from "@/actions/event";
+import { EditEvent } from "@/actions/event";
 import { EventSchema, ProviderSchema } from "@/lib/validations";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -37,7 +34,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { revalidatePath } from "next/cache";
 import {
   Card,
   CardContent,
@@ -49,6 +45,7 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 import { organizations, types } from "../../../lib/data";
+import { CalendarIcon } from "lucide-react";
 
 const ExtendedEventSchema = EventSchema.extend({
   id: z.string(),
