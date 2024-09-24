@@ -47,6 +47,7 @@ export default function ProviderCreateForm() {
     resolver: zodResolver(ProviderSchema),
     defaultValues: {
       name: "",
+      phone: "",
       address: "",
       features: [],
     },
@@ -158,7 +159,6 @@ export default function ProviderCreateForm() {
                         type="number"
                         {...field}
                         disabled={isPending}
-                        value={field.value ?? ""}
                       />
                     </FormControl>
                     <FormMessage />

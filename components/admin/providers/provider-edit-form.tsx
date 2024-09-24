@@ -171,7 +171,6 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                         type="number"
                         {...field}
                         disabled={isPending}
-                        value={field.value ?? ""}
                       />
                     </FormControl>
                     <FormMessage />

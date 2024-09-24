@@ -57,6 +57,7 @@ const BudgetSchema = z.object({
   eventId: z.string().optional(),
 });
 
+// Define el esquema de la ciudad
 const CityEnum = z.enum([
   "SAN_MIGUEL_DE_TUCUMAN",
   "TAFI_VIEJO",
@@ -65,6 +66,7 @@ const CityEnum = z.enum([
   "TAFI_DEL_VALLE",
 ]);
 
+// Define el esquema del proveedor
 const ProviderSchema = z.object({
   id: z.string().optional(),
   name: z
@@ -74,7 +76,7 @@ const ProviderSchema = z.object({
     .max(30, "Name must not be longer than 30 characters."),
   address: z.string().optional(),
   city: CityEnum,
-  phone: z.string().nullish(),
+  phone: z.string().optional(),
   features: z.array(z.string()).optional(),
   capacity: z.coerce.number().nonnegative().optional(),
   rent: z.coerce.number().nonnegative().optional(),

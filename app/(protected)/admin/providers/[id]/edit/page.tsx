@@ -8,19 +8,35 @@ export default async function EditProviderPage({
   params: { id: string };
 }) {
   const id = params.id;
+
+  // Fetch the provider data from the database
   const provider = await db.provider.findUnique({
     where: {
       id: id,
     },
   });
 
+  // Handle case when provider is not found
   if (!provider) {
-    notFound();
+    return notFound(); // This will trigger the 404 page
   }
+
+  // Transform null values to undefined
+  const transformedProvider = {
+    ...provider,
+    address: provider.address || undefined,
+    phone: provider.phone || undefined,
+    capacity: provider.capacity || undefined,
+    rent: provider.rent || undefined,
+    dinner: provider.dinner || undefined,
+    lunch: provider.lunch || undefined,
+    after: provider.after || undefined,
+  };
 
   return (
     <div>
-      <ProviderEditForm provider={provider} />
+      <ProviderEditForm provider={transformedProvider} />
     </div>
-  )
+  );
 }
+
