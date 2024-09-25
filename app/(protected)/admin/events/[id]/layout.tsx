@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import SubNavbar from "@/components/sub-navbar";
 import { db } from "@/lib/db";
 import { SessionProvider } from "next-auth/react";
+import NotFound from "./not-found";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ const EventLayout = async ({ children, params }: ProtectedLayoutProps) => {
   });
 
   if (!event) {
-    return <div>Event not found</div>;
+    return NotFound();
   }
 
   const session = await auth();

@@ -95,7 +95,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
   const difference = eventsPerMonth[currentMonth] - averageEvents;
 
   return (
-    <Card className="col-span-1 md:col-span-7 lg:col-span-3">
+    <Card className="col-span-1 md:col-span-12 lg:col-span-3">
       <div className="flex justify-between items-center">
         <CardHeader>
           <CardTitle>Events</CardTitle>
@@ -106,7 +106,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
             value={selectedYear.toString()}
             onValueChange={(value) => setSelectedYear(Number(value))}
           >
-            <SelectTrigger className="w-32 me-6">
+            <SelectTrigger className="w-32 me-6 h-8">
               <SelectValue placeholder="Select Year" />
             </SelectTrigger>
             <SelectContent>

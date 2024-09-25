@@ -1,6 +1,7 @@
 import ProviderEditForm from "@/components/admin/providers/provider-edit-form";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
+import NotFound from "./not-found";
 
 export default async function EditProviderPage({
   params,
@@ -18,7 +19,7 @@ export default async function EditProviderPage({
 
   // Handle case when provider is not found
   if (!provider) {
-    return notFound(); // This will trigger the 404 page
+    return NotFound();
   }
 
   // Transform null values to undefined
