@@ -91,7 +91,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
         default:
           daysLeft = diffDays;
       }
-      return <div>{daysLeft}</div>;
+      return <div className="font-bold text-primary">{daysLeft}</div>;
     },
   },
   {

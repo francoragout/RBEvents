@@ -48,8 +48,8 @@ export default function SubNavbar({ event }: { event: Event }) {
   return (
     <div className="flex items-center mb-4 justify-between">
       <Badge variant="outline">
-        <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          {event?.name}: {title}
+        <h4 className="scroll-m-20 text-xl font-semibold tracking-tight flex">
+          {event?.name}:<div className="text-primary ml-1">{title}</div>
         </h4>
       </Badge>
       <DropdownMenu>

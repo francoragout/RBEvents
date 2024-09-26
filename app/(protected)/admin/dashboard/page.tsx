@@ -1,5 +1,6 @@
 import { DashboardBarChart } from "@/components/admin/dashboard/dashboard-bar-chart";
 import DashboardCalendar from "@/components/admin/dashboard/dashboard-calendar";
+import { DashboardLineChart } from "@/components/admin/dashboard/dashboard-line-chart";
 import { DashboardPieChart } from "@/components/admin/dashboard/dashboard-pie-chart";
 import DashboardTable from "@/components/admin/dashboard/dashboard-table";
 import { TableSkeleton } from "@/components/skeletons";
@@ -34,6 +35,7 @@ export default async function DashboardPage() {
         <DashboardBarChart events={events} />
         {/* <DashboardPieChart events={events} />
         <Card className="lg:col-span-6"></Card> */}
+        <DashboardLineChart />
       </div>
     </Suspense>
   );

@@ -85,7 +85,7 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
                       .slice(1, 4)
                       .join(" ")}
                   </TableCell>
-                  <TableCell className="text-main font-bold">{meeting.time}</TableCell>
+                  <TableCell className="text-primary font-bold">{meeting.time}</TableCell>
                   <TableCell className="font-medium">{meeting.note}</TableCell>
                   <TableCell>
                     <DropdownMenu>

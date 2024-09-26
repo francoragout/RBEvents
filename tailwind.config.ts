@@ -41,6 +41,10 @@ const config = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        zinc: {
+          DEFAULT: "hsl(var(--zinc))",
+          foreground: "hsl(var(--zinc-foreground))",
+        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
@@ -56,10 +60,6 @@ const config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
-        main: {
-          DEFAULT: "hsl(var(--main))",
-          foreground: "hsl(var(--main-foreground))",
         },
       },
       borderRadius: {

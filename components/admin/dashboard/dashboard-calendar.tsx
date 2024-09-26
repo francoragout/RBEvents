@@ -51,7 +51,7 @@ export default function DashboardCalendar({
           Keep track of your
           <span className="font-bold text-primary">Meetings</span>
           and
-          <span className="font-bold text-main">Events</span>
+          <span className="font-bold text-foreground">Events</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="flex justify-center">
@@ -63,7 +63,7 @@ export default function DashboardCalendar({
           modifiers={modifiers}
           modifiersClassNames={{
             events:
-              "bg-main text-primary-foreground hover:bg-main hover:text-primary-foreground focus:bg-main focus:text-primary-foreground",
+              "bg-zinc text-zinc-foreground hover:bg-zinc hover:text-zinc-foreground focus:bg-zinc focus:text-zinc-foreground",
             meetings:
               "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
           }}
