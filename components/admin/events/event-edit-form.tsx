@@ -208,7 +208,7 @@ export default function EventEditForm({
                     <FormLabel>Time</FormLabel>
                     <FormControl>
                       <Input
-                        className="w-full"
+                        className="w-fit-content"
                         placeholder="Shedule a time"
                         {...field}
                         type="time"
