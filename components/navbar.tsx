@@ -20,9 +20,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import LogoutButton from "./auth/logout-button";
 import { LogIn } from "lucide-react";
 
-const clientLinks = [
-  { name: "Events", href: "/client/events" },
-];
+const clientLinks = [{ name: "Events", href: "/client/events" }];
 
 const adminLinks = [
   { name: "Dashboard", href: "/admin/dashboard" },
@@ -33,15 +31,12 @@ const adminLinks = [
 export default function Navbar({ session }: { session: any }) {
   const pathname = usePathname();
   const links = session?.user?.role === "ADMIN" ? adminLinks : clientLinks;
-
   const activeLink = links.find((link) => pathname.startsWith(link.href));
-
-  console.log(activeLink);
 
   return (
     <nav className="flex items-center justify-between py-2 px-8">
       <div className="flex space-x-8 items-center">
-        <h1 className="text-2xl font-bold">RBE</h1>
+        <h1 className="text-2xl font-bold">RB</h1>
         {session && (
           <Tabs value={activeLink?.href}>
             <TabsList className="hidden sm:flex">
@@ -65,9 +60,15 @@ export default function Navbar({ session }: { session: any }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               {links.map((link) => (
-                <DropdownMenuItem key={link.href}>
+                <Button
+                  key={link.href}
+                  asChild
+                  variant="ghost"
+                  className="flex justify-start pl-2"
+                  size="sm"
+                >
                   <Link href={link.href}>{link.name}</Link>
-                </DropdownMenuItem>
+                </Button>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
@@ -84,7 +85,7 @@ export default function Navbar({ session }: { session: any }) {
                 {session?.user?.image ? (
                   <AvatarImage src={session?.user?.image} alt="avatar" />
                 ) : null}
-                <AvatarFallback className="bg-white">
+                <AvatarFallback className="bg-background">
                   <PersonIcon />
                 </AvatarFallback>
               </Avatar>
@@ -93,17 +94,13 @@ export default function Navbar({ session }: { session: any }) {
           <DropdownMenuContent align="end">
             {session ? (
               <>
-                <DropdownMenuLabel>
-                  {session?.user?.name}
-                </DropdownMenuLabel>
+                <DropdownMenuLabel>{session?.user?.name}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <LogoutButton />
               </>
             ) : (
               <>
-                <DropdownMenuLabel>
-                  Account
-                </DropdownMenuLabel>
+                <DropdownMenuLabel>Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <Button
                   variant="ghost"

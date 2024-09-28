@@ -43,9 +43,7 @@ export function EventsTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
-  const [sorting, setSorting] = React.useState<SortingState>([
-    { id: "date", desc: false },
-  ]);
+  const [sorting, setSorting] = React.useState<SortingState>([{ id: "date", desc: false }])
 
   const table = useReactTable({
     data,

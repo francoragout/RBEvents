@@ -32,7 +32,9 @@ export const EventsColumns: ColumnDef<Event>[] = [
   },
   {
     accessorKey: "date",
-    header: () => <div className="text-left">Date</div>,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Date" />
+    ),
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"));
       return (
