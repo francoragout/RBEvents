@@ -16,7 +16,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" />
     ),
-    cell: ({ row }) => <div>{row.getValue("name")}</div>,
+    cell: ({ row }) => <div className="font-bold">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "type",
