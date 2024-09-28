@@ -193,6 +193,7 @@ export default function EventCreateForm({
                     <FormLabel>Time</FormLabel>
                     <FormControl>
                       <Input
+                        className="w-full"
                         placeholder="Shedule a time"
                         {...field}
                         type="time"

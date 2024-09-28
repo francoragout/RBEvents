@@ -33,7 +33,7 @@ import { cn } from "@/lib/utils";
 import { MeetingSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarIcon, Plus, PlusIcon } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -156,6 +156,7 @@ export default function MeetingCreateForm() {
                   <FormLabel>Time</FormLabel>
                   <FormControl>
                     <Input
+                      className="w-full"
                       placeholder="Shedule a time"
                       {...field}
                       type="time"
