@@ -36,6 +36,7 @@ export default async function DashboardPage() {
         {/* <DashboardPieChart events={events} />
         <Card className="lg:col-span-6"></Card> */}
         <DashboardLineChart />
+        <DashboardPieChart events={events} />
       </div>
     </Suspense>
   );

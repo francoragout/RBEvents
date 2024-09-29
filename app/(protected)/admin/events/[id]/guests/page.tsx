@@ -13,6 +13,14 @@ async function getData(eventId: string): Promise<Guest[]> {
     where: {
       eventId: eventId,
     },
+    orderBy: [
+      {
+        guest_type: "asc",
+      },
+      {
+        last_name: "asc",
+      },
+    ],
   });
 
   return guests.map((guest) => GuestSchema.parse(guest));
@@ -33,12 +41,15 @@ export default async function GuestsPage({
       "Guest Type": guest.guest_type,
       "Table Number": guest.table_number,
     };
-  }
-
-  );
+  });
   return (
     <div className="h-full flex-col">
-      <GuestsTable data={guests} columns={GuestsColumns} eventId={eventId} guestList={guestList}/>
+      <GuestsTable
+        data={guests}
+        columns={GuestsColumns}
+        eventId={eventId}
+        guestList={guestList}
+      />
     </div>
   );
 }

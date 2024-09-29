@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
 
 import {
@@ -31,39 +30,49 @@ const chartConfig = {
   },
   coordination: {
     label: "Coordination",
-    color: "hsl(var(--chart-1))",
   },
   partial: {
     label: "Partial",
-    color: "hsl(var(--chart-2))",
   },
   comprehensive: {
     label: "Comprehensive",
-    color: "hsl(var(--chart-3))",
   },
 } satisfies ChartConfig;
 
+
 export function DashboardPieChart({ events }: { events: Event[] }) {
   const totalEvents = events.length;
-  const chartData = [
-    {
-      event: "coordination",
-      count: events.filter((event) => event.organization === "COORDINATION")
-        .length,
-      fill: "hsl(var(--chart-1))",
-    },
-    {
-      event: "partial",
-      count: events.filter((event) => event.organization === "PARTIAL").length,
-      fill: "hsl(var(--chart-2))",
-    },
-    {
-      event: "comprehensive",
-      count: events.filter((event) => event.organization === "COMPREHENSIVE")
-        .length,
-      fill: "hsl(var(--chart-3))",
-    },
+
+  const coordinationCount = events.filter((event) => event.organization === "COORDINATION").length;
+  const partialCount = events.filter((event) => event.organization === "PARTIAL").length;
+  const comprehensiveCount = events.filter((event) => event.organization === "COMPREHENSIVE").length;
+
+  const counts = [
+    { organization: "coordination", count: coordinationCount },
+    { organization: "partial", count: partialCount },
+    { organization: "comprehensive", count: comprehensiveCount },
   ];
+
+  counts.sort((a, b) => b.count - a.count);
+
+  const chartData = counts.map((item, index) => {
+    let color;
+    if (index === 0) {
+      color = "hsl(var(--primary))";
+    } else if (index === 1) {
+      color = "hsl(var(--primary-max-opacity))";
+    } else {
+      color = "hsl(var(--primary-opacity))";
+    }
+    return {
+      event: item.organization,
+      count: item.count,
+      fill: color,
+    };
+  });
+  
+
+  
 
   return (
     <Card className="col-span-1 md:col-span-5 lg:col-span-2">

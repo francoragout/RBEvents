@@ -44,46 +44,14 @@ export const TasksColumns: ColumnDef<Task>[] = [
         return null;
       }
 
-      switch (status.value) {
-        case "BACKLOG":
-          return (
-            <div className="flex items-center text-blue-500">
-              {status.icon && (
-                <status.icon className="mr-2 h-4 w-4 text-muted-foreground text-blue-500" />
-              )}
-              <span>{status.label}</span>
-            </div>
-          );
-        case "TODO":
-          return (
-            <div className="flex items-center text-red-500">
-              {status.icon && (
-                <status.icon className="mr-2 h-4 w-4 text-muted-foreground text-red-500" />
-              )}
-              <span>{status.label}</span>
-            </div>
-          );
-        case "IN_PROGRESS":
-          return (
-            <div className="flex items-center text-yellow-500">
-              {status.icon && (
-                <status.icon className="mr-2 h-4 w-4 text-muted-foreground text-yellow-500" />
-              )}
-              <span>{status.label}</span>
-            </div>
-          );
-        case "DONE":
-          return (
-            <div className="flex items-center text-green-500">
-              {status.icon && (
-                <status.icon className="mr-2 h-4 w-4 text-muted-foreground text-green-500" />
-              )}
-              <span>{status.label}</span>
-            </div>
-          );
-        default:
-          return null;
-      }
+      return (
+        <div className="flex items-center">
+          {status.icon && (
+            <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
+          )}
+          <span className={status.color}>{status.label}</span>
+        </div>
+      );
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));

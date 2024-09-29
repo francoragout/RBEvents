@@ -47,7 +47,7 @@ export function GuestsTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
-  const [sorting, setSorting] = React.useState<SortingState>([{ id: "last_name", desc: false }])
+  const [sorting, setSorting] = React.useState<SortingState>([{ id: "guest_type", desc: true }, { id: "last_name", desc: false }])
 
   const table = useReactTable({
     data,

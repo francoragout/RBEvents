@@ -63,7 +63,7 @@ export default function DashboardCalendar({
           modifiers={modifiers}
           modifiersClassNames={{
             events:
-              "bg-zinc text-zinc-foreground hover:bg-zinc hover:text-zinc-foreground focus:bg-zinc focus:text-zinc-foreground",
+              "bg-foreground text-background hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background",
             meetings:
               "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
           }}

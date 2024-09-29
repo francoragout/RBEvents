@@ -72,11 +72,11 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
       const amount_paid = row.getValue("amount_paid") as number;
       const due = total_price - amount_paid;
       if (total_price === 0 && amount_paid === 0) {
-        return <Badge>No set</Badge>;
+        return <Badge variant="secondary">No set</Badge>;
       } else if (due !== 0) {
-        return <Badge className="bg-red-500">${due}</Badge>;
+        return <Badge className="bg-red-500 hover:bg-red-500 dark:bg-red-700">${due}</Badge>;
       } else {
-        return <Badge className="bg-green-500">Paid</Badge>;
+        return <Badge className="bg-green-500 hover:bg-green-500 dark:bg-green-700">Paid</Badge>;
       }
     },
   },

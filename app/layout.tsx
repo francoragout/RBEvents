@@ -40,7 +40,7 @@ export default async function RootLayout({
         >
           <Navbar session={session} />
           <Separator className="mb-14" />
-          <div className="container">
+          <div className="container mb-14">
             {children}
           </div>
           <Toaster />
