@@ -5,7 +5,7 @@ import authConfig from "./auth.config";
 const { auth } = NextAuth(authConfig);
 
 const publicRoutes = ["/"];
-const authRoutes = ["/login", "/register"];
+const authRoutes = ["/authentication"];
 const apiAuthPrefix = "/api/auth";
 
 export default auth(async (req) => {
@@ -35,7 +35,7 @@ export default auth(async (req) => {
     !authRoutes.includes(nextUrl.pathname) &&
     !publicRoutes.includes(nextUrl.pathname)
   ) {
-    return NextResponse.redirect(new URL("/login", nextUrl));
+    return NextResponse.redirect(new URL("/authentication", nextUrl));
   }
 
   return NextResponse.next();

@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -17,8 +16,8 @@ import Link from "next/link";
 import { ModeToggle } from "./theme-toggle-button";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import LogoutButton from "./auth/logout-button";
 import { LogIn } from "lucide-react";
+import UserSignOut from "./auth/user-signout";
 
 const clientLinks = [{ name: "Events", href: "/client/events" }];
 
@@ -96,7 +95,7 @@ export default function Navbar({ session }: { session: any }) {
               <>
                 <DropdownMenuLabel>{session?.user?.name}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <LogoutButton />
+                <UserSignOut />
               </>
             ) : (
               <>

@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 
-const LogoutButton = () => {
+const UserSignOut = () => {
   const handleClick = async () => {
     await signOut({
-      callbackUrl: "/auth/login",
+      callbackUrl: "/auth/authentication",
     });
   };
 
@@ -19,8 +19,8 @@ const LogoutButton = () => {
       size="sm"
     >
       <LogOut className="mr-2 h-4 w-4" />
-      <span>Logout</span>
+      <span>SignOut</span>
     </Button>
   );
 };
-export default LogoutButton;
+export default UserSignOut;
