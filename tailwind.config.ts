@@ -28,7 +28,6 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -61,6 +60,17 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      opacity: {
+        10: "0.1",
+        20: "0.2",
+        30: "0.3",
+        40: "0.4",
+        50: "0.5",
+        60: "0.6",
+        70: "0.7",
+        80: "0.8",
+        90: "0.9",
       },
       borderRadius: {
         lg: "var(--radius)",

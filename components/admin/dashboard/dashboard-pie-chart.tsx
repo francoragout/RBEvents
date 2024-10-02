@@ -39,13 +39,18 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-
 export function DashboardPieChart({ events }: { events: Event[] }) {
   const totalEvents = events.length;
 
-  const coordinationCount = events.filter((event) => event.organization === "COORDINATION").length;
-  const partialCount = events.filter((event) => event.organization === "PARTIAL").length;
-  const comprehensiveCount = events.filter((event) => event.organization === "COMPREHENSIVE").length;
+  const coordinationCount = events.filter(
+    (event) => event.organization === "COORDINATION"
+  ).length;
+  const partialCount = events.filter(
+    (event) => event.organization === "PARTIAL"
+  ).length;
+  const comprehensiveCount = events.filter(
+    (event) => event.organization === "COMPREHENSIVE"
+  ).length;
 
   const counts = [
     { organization: "coordination", count: coordinationCount },
@@ -60,9 +65,9 @@ export function DashboardPieChart({ events }: { events: Event[] }) {
     if (index === 0) {
       color = "hsl(var(--primary))";
     } else if (index === 1) {
-      color = "hsl(var(--primary-max-opacity))";
+      color = "hsl(var(--primary) / 0.6)";
     } else {
-      color = "hsl(var(--primary-opacity))";
+      color = "hsl(var(--primary) / 0.2)";
     }
     return {
       event: item.organization,
@@ -70,17 +75,14 @@ export function DashboardPieChart({ events }: { events: Event[] }) {
       fill: color,
     };
   });
-  
-
-  
 
   return (
     <Card className="col-span-1 md:col-span-5 lg:col-span-2">
       <CardHeader className="pb-2">
         <CardTitle>Organizations</CardTitle>
-        <CardDescription>Types by RBE</CardDescription>
+        <CardDescription>Events by organization of all years</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
+      <CardContent>
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square max-h-[250px]"
