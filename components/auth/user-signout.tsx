@@ -19,7 +19,7 @@ const UserSignOut = () => {
       size="sm"
     >
       <LogOut className="mr-2 h-4 w-4" />
-      <span>SignOut</span>
+      <span>Signout</span>
     </Button>
   );
 };

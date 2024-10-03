@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { PersonIcon } from "@radix-ui/react-icons";
+import { BellIcon, PersonIcon } from "@radix-ui/react-icons";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -18,6 +19,9 @@ import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { LogIn } from "lucide-react";
 import UserSignOut from "./auth/user-signout";
+import Notifications from "./notifications";
+import { z } from "zod";
+import { NotificationSchema } from "@/lib/validations";
 
 const clientLinks = [{ name: "Events", href: "/client/events" }];
 
@@ -27,7 +31,14 @@ const adminLinks = [
   { name: "Providers", href: "/admin/providers" },
 ];
 
-export default function Navbar({ session }: { session: any }) {
+type Notification = z.infer<typeof NotificationSchema>;
+
+interface NavbarProps {
+  session: any;
+  notifications: Notification[];
+}
+
+export default function Navbar({ session, notifications }: NavbarProps) {
   const pathname = usePathname();
   const links = session?.user?.role === "ADMIN" ? adminLinks : clientLinks;
   const activeLink = links.find((link) => pathname.startsWith(link.href));
@@ -51,27 +62,31 @@ export default function Navbar({ session }: { session: any }) {
 
       <div className="flex space-x-4">
         {session && (
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex sm:hidden" asChild>
-              <Button variant="outline" className="rounded-full">
-                {activeLink?.name}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {links.map((link) => (
-                <Button
-                  key={link.href}
-                  asChild
-                  variant="ghost"
-                  className="flex justify-start pl-2"
-                  size="sm"
-                >
-                  <Link href={link.href}>{link.name}</Link>
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex sm:hidden" asChild>
+                <Button variant="outline" className="rounded-full">
+                  {activeLink?.name}
                 </Button>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {links.map((link) => (
+                  <Button
+                    key={link.href}
+                    asChild
+                    variant="ghost"
+                    className="flex justify-start pl-2"
+                    size="sm"
+                  >
+                    <Link href={link.href}>{link.name}</Link>
+                  </Button>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Notifications notifications={notifications} />
+          </>
         )}
+
         <ModeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -107,7 +122,7 @@ export default function Navbar({ session }: { session: any }) {
                   size="sm"
                 >
                   <LogIn className="mr-2 h-4 w-4" />
-                  <Link href="/login">
+                  <Link href="/authentication">
                     <span>Sign In</span>
                   </Link>
                 </Button>

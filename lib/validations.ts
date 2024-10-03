@@ -185,6 +185,15 @@ const MeetingSchema = z.object({
   reminder: z.boolean().default(false),
 });
 
+const NotificationSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string(),
+  date: z.date(),
+  time: z.string(),
+  read: z.boolean(),
+});
+
 export {
   MeetingSchema,
   GuestSchema,
@@ -195,4 +204,5 @@ export {
   InformationSchema,
   LoginSchema,
   RegisterSchema,
+  NotificationSchema,
 };

@@ -172,17 +172,23 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
         {difference > 0 ? (
           <div className="flex gap-1">
             Trending up by
-            <span className="font-bold text-primary">{difference.toFixed(2)}</span>
+            <span className="font-bold text-primary">
+              {difference.toFixed(2)}
+            </span>
             from average this month
             <TrendingUp className="h-4 w-4" />
           </div>
-        ) : (
+        ) : difference < 0 ? (
           <div className="flex gap-1">
             Trending down by
-            <span className="font-bold text-primary">{difference.toFixed(2)}</span>
+            <span className="font-bold text-primary">
+              {difference.toFixed(2)}
+            </span>
             from average this month
             <TrendingDown className="h-4 w-4" />
           </div>
+        ) : (
+          <div className="flex gap-1">No change from average this month</div>
         )}
         <div className="leading-none text-muted-foreground">
           {filteredEvents.length} events this year

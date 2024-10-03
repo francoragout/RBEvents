@@ -22,7 +22,7 @@ import { z } from "zod";
 import MeetingCreateForm from "./meeting-create-form";
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { ArrowUpIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { DeleteMeeting } from "@/actions/meeting";
 import { toast } from "sonner";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
@@ -62,7 +62,10 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Date</TableHead>
+                <TableHead className="flex items-center">
+                  Date
+                  <ArrowUpIcon className="ml-2 h-4 w-4" />
+                </TableHead>
                 <TableHead>Time</TableHead>
                 <TableHead>Note</TableHead>
                 <TableHead>Actions</TableHead>
@@ -85,7 +88,9 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
                       .slice(1, 4)
                       .join(" ")}
                   </TableCell>
-                  <TableCell className="text-primary font-bold">{meeting.time}</TableCell>
+                  <TableCell className="text-primary font-bold">
+                    {meeting.time}
+                  </TableCell>
                   <TableCell className="font-medium">{meeting.note}</TableCell>
                   <TableCell>
                     <DropdownMenu>

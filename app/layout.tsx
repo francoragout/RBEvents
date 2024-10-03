@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import { auth } from "@/auth";
 import Navbar from "@/components/navbar";
 import { Separator } from "@/components/ui/separator";
+import { db } from "@/lib/db";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -24,6 +25,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  const notifications = await db.notification.findMany();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -38,11 +41,9 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar session={session} />
+          <Navbar session={session} notifications={notifications} />
           <Separator className="mb-14" />
-          <div className="container mb-14">
-            {children}
-          </div>
+          <div className="container mb-14">{children}</div>
           <Toaster />
         </ThemeProvider>
       </body>

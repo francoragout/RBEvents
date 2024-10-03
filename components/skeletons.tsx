@@ -33,6 +33,8 @@ export function DashboardSkeleton() {
       <Skeleton className="col-span-1 md:col-span-5 lg:col-span-2 h-[444px]" />
       <Skeleton className="col-span-1 md:col-span-7 lg:col-span-3 h-[444px]" />
       <Skeleton className="col-span-1 md:col-span-12 lg:col-span-3 h-[444px]" />
+      <Skeleton className="col-span-1 md:col-span-12 lg:col-span-6 h-[405px]" />
+      <Skeleton className="col-span-1 md:col-span-5 lg:col-span-2 h-[405px]" />
     </div>
   );
 }
