@@ -60,11 +60,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </span>
         </div>
       </div>
-      
-
-      
-
-      
 
       <Button
         onClick={() => signIn("google")}

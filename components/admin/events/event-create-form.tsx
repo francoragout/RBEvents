@@ -45,6 +45,11 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { organizations, types } from "@/lib/data";
 
+import { increment } from "@/lib/features/notifications/CounterSlice";
+import { RootState } from "@/lib/store";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 type Provider = z.infer<typeof ProviderSchema>;
 
 export default function EventCreateForm({
@@ -52,6 +57,8 @@ export default function EventCreateForm({
 }: {
   providers: Provider[];
 }) {
+  const dispatch = useDispatch();
+
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -69,6 +76,7 @@ export default function EventCreateForm({
         if (response.success) {
           toast.success(response.message);
           router.push("/admin/events");
+          dispatch(increment(1));
         } else {
           toast.error(response.message);
         }

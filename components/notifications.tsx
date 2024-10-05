@@ -16,7 +16,17 @@ import { Badge } from "./ui/badge";
 import { z } from "zod";
 import { NotificationSchema } from "@/lib/validations";
 import { MarkNotificationsAsRead } from "@/actions/notification";
-import { useState } from "react";
+import React, { startTransition, useState, useTransition } from "react";
+import { start } from "repl";
+
+// Importing the RootState type from the store definition.
+import { RootState } from "@/lib/store";
+// Importing the useSelector hook from react-redux to access the Redux store's state.
+import { useSelector } from "react-redux";
+import { resetState } from "@/lib/features/notifications/CounterSlice";
+import { useDispatch } from "react-redux";
+import { Icons } from "./icons";
+import clsx from "clsx";
 
 type Notification = z.infer<typeof NotificationSchema>;
 
@@ -25,22 +35,28 @@ export default function Notifications({
 }: {
   notifications: Notification[];
 }) {
-  console.log(notifications);
+  const countState = useSelector((state: RootState) => state.counter.value);
+
+  const dispatch = useDispatch();
 
   const [notReadNotifications, setNotReadNotifications] = useState(
     notifications.filter((notification) => !notification.read)
   );
-  const [readNotifications, setReadNotifications] = useState(
-    notifications.filter((notification) => notification.read)
-  );
 
-  const handleMarkAsRead = async () => {
-    const result = await MarkNotificationsAsRead();
-    if (result.success) {
-      setReadNotifications([...readNotifications, ...notReadNotifications]);
-      setNotReadNotifications([]);
-    }
-  };
+  const resultNotifications = countState + notReadNotifications.length;
+
+  const [isPending, startTransition] = useTransition();
+
+  function handleMarkAsRead() {
+    startTransition(() => {
+      MarkNotificationsAsRead().then((response) => {
+        if (response.success) {
+          dispatch(resetState());
+          setNotReadNotifications([]);
+        }
+      });
+    });
+  }
 
   return (
     <DropdownMenu>
@@ -49,18 +65,14 @@ export default function Notifications({
           <BellIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <BellIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
-          {notReadNotifications.length > 0 ? (
-            <Badge className="absolute top-0 right-[-0.3rem] inline-flex items-center justify-center h-4 w-4 text-xs font-bold leading-none rounded-full">
-              {notReadNotifications.length}
-            </Badge>
-          ) : (
-            <Badge
-              variant="secondary"
-              className="absolute top-0 right-[-0.3rem] inline-flex items-center justify-center h-4 w-4 text-xs font-bold leading-none rounded-full"
-            >
-              {notReadNotifications.length}
-            </Badge>
-          )}
+          <Badge
+            className={clsx(
+              "absolute top-0 right-[-0.3rem] inline-flex items-center justify-center h-4 w-4 text-xs font-bold leading-none rounded-full",
+              resultNotifications > 0 ? "bg-primary" : "bg-secondary"
+            )}
+          >
+            {resultNotifications}
+          </Badge>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -68,10 +80,13 @@ export default function Notifications({
           <DropdownMenuLabel>Notifications</DropdownMenuLabel>
           <Button
             size="sm"
-            variant="outline"
-            onClick={handleMarkAsRead}
             className="h-6 me-2 rounded-full border-primary"
+            onClick={handleMarkAsRead}
+            disabled={isPending}
           >
+            {isPending && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )}
             Mark all as read
           </Button>
         </div>
@@ -81,11 +96,10 @@ export default function Notifications({
             <Alert className="flex">
               <div className="items-center">
                 <DotIcon
-                  className={`h-10 w-10 ${
-                    readNotifications.includes(notification)
-                      ? "text-foreground"
-                      : "text-primary"
-                  }`}
+                  className={clsx(
+                    "h-10 w-10",
+                    notification.read ? "text-foreground" : "text-primary"
+                  )}
                 />
               </div>
               <div className="flex flex-col">

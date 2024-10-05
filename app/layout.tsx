@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import Navbar from "@/components/navbar";
 import { Separator } from "@/components/ui/separator";
 import { db } from "@/lib/db";
+import StoreProvider from "./StoreProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,31 +27,31 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   const notifications = await db.notification.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
+    orderBy: { createdAt: "desc" },
   });
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+      <StoreProvider>
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            fontSans.variable
+          )}
         >
-          <Navbar session={session} notifications={notifications} />
-          <Separator className="mb-14" />
-          <div className="container mb-14">{children}</div>
-          <Toaster />
-        </ThemeProvider>
-      </body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar session={session} notifications={notifications} />
+            <Separator className="mb-14" />
+            <div className="container mb-14">{children}</div>
+            <Toaster />
+          </ThemeProvider>
+        </body>
+      </StoreProvider>
     </html>
   );
 }

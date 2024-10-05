@@ -88,7 +88,6 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
       },
     });
 
-    revalidatePath("/admin/events");
     revalidatePath("/admin/dashboard");
     return {
       success: true,
