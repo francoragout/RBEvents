@@ -84,14 +84,12 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     await db.notification.create({
       data: {
         title: `New Event: ${name}`,
-        description: `A new event has been created: ${name}`,
-        date: new Date(),
-        time: new Date().toLocaleTimeString(),
         read: false,
       },
     });
 
     revalidatePath("/admin/events");
+    revalidatePath("/admin/dashboard");
     return {
       success: true,
       message: "Event created successfully.",

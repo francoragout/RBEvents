@@ -25,7 +25,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  const notifications = await db.notification.findMany();
+  const notifications = await db.notification.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
   return (
     <html lang="en" suppressHydrationWarning>

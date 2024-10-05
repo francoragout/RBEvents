@@ -37,6 +37,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       });
     },
+
+    // crear notificacion cuando un usuario se registra por primera vez
+    async createUser({ user }) {
+      await db.notification.create({
+        data: {
+          title: `New User: ${user.name}`,
+          read: false,
+        },
+      });
+    },
+    
+     
+  
+
+    
+
   },
   pages: {
     signIn: "/authentication",

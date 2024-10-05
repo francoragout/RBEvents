@@ -195,10 +195,8 @@ model Meeting {
 }
 
 model Notification {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  date        DateTime
-  time        String
-  read        Boolean  @default(false)
+  id        String   @id @default(cuid())
+  title     String
+  createdAt DateTime @default(now())
+  read      Boolean  @default(false)
 }
