@@ -48,6 +48,23 @@ export const CreateInformation = async (
         eventId,
       },
     });
+
+    const eventName = await db.event.findUnique({
+      where: {
+        id: eventId,
+      },
+      select: {
+        name: true,
+      },
+    });
+
+    await db.notification.create({
+      data: {
+        title: `Event '${eventName?.name}' Add New Information`,
+        read: false,
+      },
+    });
+
     revalidatePath(`/admin/events/${eventId}/information`);
     return {
       success: true,

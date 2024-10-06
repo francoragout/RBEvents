@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { InformationSchema } from "@/lib/validations";
 import { useRouter } from "next/navigation";
 import {
@@ -30,14 +30,28 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 import { CreateInformation } from "@/actions/information";
+import { increment } from "@/lib/features/notifications/CounterSlice";
+import { useDispatch } from "react-redux";
 
-export default function InformationCreateForm({
-  eventId,
-}: {
+interface InformationCreateFormProps {
   eventId: string;
-}) {
+  information: number;
+}
+
+export default function InformationCreateForm(
+  { eventId, information }: InformationCreateFormProps
+) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (information === 2) {
+      setDisabled(true);
+    }
+  }, [information]);
+
 
   const form = useForm<z.infer<typeof InformationSchema>>({
     resolver: zodResolver(InformationSchema),
@@ -62,6 +76,7 @@ export default function InformationCreateForm({
           toast.success(response.message);
           form.reset();
           setOpen(false);
+          dispatch(increment(1));
         } else {
           toast.error(response.message);
         }
@@ -72,7 +87,7 @@ export default function InformationCreateForm({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="h-8" size="sm">
+        <Button variant="default" className="h-8" size="sm" disabled={disabled}>
           New Info
         </Button>
       </DialogTrigger>

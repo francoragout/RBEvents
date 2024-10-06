@@ -46,9 +46,7 @@ import { toast } from "sonner";
 import { organizations, types } from "@/lib/data";
 
 import { increment } from "@/lib/features/notifications/CounterSlice";
-import { RootState } from "@/lib/store";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 type Provider = z.infer<typeof ProviderSchema>;
 

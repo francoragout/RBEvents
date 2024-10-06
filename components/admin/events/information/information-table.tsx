@@ -42,6 +42,9 @@ export function InformationTable<TData, TValue>({
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
+  const information = data.length
+
+
   const table = useReactTable({
     data,
     columns,
@@ -70,7 +73,7 @@ export function InformationTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <InformationTableToolbar table={table} eventId={eventId} />
+      <InformationTableToolbar table={table} eventId={eventId} information={information}/>
       <div className="rounded-md border">
         <Table>
           <TableBody>

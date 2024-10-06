@@ -16,17 +16,16 @@ import { Badge } from "./ui/badge";
 import { z } from "zod";
 import { NotificationSchema } from "@/lib/validations";
 import { MarkNotificationsAsRead } from "@/actions/notification";
-import React, { startTransition, useState, useTransition } from "react";
-import { start } from "repl";
+import React, { useState, useTransition } from "react";
 
-// Importing the RootState type from the store definition.
 import { RootState } from "@/lib/store";
-// Importing the useSelector hook from react-redux to access the Redux store's state.
 import { useSelector } from "react-redux";
 import { resetState } from "@/lib/features/notifications/CounterSlice";
 import { useDispatch } from "react-redux";
 import { Icons } from "./icons";
 import clsx from "clsx";
+import { ScrollArea } from "./ui/scroll-area";
+import { read } from "fs";
 
 type Notification = z.infer<typeof NotificationSchema>;
 
@@ -53,6 +52,9 @@ export default function Notifications({
         if (response.success) {
           dispatch(resetState());
           setNotReadNotifications([]);
+          notifications.forEach((notification) => {
+            notification.read = true;
+          });
         }
       });
     });
@@ -91,30 +93,33 @@ export default function Notifications({
           </Button>
         </div>
         <DropdownMenuSeparator />
-        {notifications.map((notification) => (
-          <DropdownMenuItem key={notification.id}>
-            <Alert className="flex">
-              <div className="items-center">
-                <DotIcon
-                  className={clsx(
-                    "h-10 w-10",
-                    notification.read ? "text-foreground" : "text-primary"
-                  )}
-                />
-              </div>
-              <div className="flex flex-col">
-                <AlertTitle>{notification.title}</AlertTitle>
-                <AlertDescription className="text-muted-foreground">
-                  Created {notification.createdAt.toLocaleDateString()} at{" "}
-                  {notification.createdAt.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </AlertDescription>
-              </div>
-            </Alert>
-          </DropdownMenuItem>
-        ))}
+        <ScrollArea className="h-96">
+          {notifications.map((notification) => (
+            <DropdownMenuItem key={notification.id} className="p-1">
+              <Alert className="flex">
+                <div className="items-center">
+                  <DotIcon
+                    className={clsx(
+                      "h-10 w-10",
+                      notification.read ? "text-foreground" : "text-primary"
+                    )}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <AlertTitle>{notification.title}</AlertTitle>
+                  <AlertDescription className="text-muted-foreground">
+                    Created {notification.createdAt.toLocaleDateString()} at{" "}
+                    {notification.createdAt.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </AlertDescription>
+                </div>
+              </Alert>
+            </DropdownMenuItem>
+          ))}
+
+        </ScrollArea>
       </DropdownMenuContent>
     </DropdownMenu>
   );
