@@ -1,4 +1,3 @@
-import { create } from "domain";
 import { array, z } from "zod";
 
 const LoginSchema = z.object({
@@ -188,9 +187,11 @@ const MeetingSchema = z.object({
 
 const NotificationSchema = z.object({
   id: z.string(),
-  title: z.string(),
-  createdAt: z.date(),
+  message: z.string(),
   read: z.boolean(),
+  userId: z.string(),
+  link: z.string(),
+  createdAt: z.date(),
 });
 
 export {

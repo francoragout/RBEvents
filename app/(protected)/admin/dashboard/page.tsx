@@ -33,10 +33,8 @@ export default async function DashboardPage() {
         <DashboardCalendar meetings={meetings} events={events} />
         <DashboardTable meetings={meetings} />
         <DashboardBarChart events={events} />
-        {/* <DashboardPieChart events={events} />
-        <Card className="lg:col-span-6"></Card> */}
-        <DashboardLineChart />
         <DashboardPieChart events={events} />
+        <DashboardLineChart />
       </div>
     </Suspense>
   );

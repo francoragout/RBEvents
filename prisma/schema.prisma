@@ -13,17 +13,28 @@ enum Role {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  email         String    @unique
+  email         String         @unique
   password      String?
   emailVerified DateTime?
   image         String?
-  role          Role      @default(USER)
+  role          Role           @default(USER)
   accounts      Account[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   events        Event[]
+  notifications Notification[]
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  message   String
+  link      String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  read      Boolean  @default(false)
 }
 
 model Account {
@@ -192,11 +203,4 @@ model Meeting {
   date     DateTime @db.Date
   time     String
   reminder Boolean  @default(false)
-}
-
-model Notification {
-  id        String   @id @default(cuid())
-  title     String
-  createdAt DateTime @default(now())
-  read      Boolean  @default(false)
 }

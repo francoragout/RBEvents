@@ -25,7 +25,6 @@ import { useDispatch } from "react-redux";
 import { Icons } from "./icons";
 import clsx from "clsx";
 import { ScrollArea } from "./ui/scroll-area";
-import { read } from "fs";
 
 type Notification = z.infer<typeof NotificationSchema>;
 
@@ -34,6 +33,8 @@ export default function Notifications({
 }: {
   notifications: Notification[];
 }) {
+
+  
   const countState = useSelector((state: RootState) => state.counter.value);
 
   const dispatch = useDispatch();
@@ -67,12 +68,7 @@ export default function Notifications({
           <BellIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <BellIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
-          <Badge
-            className={clsx(
-              "absolute top-0 right-[-0.3rem] inline-flex items-center justify-center h-4 w-4 text-xs font-bold leading-none rounded-full",
-              resultNotifications > 0 ? "bg-primary" : "bg-secondary"
-            )}
-          >
+          <Badge className="absolute top-0 right-[-0.3rem] inline-flex items-center justify-center h-4 w-4 text-xs font-bold leading-none rounded-full">
             {resultNotifications}
           </Badge>
         </Button>
@@ -94,6 +90,9 @@ export default function Notifications({
         </div>
         <DropdownMenuSeparator />
         <ScrollArea className="h-96">
+          {notifications.length === 0 && (
+            <DropdownMenuItem className="flex justify-center">No notifications</DropdownMenuItem>
+          )}
           {notifications.map((notification) => (
             <DropdownMenuItem key={notification.id} className="p-1">
               <Alert className="flex">
@@ -106,7 +105,7 @@ export default function Notifications({
                   />
                 </div>
                 <div className="flex flex-col">
-                  <AlertTitle>{notification.title}</AlertTitle>
+                  <AlertTitle>{notification.message}</AlertTitle>
                   <AlertDescription className="text-muted-foreground">
                     Created {notification.createdAt.toLocaleDateString()} at{" "}
                     {notification.createdAt.toLocaleTimeString([], {
@@ -118,7 +117,6 @@ export default function Notifications({
               </Alert>
             </DropdownMenuItem>
           ))}
-
         </ScrollArea>
       </DropdownMenuContent>
     </DropdownMenu>
