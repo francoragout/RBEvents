@@ -60,7 +60,8 @@ export const CreateInformation = async (
 
     await db.notification.create({
       data: {
-        title: `Event '${eventName?.name}' Add New Information`,
+        message: `New Information: '${eventName?.name}'`,
+        link: `/admin/events/${eventId}/information`,
         read: false,
       },
     });

@@ -83,7 +83,8 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
 
     await db.notification.create({
       data: {
-        title: `New Event: ${name}`,
+        message: `New Event: '${name}'`,
+        link: `/admin/events`,
         read: false,
       },
     });

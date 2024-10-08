@@ -131,6 +131,14 @@ const InformationSchema = z.object({
   eventId: z.string().optional(),
 });
 
+const NotificationSchema = z.object({
+  id: z.string().optional(),
+  message: z.string(),
+  read: z.boolean(),
+  link: z.string(),
+  createdAt: z.date(),
+});
+
 const EventTypeEnum = z.enum([
   "WEDDING",
   "BIRTHDAY",
@@ -185,14 +193,6 @@ const MeetingSchema = z.object({
   reminder: z.boolean().default(false),
 });
 
-const NotificationSchema = z.object({
-  id: z.string(),
-  message: z.string(),
-  read: z.boolean(),
-  userId: z.string(),
-  link: z.string(),
-  createdAt: z.date(),
-});
 
 export {
   MeetingSchema,

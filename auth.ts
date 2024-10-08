@@ -42,7 +42,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async createUser({ user }) {
       await db.notification.create({
         data: {
-          title: `New User: ${user.name}`,
+          message: `New User: '${user.name}'`,
+          link: "/admin/users",
           read: false,
         },
       });

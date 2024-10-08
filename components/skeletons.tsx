@@ -32,9 +32,9 @@ export function DashboardSkeleton() {
     <div className="grid grid-cols-1 gap-y-4 md:grid-cols-12 md:gap-4 lg:grid-cols-8 lg:gap-4">
       <Skeleton className="col-span-1 md:col-span-5 lg:col-span-2 h-[444px]" />
       <Skeleton className="col-span-1 md:col-span-7 lg:col-span-3 h-[444px]" />
-      <Skeleton className="col-span-1 md:col-span-12 lg:col-span-3 h-[444px]" />
-      <Skeleton className="col-span-1 md:col-span-12 lg:col-span-6 h-[405px]" />
+      <Skeleton className="col-span-1 md:col-span-7 lg:col-span-3 h-[444px]" />
       <Skeleton className="col-span-1 md:col-span-5 lg:col-span-2 h-[405px]" />
+      <Skeleton className="col-span-1 md:col-span-12 lg:col-span-6 h-[405px]" />
     </div>
   );
 }

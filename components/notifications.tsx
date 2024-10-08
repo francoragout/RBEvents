@@ -17,7 +17,7 @@ import { z } from "zod";
 import { NotificationSchema } from "@/lib/validations";
 import { MarkNotificationsAsRead } from "@/actions/notification";
 import React, { useState, useTransition } from "react";
-
+import { formatDistanceToNow } from "date-fns";
 import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 import { resetState } from "@/lib/features/notifications/CounterSlice";
@@ -25,6 +25,7 @@ import { useDispatch } from "react-redux";
 import { Icons } from "./icons";
 import clsx from "clsx";
 import { ScrollArea } from "./ui/scroll-area";
+import Link from "next/link";
 
 type Notification = z.infer<typeof NotificationSchema>;
 
@@ -33,8 +34,6 @@ export default function Notifications({
 }: {
   notifications: Notification[];
 }) {
-
-  
   const countState = useSelector((state: RootState) => state.counter.value);
 
   const dispatch = useDispatch();
@@ -91,30 +90,32 @@ export default function Notifications({
         <DropdownMenuSeparator />
         <ScrollArea className="h-96">
           {notifications.length === 0 && (
-            <DropdownMenuItem className="flex justify-center">No notifications</DropdownMenuItem>
+            <DropdownMenuItem className="flex justify-center">
+              No notifications
+            </DropdownMenuItem>
           )}
           {notifications.map((notification) => (
             <DropdownMenuItem key={notification.id} className="p-1">
-              <Alert className="flex">
-                <div className="items-center">
-                  <DotIcon
-                    className={clsx(
-                      "h-10 w-10",
-                      notification.read ? "text-foreground" : "text-primary"
-                    )}
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <AlertTitle>{notification.message}</AlertTitle>
-                  <AlertDescription className="text-muted-foreground">
-                    Created {notification.createdAt.toLocaleDateString()} at{" "}
-                    {notification.createdAt.toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </AlertDescription>
-                </div>
-              </Alert>
+              <Link href={notification.link} className="w-full">
+                <Alert className="flex">
+                  <div className="items-center">
+                    <DotIcon
+                      className={clsx(
+                        "h-10 w-10",
+                        notification.read ? "text-foreground" : "text-primary"
+                      )}
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <AlertTitle>{notification.message}</AlertTitle>
+                    <AlertDescription className="text-muted-foreground">
+                      {formatDistanceToNow(new Date(notification.createdAt), {
+                        addSuffix: true,
+                      })}
+                    </AlertDescription>
+                  </div>
+                </Alert>
+              </Link>
             </DropdownMenuItem>
           ))}
         </ScrollArea>

@@ -26,20 +26,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  const userEmail = session?.user?.email || undefined;
-
-  const userId = await db.user.findUnique({
-    where: {
-      email: userEmail,
-    },
-    select: {
-      id: true,
-    },
-  });
-
   const notifications = await db.notification.findMany({
-    where: {
-      userId: userId?.id,
+    orderBy: {
+      createdAt: "desc",
     },
   });
 
