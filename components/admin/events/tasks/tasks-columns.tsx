@@ -8,6 +8,7 @@ import { TaskSchema } from "@/lib/validations";
 import { z } from "zod";
 import { TasksTableRowActions } from "./tasks-table-row-actions";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
+import clsx from "clsx";
 
 type Task = z.infer<typeof TaskSchema>;
 
@@ -46,10 +47,20 @@ export const TasksColumns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex items-center">
-          {status.icon && (
-            <status.icon className={`mr-2 h-4 w-4 ${status.color}`} />
-          )}
-          <span className={status.color}>{status.label}</span>
+          <div
+            className={clsx(
+              "flex font-medium",
+              status.value === "BACKLOG" && "text-blue-600",
+              status.value === "TODO" && "text-red-600",
+              status.value === "IN_PROGRESS" && "text-yellow-600",
+              status.value === "DONE" && "text-green-600"
+            )}
+          >
+            {status.icon && (
+              <status.icon className={`mr-2 h-4 w-4 ${status}`} />
+            )}
+            {status.label}
+          </div>
         </div>
       );
     },

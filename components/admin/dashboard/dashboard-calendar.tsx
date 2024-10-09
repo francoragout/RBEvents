@@ -49,9 +49,9 @@ export default function DashboardCalendar({
         <CardTitle>Calendar</CardTitle>
         <CardDescription className="flex gap-1">
           Keep track of your
-          <span className="font-bold text-primary">Meetings</span>
+          <span className="font-medium text-primary">Meetings</span>
           and
-          <span className="font-bold text-foreground">Events</span>
+          <span className="font-medium text-foreground">Events</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="flex justify-center">

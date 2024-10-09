@@ -29,6 +29,8 @@ const adminLinks = [
   { name: "Dashboard", href: "/admin/dashboard" },
   { name: "Events", href: "/admin/events" },
   { name: "Providers", href: "/admin/providers" },
+  { name: "Incomes", href: "/admin/incomes" },
+  { name: "Users", href: "/admin/users" },
 ];
 
 type Notification = z.infer<typeof NotificationSchema>;
@@ -83,8 +85,11 @@ export default function Navbar({ session, notifications }: NavbarProps) {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            <Notifications notifications={notifications} />
           </>
+        )}
+        
+        {session?.user?.role === "ADMIN" && (
+          <Notifications notifications={notifications} />
         )}
 
         <ModeToggle />

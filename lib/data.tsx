@@ -78,25 +78,21 @@ export const statuses = [
     value: "BACKLOG",
     label: "Backlog",
     icon: QuestionMarkCircledIcon,
-    color: "text-blue-500",
   },
   {
     value: "TODO",
     label: "Todo",
     icon: CircleIcon,
-    color: "text-red-500",
   },
   {
     value: "IN_PROGRESS",
     label: "In Progress",
     icon: StopwatchIcon,
-    color: "text-yellow-500",
   },
   {
     value: "DONE",
     label: "Done",
     icon: CheckCircledIcon,
-    color: "text-green-500",
   },
 ];
 

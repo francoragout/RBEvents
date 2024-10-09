@@ -1,33 +1,5 @@
 import { array, z } from "zod";
 
-const LoginSchema = z.object({
-  email: z
-    .string({ required_error: "Email is required" })
-    .min(1, "Email is required")
-    .email("Invalid email"),
-  password: z
-    .string({ required_error: "Password is required" })
-    .min(1, "Password is required")
-    .min(8, "Password must be more than 8 characters")
-    .max(32, "Password must be less than 32 characters"),
-});
-
-const RegisterSchema = z.object({
-  name: z
-    .string({ required_error: "Name is required" })
-    .min(1, "Name is required")
-    .max(30, "Name must be less than 30 characters"),
-  email: z
-    .string({ required_error: "Email is required" })
-    .min(1, "Email is required")
-    .email("Invalid email"),
-  password: z
-    .string({ required_error: "Password is required" })
-    .min(1, "Password is required")
-    .min(8, "Password must be more than 8 characters")
-    .max(32, "Password must be less than 32 characters"),
-});
-
 const TaskSchema = z.object({
   id: z.string().optional(),
   title: z
@@ -193,8 +165,19 @@ const MeetingSchema = z.object({
   reminder: z.boolean().default(false),
 });
 
+const RoleEnum = z.enum(["USER", "ADMIN"]);
+const UserSchema = z.object({
+  id: z.string().cuid(),
+  name: z.string().nullable(),
+  email: z.string().email(),
+  image: z.string().nullable(),
+  role: RoleEnum,
+  createdAt: z.date().default(() => new Date()),
+  events: z.array(EventSchema).optional(),
+});
 
 export {
+  UserSchema,
   MeetingSchema,
   GuestSchema,
   ProviderSchema,
@@ -202,7 +185,5 @@ export {
   TaskSchema,
   BudgetSchema,
   InformationSchema,
-  LoginSchema,
-  RegisterSchema,
   NotificationSchema,
 };

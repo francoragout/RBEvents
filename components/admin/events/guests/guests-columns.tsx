@@ -18,7 +18,7 @@ export const GuestsColumns: ColumnDef<Guest>[] = [
       <DataTableColumnHeader column={column} title="Last Name" />
     ),
     cell: ({ row }) => {
-      return <div>{row.getValue("last_name")}</div>;
+      return <div className="font-medium">{row.getValue("last_name")}</div>;
     },
   },
   {
@@ -27,7 +27,7 @@ export const GuestsColumns: ColumnDef<Guest>[] = [
       <DataTableColumnHeader column={column} title="First Name" />
     ),
     cell: ({ row }) => {
-      return <div>{row.getValue("first_name")}</div>;
+      return <div className="font-medium">{row.getValue("first_name")}</div>;
     },
   },
   {

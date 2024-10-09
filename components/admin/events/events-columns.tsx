@@ -16,7 +16,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" />
     ),
-    cell: ({ row }) => <div className="font-bold">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "type",
@@ -93,7 +93,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
         default:
           daysLeft = diffDays;
       }
-      return <div className="font-bold text-primary">{daysLeft}</div>;
+      return <div className="font-medium text-primary">{daysLeft}</div>;
     },
   },
   {

@@ -23,6 +23,7 @@ import { MoreHorizontal, Trash } from "lucide-react";
 import BudgetEditForm from "./budget-edit-form";
 import { DeleteBudget } from "@/actions/budget";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -32,6 +33,7 @@ export function BudgetTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const budget = BudgetSchema.parse(row.original);
+  const { data: session } = useSession();
 
   const handleDelete = async () => {
     DeleteBudget(budget.id ?? "", budget.eventId ?? "").then((response) => {
@@ -43,30 +45,33 @@ export function BudgetTableRowActions<TData>({
     });
   };
 
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Open menu</span>
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <div className="flex flex-col">
-          <BudgetEditForm budget={budget} />
-          <Button
-            variant="ghost"
-            className="flex justify-start pl-2"
-            onClick={handleDelete}
-            size="sm"
-          >
-            <Trash className="mr-2 h-4 w-4" />
-            <span>Delete</span>
+  if (session?.user?.role === "ADMIN") {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="h-4 w-4" />
           </Button>
-        </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <div className="flex flex-col">
+            <BudgetEditForm budget={budget} />
+            <Button
+              variant="ghost"
+              className="flex justify-start pl-2"
+              onClick={handleDelete}
+              size="sm"
+            >
+              <Trash className="mr-2 h-4 w-4" />
+              <span>Delete</span>
+            </Button>
+          </div>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
+  return null;
 }

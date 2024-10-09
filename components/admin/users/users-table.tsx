@@ -26,14 +26,14 @@ import {
 } from "@/components/ui/table";
 
 import { DataTablePagination } from "@/components/data-table-pagination";
-import { ProvidersTableToolbar } from "./providers-table-toolbar";
+import { UsersTableToolbar } from "./users-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function ProvidersTable<TData, TValue>({
+export function UsersTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -45,7 +45,7 @@ export function ProvidersTable<TData, TValue>({
   );
   const [sorting, setSorting] = React.useState<SortingState>([
     {
-      id: "name",
+      id: "role",
       desc: false,
     },
   ]);
@@ -74,7 +74,7 @@ export function ProvidersTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <ProvidersTableToolbar table={table} />
+      <UsersTableToolbar table={table} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

@@ -87,7 +87,7 @@ model Event {
   user         User?             @relation(fields: [userId], references: [id])
   userId       String?
 }
-
+ 
 model Information {
   id         String  @id @default(cuid())
   full_name  String

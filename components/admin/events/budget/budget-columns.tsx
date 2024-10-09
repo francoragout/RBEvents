@@ -15,7 +15,7 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Category" />
     ),
-    cell: ({ row }) => <div>{row.getValue("category")}</div>,
+    cell: ({ row }) => <div className="font-medium">{row.getValue("category")}</div>,
   },
   {
     accessorKey: "name",

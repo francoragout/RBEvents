@@ -6,7 +6,7 @@ import { DataTableColumnHeader } from "@/components/data-table-column-header";
 import { z } from "zod";
 import { ProviderSchema } from "@/lib/validations";
 import { Button } from "@/components/ui/button";
-import { Copy, UserRound } from "lucide-react";
+import { Copy } from "lucide-react";
 import { toast } from "sonner";
 import {
   Tooltip,
@@ -25,7 +25,7 @@ export const ProvidersColumns: ColumnDef<Provider>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" />
     ),
-    cell: ({ row }) => <div className="font-bold">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "city",
