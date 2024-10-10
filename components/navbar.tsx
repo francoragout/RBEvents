@@ -4,15 +4,12 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { BellIcon, PersonIcon } from "@radix-ui/react-icons";
-
+import { PersonIcon } from "@radix-ui/react-icons";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import Link from "next/link";
 import { ModeToggle } from "./theme-toggle-button";
 import { usePathname } from "next/navigation";

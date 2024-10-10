@@ -28,10 +28,13 @@ import { Textarea } from "../../../ui/textarea";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { CreateBudget } from "@/actions/budget";
+import { increment } from "@/lib/features/notifications/CounterSlice";
+import { useDispatch } from "react-redux";
 
 export default function BudgetCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const form = useForm<z.infer<typeof BudgetSchema>>({
     resolver: zodResolver(BudgetSchema),
@@ -51,6 +54,7 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
           toast.success(response.message);
           form.reset();
           setOpen(false);
+          dispatch(increment(1));
         } else {
           toast.error(response.message);
         }

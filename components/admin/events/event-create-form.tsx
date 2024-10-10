@@ -44,7 +44,6 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 import { organizations, types } from "@/lib/data";
-
 import { increment } from "@/lib/features/notifications/CounterSlice";
 import { useDispatch } from "react-redux";
 
@@ -74,7 +73,11 @@ export default function EventCreateForm({
         if (response.success) {
           toast.success(response.message);
           router.push("/admin/events");
-          dispatch(increment(1));
+          if (values.providerId) {
+            dispatch(increment(2));
+          } else {
+            dispatch(increment(1));
+          }
         } else {
           toast.error(response.message);
         }

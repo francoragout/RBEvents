@@ -65,7 +65,7 @@ export default function DashboardCalendar({
             events:
               "bg-foreground text-background hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background",
             meetings:
-              "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground meetings-opacity",
+              "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
           }}
           classNames={{
             months:

@@ -39,9 +39,27 @@ export const CreateBudget = async (
         total_price,
         amount_paid,
         observation,
-        eventId
+        eventId,
       },
     });
+
+    const eventName = await db.event.findUnique({
+      where: {
+        id: eventId,
+      },
+      select: {
+        name: true,
+      },
+    });
+
+    await db.notification.create({
+      data: {
+        message: `New Budget: '${eventName?.name}'`,
+        link: `/admin/events/${eventId}/budget`,
+        read: false,
+      },
+    });
+
     revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
