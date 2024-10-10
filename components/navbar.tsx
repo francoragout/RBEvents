@@ -22,6 +22,7 @@ import UserSignOut from "./auth/user-signout";
 import Notifications from "./notifications";
 import { z } from "zod";
 import { NotificationSchema } from "@/lib/validations";
+import Image from "next/image";
 
 const clientLinks = [{ name: "Events", href: "/client/events" }];
 
@@ -48,7 +49,16 @@ export default function Navbar({ session, notifications }: NavbarProps) {
   return (
     <nav className="flex items-center justify-between py-2 px-8">
       <div className="flex space-x-8 items-center">
-        <h1 className="text-2xl font-bold">RB</h1>
+        <Button variant="outline" className="rounded-full" size="icon">
+          <Image
+            className="dark:invert dark:brightness-0"
+            src="/RB.svg"
+            width={40}
+            height={40}
+            alt="Logo of the app"
+          />
+        </Button>
+
         {session && (
           <Tabs value={activeLink?.href}>
             <TabsList className="hidden sm:flex">
@@ -87,7 +97,7 @@ export default function Navbar({ session, notifications }: NavbarProps) {
             </DropdownMenu>
           </>
         )}
-        
+
         {session?.user?.role === "ADMIN" && (
           <Notifications notifications={notifications} />
         )}
