@@ -1,6 +1,6 @@
 "use client";
 
-import { z } from "zod";
+import { date, z } from "zod";
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -38,7 +38,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -46,6 +45,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { organizations, types } from "../../../lib/data";
 import { CalendarIcon } from "lucide-react";
+import { es } from "date-fns/locale";
 
 const ExtendedEventSchema = EventSchema.extend({
   id: z.string(),
@@ -65,13 +65,15 @@ export default function EventEditForm({
 }: EventEditFormProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const date = new Date(event.date);
+  date.setHours(date.getHours() + 3);
 
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
     defaultValues: {
       name: event.name,
       type: event.type,
-      date: event.date,
+      date: date,
       time: event.time,
       providerId: event.providerId,
       organization: event.organization,
@@ -94,8 +96,10 @@ export default function EventEditForm({
   return (
     <Card className="my-5">
       <CardHeader>
-        <CardTitle>Edit event</CardTitle>
-        <CardDescription>Update your event details.</CardDescription>
+        <CardTitle>Editar Evento</CardTitle>
+        <CardDescription>
+          Modifique su proyecto con un solo clic.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -106,10 +110,10 @@ export default function EventEditForm({
                 name="name"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Name (required)"
+                        placeholder="Nombre (requerido)"
                         {...field}
                         disabled={isPending}
                       />
@@ -124,7 +128,7 @@ export default function EventEditForm({
                 name="type"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Type</FormLabel>
+                    <FormLabel>Tipo</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -137,7 +141,7 @@ export default function EventEditForm({
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <SelectValue placeholder="Type (required)" />
+                          <SelectValue placeholder="Seleccionar tipo (requerido)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -160,7 +164,7 @@ export default function EventEditForm({
                 name="date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Date</FormLabel>
+                    <FormLabel>Fecha</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -173,9 +177,11 @@ export default function EventEditForm({
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "EEE, dd MMM yyyy")
+                              format(field.value, "EEE, dd MMM yyyy", {
+                                locale: es,
+                              })
                             ) : (
-                              <span>Pick a date</span>
+                              <span>Seleccionar fecha (requerido)</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -183,6 +189,7 @@ export default function EventEditForm({
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
+                          locale={es}
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
@@ -205,10 +212,9 @@ export default function EventEditForm({
                 name="time"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Time</FormLabel>
+                    <FormLabel>Hora</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Shedule a time"
                         {...field}
                         type="time"
                         value={field.value || ""}
@@ -222,49 +228,10 @@ export default function EventEditForm({
 
               <FormField
                 control={form.control}
-                name="providerId"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Provider</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      disabled={isPending}
-                      defaultValue={field.value || ""}
-                    >
-                      <FormControl>
-                        <SelectTrigger
-                          className={cn(
-                            "pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          <SelectValue placeholder="Provider (opcional)" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectGroup>
-                          {providers.map((provider) => (
-                            <SelectItem
-                              key={provider.id}
-                              value={provider.id || ""}
-                            >
-                              {provider.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
                 name="organization"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Organization</FormLabel>
+                    <FormLabel>Organiación</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -277,7 +244,7 @@ export default function EventEditForm({
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <SelectValue placeholder="Organization (required)" />
+                          <SelectValue placeholder="Seleccionar Organización (requerido)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -285,6 +252,41 @@ export default function EventEditForm({
                           {organizations.map((org) => (
                             <SelectItem key={org.value} value={org.value}>
                               {org.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="providerId"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Salón</FormLabel>
+                    <Select onValueChange={field.onChange} disabled={isPending}>
+                      <FormControl>
+                        <SelectTrigger
+                          className={cn(
+                            "pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          <SelectValue placeholder="Seleccionar salón (opcional)" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          {providers.map((provider) => (
+                            <SelectItem
+                              key={provider.id}
+                              value={provider.id || ""}
+                            >
+                              {provider.name}
                             </SelectItem>
                           ))}
                         </SelectGroup>
@@ -323,7 +325,7 @@ export default function EventEditForm({
                 className="h-8"
                 disabled={isPending}
               >
-                <Link href="/admin/events">Cancel</Link>
+                <Link href="/admin/events">Cancelar</Link>
               </Button>
               <Button
                 type="submit"
@@ -331,7 +333,7 @@ export default function EventEditForm({
                 className="h-8"
                 disabled={isPending}
               >
-                Submit
+                Guardar
               </Button>
             </div>
           </form>

@@ -121,25 +121,25 @@ const EventTypeEnum = z.enum([
   "CONGRESS",
   "PRODUCT_LAUNCH",
   "OTHER",
-]);
+], { message: "Seleccione un tipo de evento" });
 
 const EventOrganizationEnum = z.enum([
   "COORDINATION",
   "PARTIAL",
   "COMPREHENSIVE",
-]);
+], { message: "Seleccione un tipo de organización" });
 
 const EventSchema = z.object({
   id: z.string().optional(),
   name: z
     .string({ required_error: "Name is required" })
     .trim()
-    .min(3, "Name must be at least 3 characters.")
-    .max(30, "Name must not be longer than 30 characters."),
-  date: z.date({ required_error: "Please select date" }),
+    .min(3, "El nombre debe tener al menos 3 caracteres")
+    .max(30, "El nombre no debe tener más de 30 caracteres"),
+  date: z.date({ required_error: "Seleccione una fecha" }),
   time: z
     .string()
-    .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Please select time"),
+    .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Seleccione una hora"),
   type: EventTypeEnum,
   organization: EventOrganizationEnum,
   archived: z.boolean().default(false),

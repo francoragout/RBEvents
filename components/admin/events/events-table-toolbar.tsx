@@ -22,7 +22,7 @@ export function EventsTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter events..."
+          placeholder="Filtrar eventos..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
@@ -31,10 +31,10 @@ export function EventsTableToolbar<TData>({
         />
       </div>
       <div className="flex space-x-4">
-        <DataTableViewOptions table={table} />
+        {/* <DataTableViewOptions table={table} /> */}
         {role === "ADMIN" && (
           <Button variant="default" size="sm" className="h-8" asChild>
-            <Link href="/admin/events/create">New Event</Link>
+            <Link href="/admin/events/create">Nuevo Evento</Link>
           </Button>
         )}
       </div>

@@ -26,39 +26,39 @@ export const organizations = [
 export const types = [
   {
     value: "WEDDING",
-    label: "Wedding",
+    label: "Casamiento",
   },
   {
     value: "BIRTHDAY",
-    label: "Birthday",
+    label: "Cumpleaños",
   },
   {
     value: "OPENING",
-    label: "Opening",
+    label: "Inaguración",
   },
   {
     value: "ANNIVERSARY",
-    label: "Anniversary",
+    label: "Aniversario",
   },
   {
     value: "PARTY",
-    label: "Party",
+    label: "Fiesta",
   },
   {
     value: "PARADE",
-    label: "Parade",
+    label: "Desfile",
   },
   {
     value: "CONGRESS",
-    label: "Congress",
+    label: "Congreso",
   },
   {
     value: "PRODUCT_LAUNCH",
-    label: "Product Launch",
+    label: "Lanzamiento de producto",
   },
   {
     value: "OTHER",
-    label: "Other",
+    label: "Otro",
   },
 ];
 

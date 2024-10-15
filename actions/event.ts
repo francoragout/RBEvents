@@ -35,7 +35,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     if (!user) {
       return {
         success: false,
-        message: "Email not found",
+        message: "Email no encontrado",
       };
     }
 
@@ -83,21 +83,21 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
 
     await db.notification.create({
       data: {
-        message: `New Event: '${name}'`,
+        message: `Nuevo evento: '${name}'`,
         link: `/admin/events`,
         read: false,
       },
     });
 
-    revalidatePath("/admin/dashboard");
+    revalidatePath("/admin/events");
     return {
       success: true,
-      message: "Event created successfully.",
+      message: "Evento creado exitosamente.",
     };
   } catch (error) {
     return {
       success: false,
-      message: "Failed to create event.",
+      message: "Error al crear el evento.",
     };
   }
 };
@@ -134,7 +134,7 @@ export const EditEvent = async (
     if (!user) {
       return {
         success: false,
-        message: "Email not found",
+        message: "Email no encontrado",
       };
     }
 
@@ -180,12 +180,12 @@ export const EditEvent = async (
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: "Event edited successfully.",
+      message: "Evento editado exitosamente.",
     };
   } catch (error) {
     return {
       success: false,
-      message: "Failed to edit event.",
+      message: "Error al editar el evento.",
     };
   }
 };
@@ -198,13 +198,13 @@ export const DeleteEvent = async (id: string) => {
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: `Event was deleted successfully!`,
+      message: "Evento eliminado exitosamente.",
     };
   } catch (error) {
     console.error("Error deleting event:", error);
     return {
       success: false,
-      message: "Failed to delete event!",
+      message: "Error al eliminar el evento.",
     };
   }
 };
@@ -220,16 +220,13 @@ export const ArchiveEvent = async (id: string) => {
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: `Event was archived successfully!`,
+      message: "Evento archivado exitosamente.",
     };
   } catch (error) {
     console.error("Error archiving event:", error);
     return {
       success: false,
-      message: "Failed to archive event!",
+      message: "Error al archivar el evento.",
     };
   }
 };
-
-
-

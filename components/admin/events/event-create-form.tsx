@@ -46,6 +46,7 @@ import { toast } from "sonner";
 import { organizations, types } from "@/lib/data";
 import { increment } from "@/lib/features/notifications/CounterSlice";
 import { useDispatch } from "react-redux";
+import { es } from "date-fns/locale";
 
 type Provider = z.infer<typeof ProviderSchema>;
 
@@ -88,8 +89,10 @@ export default function EventCreateForm({
   return (
     <Card className="my-5">
       <CardHeader>
-        <CardTitle>Create event</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+        <CardTitle>Crear Evento</CardTitle>
+        <CardDescription>
+          Implemente su nuevo proyecto con un solo clic.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -100,10 +103,10 @@ export default function EventCreateForm({
                 name="name"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Name (required)"
+                        placeholder="Nombre (requerido)"
                         {...field}
                         disabled={isPending}
                       />
@@ -118,7 +121,7 @@ export default function EventCreateForm({
                 name="type"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Type</FormLabel>
+                    <FormLabel>Tipo</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -131,7 +134,7 @@ export default function EventCreateForm({
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <SelectValue placeholder="Type (required)" />
+                          <SelectValue placeholder="Seleccionar tipo (requerido)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -154,7 +157,7 @@ export default function EventCreateForm({
                 name="date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Date</FormLabel>
+                    <FormLabel>Fecha</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -167,9 +170,11 @@ export default function EventCreateForm({
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "EEE, dd MMM yyyy")
+                              format(field.value, "EEE, dd MMM yyyy", {
+                                locale: es,
+                              })
                             ) : (
-                              <span>Pick a date</span>
+                              <span>Seleccionar fecha (requerido)</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -177,6 +182,7 @@ export default function EventCreateForm({
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
+                          locale={es}
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
@@ -199,10 +205,9 @@ export default function EventCreateForm({
                 name="time"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Time</FormLabel>
+                    <FormLabel>Hora</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Shedule a time"
                         {...field}
                         type="time"
                         value={field.value || ""}
@@ -216,45 +221,10 @@ export default function EventCreateForm({
 
               <FormField
                 control={form.control}
-                name="providerId"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Provider</FormLabel>
-                    <Select onValueChange={field.onChange} disabled={isPending}>
-                      <FormControl>
-                        <SelectTrigger
-                          className={cn(
-                            "pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          <SelectValue placeholder="Provider (opcional)" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectGroup>
-                          {providers.map((provider) => (
-                            <SelectItem
-                              key={provider.id}
-                              value={provider.id || ""}
-                            >
-                              {provider.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
                 name="organization"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Organization</FormLabel>
+                    <FormLabel>Organiación</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -267,7 +237,7 @@ export default function EventCreateForm({
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <SelectValue placeholder="Organization (required)" />
+                          <SelectValue placeholder="Seleccionar Organización (requerido)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -275,6 +245,41 @@ export default function EventCreateForm({
                           {organizations.map((org) => (
                             <SelectItem key={org.value} value={org.value}>
                               {org.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="providerId"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Salón</FormLabel>
+                    <Select onValueChange={field.onChange} disabled={isPending}>
+                      <FormControl>
+                        <SelectTrigger
+                          className={cn(
+                            "pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          <SelectValue placeholder="Seleccionar salón (opcional)" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup>
+                          {providers.map((provider) => (
+                            <SelectItem
+                              key={provider.id}
+                              value={provider.id || ""}
+                            >
+                              {provider.name}
                             </SelectItem>
                           ))}
                         </SelectGroup>
@@ -313,7 +318,7 @@ export default function EventCreateForm({
                 className="h-8"
                 disabled={isPending}
               >
-                <Link href="/admin/events">Cancel</Link>
+                <Link href="/admin/events">Cancelar</Link>
               </Button>
               <Button
                 type="submit"
@@ -321,7 +326,7 @@ export default function EventCreateForm({
                 className="h-8"
                 disabled={isPending}
               >
-                Submit
+                Guardar
               </Button>
             </div>
           </form>

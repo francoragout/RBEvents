@@ -191,7 +191,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
           </div>
         ) : (
           <div className="flex gap-1">
-            No hay diferencia del promedio este mes
+            No hay diferencia respecto al promedio este mes
           </div>
         )}
       </CardFooter>

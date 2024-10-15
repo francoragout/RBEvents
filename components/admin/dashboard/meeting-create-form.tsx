@@ -125,7 +125,7 @@ export default function MeetingCreateForm() {
                           {field.value ? (
                             format(field.value, "EEE, dd MMM yyyy", {locale: es})
                           ) : (
-                            <span>Seleccionar fecha</span>
+                            <span>Seleccionar fecha (requerido)</span>
                           )}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>

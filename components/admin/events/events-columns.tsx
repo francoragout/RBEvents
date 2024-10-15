@@ -39,10 +39,9 @@ export const EventsColumns: ColumnDef<Event>[] = [
     ),
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"));
-      console.log(date);
       const formatDate = (date: Date) => {
         date.setHours(date.getHours() + 3);
-        return format(date, "dd MMM yyyy", { locale: es });
+        return format(date, "EEE, dd MMM yyyy", { locale: es });
       };
       
       return (
