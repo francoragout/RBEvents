@@ -126,7 +126,7 @@ export default function Navbar({ session, notifications }: NavbarProps) {
               </>
             ) : (
               <>
-                <DropdownMenuLabel>Account</DropdownMenuLabel>
+                <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <Button
                   variant="ghost"
@@ -135,7 +135,7 @@ export default function Navbar({ session, notifications }: NavbarProps) {
                 >
                   <LogIn className="mr-2 h-4 w-4" />
                   <Link href="/authentication">
-                    <span>Sign In</span>
+                    <span>Iniciar sesión</span>
                   </Link>
                 </Button>
               </>

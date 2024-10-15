@@ -177,7 +177,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
             <span className="font-medium text-primary">
               {difference.toFixed(2)}
             </span>
-            arriba del promedio este mes
+            por arriba del promedio este mes
             <TrendingUp className="h-4 w-4" />
           </div>
         ) : difference < 0 ? (

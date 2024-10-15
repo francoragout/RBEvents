@@ -26,8 +26,9 @@ export default function AuthenticationPage() {
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                &ldquo;This amazing application will allow you to manage the
-                information, budget and guests of your next event.&rdquo;
+                &ldquo;Esta increíble aplicación te permitirá gestionar la
+                información, presupuesto e invitados de tu proximo
+                evento.&rdquo;
               </p>
               <footer className="text-sm">Ana & Belen</footer>
             </blockquote>
@@ -37,27 +38,28 @@ export default function AuthenticationPage() {
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
-                Create an account
+                Crear una cuenta
               </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email below to create your account
+                Introduce tu correo electrónico a continuación para crear tu
+                cuenta
               </p>
             </div>
             <UserAuthForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our{" "}
+              Al hacer clic en continuar, acepta nuestros{" "}
               <Link
                 href="/terms"
                 className="underline underline-offset-4 hover:text-primary"
               >
-                Terms of Service
+                Términos de servicio
               </Link>{" "}
               and{" "}
               <Link
                 href="/privacy"
                 className="underline underline-offset-4 hover:text-primary"
               >
-                Privacy Policy
+                Política de privacidad
               </Link>
               .
             </p>

@@ -2,11 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
-import { EventSchema, TaskSchema } from "@/lib/validations";
+import { EventSchema } from "@/lib/validations";
 import { Badge } from "@/components/ui/badge";
 import { organizations, types } from "../../../lib/data";
 import { EventsTableRowActions } from "./events-table-row-actions";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
+import { format } from "date-fns/format";
+import { es } from "date-fns/locale";
 
 type Event = z.infer<typeof EventSchema>;
 
@@ -14,14 +16,14 @@ export const EventsColumns: ColumnDef<Event>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
+      <DataTableColumnHeader column={column} title="Nombre" />
     ),
     cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "type",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
+      <DataTableColumnHeader column={column} title="Tipo" />
     ),
     cell: ({ row }) => {
       const type = types.find((type) => type.value === row.getValue("type"));
@@ -33,33 +35,39 @@ export const EventsColumns: ColumnDef<Event>[] = [
   {
     accessorKey: "date",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Date" />
+      <DataTableColumnHeader column={column} title="Fecha" />
     ),
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"));
+      console.log(date);
+      const formatDate = (date: Date) => {
+        date.setHours(date.getHours() + 3);
+        return format(date, "dd MMM yyyy", { locale: es });
+      };
+      
       return (
         <div className="truncate">
-          {date.toUTCString().split(" ").slice(0, 4).join(" ")}
+          {formatDate(date)}
         </div>
       );
     },
   },
   {
     accessorKey: "time",
-    header: () => <div className="text-left">Time</div>,
+    header: () => <div className="text-left">Hora</div>,
     cell: ({ row }) => <div>{row.getValue("time")}</div>,
   },
   {
     accessorKey: "provider",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Provider" />
+      <DataTableColumnHeader column={column} title="Salón" />
     ),
     cell: ({ row }) => <div>{row.original.provider?.name}</div>,
   },
   {
     accessorKey: "organization",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Organization" />
+      <DataTableColumnHeader column={column} title="Organización" />
     ),
     cell: ({ row }) => {
       const organization = organizations.find(
@@ -72,7 +80,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
   },
   {
     accessorKey: "days left",
-    header: "Days Left",
+    header: "Días restantes",
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"));
       const today = new Date();
@@ -82,13 +90,13 @@ export const EventsColumns: ColumnDef<Event>[] = [
       let daysLeft;
       switch (true) {
         case diffDays === 1:
-          daysLeft = <Badge>Tomorrow</Badge>;
+          daysLeft = <Badge>Mañana</Badge>;
           break;
         case diffDays === 0:
-          daysLeft = <Badge>Today</Badge>;
+          daysLeft = <Badge>Hoy</Badge>;
           break;
         case diffDays < 0:
-          daysLeft = <Badge variant="secondary">Expired</Badge>;
+          daysLeft = <Badge variant="secondary">Expirado</Badge>;
           break;
         default:
           daysLeft = diffDays;
@@ -98,7 +106,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
   },
   {
     accessorKey: "task",
-    header: () => <div className="text-left">Tasks</div>,
+    header: () => <div className="text-left">Tareas</div>,
     cell: ({ row }) => {
       const tasks = row.original.task ?? [];
       const totalTasks = tasks.length;
@@ -114,7 +122,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
   },
   {
     accessorKey: "guest",
-    header: () => <div className="text-left">Guests</div>,
+    header: () => <div className="text-left">Invitados</div>,
     cell: ({ row }) => {
       const guests = row.original.guest ?? [];
       const totalGuests = guests.length;
@@ -132,7 +140,7 @@ export const EventsColumns: ColumnDef<Event>[] = [
   },
   {
     accessorKey: "budget",
-    header: () => <div className="text-left">Budget</div>,
+    header: () => <div className="text-left">Presupuesto</div>,
     cell: ({ row }) => {
       const budget = row.original.budget ?? [];
       const totalBudget = budget.length;

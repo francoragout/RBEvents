@@ -26,6 +26,7 @@ import { Icons } from "./icons";
 import clsx from "clsx";
 import { ScrollArea } from "./ui/scroll-area";
 import Link from "next/link";
+import { es } from 'date-fns/locale';
 
 type Notification = z.infer<typeof NotificationSchema>;
 
@@ -111,6 +112,7 @@ export default function Notifications({
                     <AlertDescription className="text-muted-foreground">
                       {formatDistanceToNow(new Date(notification.createdAt), {
                         addSuffix: true,
+                        locale: es,
                       })}
                     </AlertDescription>
                   </div>

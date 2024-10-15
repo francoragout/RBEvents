@@ -32,6 +32,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { format } from "date-fns/format";
+import { es } from "date-fns/locale";
 
 type Meeting = z.infer<typeof MeetingSchema>;
 
@@ -44,6 +46,11 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
         toast.error(response.message);
       }
     });
+  };
+
+  const formatDate = (date: Date) => {
+    date.setHours(date.getHours() + 3);
+    return format(date, "dd MMM yyyy", { locale: es });
   };
 
   return (
@@ -81,11 +88,7 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
               {meetings.map((meeting) => (
                 <TableRow key={meeting.id}>
                   <TableCell>
-                    {meeting.date
-                      .toUTCString()
-                      .split(" ")
-                      .slice(1, 4)
-                      .join(" ")}
+                    {formatDate(new Date(meeting.date))}
                   </TableCell>
                   <TableCell className="text-primary font-medium">
                     {meeting.time}
