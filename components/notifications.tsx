@@ -74,7 +74,7 @@ export default function Notifications({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <div className="flex justify-between items-center">
-          <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+          <DropdownMenuLabel>Notificaciónes</DropdownMenuLabel>
           <Button
             size="sm"
             className="h-6 me-2 rounded-full border-primary"
@@ -84,7 +84,7 @@ export default function Notifications({
             {isPending && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Mark all as read
+            Leídas
           </Button>
         </div>
         <DropdownMenuSeparator />

@@ -19,7 +19,7 @@ const UserSignOut = () => {
       size="sm"
     >
       <LogOut className="mr-2 h-4 w-4" />
-      <span>Signout</span>
+      <span>Cerrar sesión</span>
     </Button>
   );
 };

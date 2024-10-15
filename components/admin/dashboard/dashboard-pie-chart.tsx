@@ -26,16 +26,16 @@ type Event = z.infer<typeof EventSchema>;
 
 const chartConfig = {
   events: {
-    label: "Events",
+    label: "Eventos",
   },
   coordination: {
-    label: "Coordination",
+    label: "Coordinación",
   },
   partial: {
-    label: "Partial",
+    label: "Parcial",
   },
   comprehensive: {
-    label: "Comprehensive",
+    label: "Integral",
   },
 } satisfies ChartConfig;
 
@@ -79,8 +79,8 @@ export function DashboardPieChart({ events }: { events: Event[] }) {
   return (
     <Card className="col-span-1 md:col-span-5 lg:col-span-2">
       <CardHeader className="pb-2">
-        <CardTitle>Organizations</CardTitle>
-        <CardDescription>Events by organization of all years</CardDescription>
+        <CardTitle>Organizaciónes</CardTitle>
+        <CardDescription>Eventos por tipo de organización</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer
@@ -121,7 +121,7 @@ export function DashboardPieChart({ events }: { events: Event[] }) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          All events
+                          Total
                         </tspan>
                       </text>
                     );

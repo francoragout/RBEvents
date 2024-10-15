@@ -1,9 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 import { UserAuthForm } from "@/components/auth/user-auth-form";
 
 export const metadata: Metadata = {
@@ -19,20 +16,18 @@ export default function AuthenticationPage() {
           <div className="absolute inset-0 bg-zinc-900" />
           <div className="flex  justify-center items-center">
             <Image
-              src="/RB.svg"
+              src="/RBEventos.svg"
               alt="Logo of the app"
               width={600}
               height={600}
               className="invert brightness-0"
             />
-            
-              
-            
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                &ldquo;This amazing application will allow you to manage the information, budget and guests of your next event.&rdquo;
+                &ldquo;This amazing application will allow you to manage the
+                information, budget and guests of your next event.&rdquo;
               </p>
               <footer className="text-sm">Ana & Belen</footer>
             </blockquote>

@@ -39,7 +39,7 @@ import { useState } from "react";
 
 const chartConfig = {
   events: {
-    label: "Events",
+    label: "Eventos",
     color: "hsl(var(--primary))",
   },
 } satisfies ChartConfig;
@@ -65,18 +65,18 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
   });
 
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ];
 
   const chartData = monthNames.map((month, index) => ({
@@ -88,7 +88,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
     filteredEvents.map((event) => new Date(event.date).getMonth() + 1)
   ).size;
 
-  const averageEvents = filteredEvents.length / (months_with_events || 1); // Avoid division by zero
+  const averageEvents = filteredEvents.length / (months_with_events || 1);
 
   const currentMonth = new Date().getMonth();
 
@@ -98,8 +98,10 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
     <Card className="col-span-1 md:col-span-7 lg:col-span-3">
       <div className="flex justify-between items-center">
         <CardHeader>
-          <CardTitle>Events</CardTitle>
-          <CardDescription>January - Dicember {selectedYear}</CardDescription>
+          <CardTitle>Eventos</CardTitle>
+          <CardDescription>
+            Tienes {filteredEvents.length} eventos este año
+          </CardDescription>
         </CardHeader>
         <div>
           <Select
@@ -111,7 +113,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Years</SelectLabel>
+                <SelectLabel>Años</SelectLabel>
                 {years.map((year) => (
                   <SelectItem key={year} value={year.toString()}>
                     {year}
@@ -152,7 +154,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
             >
               <Label
                 position="insideBottomLeft"
-                value="Average Events"
+                value="Promedio"
                 offset={10}
                 fill="hsl(var(--foreground))"
               />
@@ -171,28 +173,27 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
       <CardFooter className="flex-col items-start gap-2 text-sm">
         {difference > 0 ? (
           <div className="flex gap-1">
-            Trending up by
+            Tendencia
             <span className="font-medium text-primary">
               {difference.toFixed(2)}
             </span>
-            from average this month
+            arriba del promedio este mes
             <TrendingUp className="h-4 w-4" />
           </div>
         ) : difference < 0 ? (
           <div className="flex gap-1">
-            Trending down by
+            Tendencia
             <span className="font-medium text-primary">
               {difference.toFixed(2)}
             </span>
-            from average this month
+            por debajo del promedio este mes
             <TrendingDown className="h-4 w-4" />
           </div>
         ) : (
-          <div className="flex gap-1">No change from average this month</div>
+          <div className="flex gap-1">
+            No hay diferencia del promedio este mes
+          </div>
         )}
-        <div className="leading-none text-muted-foreground">
-          {filteredEvents.length} events this year
-        </div>
       </CardFooter>
     </Card>
   );

@@ -50,9 +50,9 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
     <Card className="col-span-1 md:col-span-7 lg:col-span-3">
       <div className="flex justify-between items-center">
         <CardHeader>
-          <CardTitle>Meetings</CardTitle>
+          <CardTitle>Reuniones</CardTitle>
           <CardDescription>
-            You have {meetings.length} upcoming meetings.
+            Tienes {meetings.length} proximas reuniones
           </CardDescription>
         </CardHeader>
         <MeetingCreateForm />
@@ -63,19 +63,18 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
             <TableHeader>
               <TableRow>
                 <TableHead className="flex items-center">
-                  Date
+                  Fecha
                   <ArrowUpIcon className="ml-2 h-4 w-4" />
                 </TableHead>
-                <TableHead>Time</TableHead>
-                <TableHead>Note</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>Hora</TableHead>
+                <TableHead>Nota</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {meetings.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
-                    No results.
+                    No hay reuniones programadas.
                   </TableCell>
                 </TableRow>
               )}
@@ -101,7 +100,7 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <div className="flex flex-col">
                           <Button
@@ -111,7 +110,7 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
                             size="sm"
                           >
                             <Trash className="h-4 w-4 mr-2" />
-                            <span>Delete</span>
+                            <span>Eliminar</span>
                           </Button>
                         </div>
                       </DropdownMenuContent>

@@ -38,10 +38,12 @@ import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { es } from 'date-fns/locale';
 
 export default function MeetingCreateForm() {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
+  
 
   const form = useForm<z.infer<typeof MeetingSchema>>({
     resolver: zodResolver(MeetingSchema),
@@ -70,14 +72,14 @@ export default function MeetingCreateForm() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8 me-6" size="sm">
-          New Meeting
+          Nueva Reunión
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create Meeting</DialogTitle>
+          <DialogTitle>Crear Reunion</DialogTitle>
           <DialogDescription>
-            Fill in the details below to create a new meeting.
+          Complete los detalles a continuación para crear una nueva reunión.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -90,10 +92,10 @@ export default function MeetingCreateForm() {
               name="note"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Note</FormLabel>
+                  <FormLabel>Nota</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Note (required)"
+                      placeholder="Nota (requerido)"
                       disabled={isPending}
                       {...field}
                     />
@@ -108,7 +110,7 @@ export default function MeetingCreateForm() {
               name="date"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Date</FormLabel>
+                  <FormLabel>Fecha</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -121,9 +123,9 @@ export default function MeetingCreateForm() {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, "EEE, dd MMM yyyy")
+                            format(field.value, "EEE, dd MMM yyyy", {locale: es})
                           ) : (
-                            <span>Pick a date</span>
+                            <span>Seleccionar fecha</span>
                           )}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
@@ -131,6 +133,7 @@ export default function MeetingCreateForm() {
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
+                      locale={es}
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
@@ -153,11 +156,10 @@ export default function MeetingCreateForm() {
               name="time"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Time</FormLabel>
+                  <FormLabel>Hora</FormLabel>
                   <FormControl>
                     <Input
                       className="w-full"
-                      placeholder="Shedule a time"
                       {...field}
                       type="time"
                       value={field.value || ""}
@@ -175,9 +177,9 @@ export default function MeetingCreateForm() {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                   <div className="space-y-0.5">
-                    <FormLabel className="text-base">Reminder</FormLabel>
+                    <FormLabel className="text-base">Recordatorio</FormLabel>
                     <FormDescription>
-                      Receive an email reminder before the meeting.
+                      Recibir una notificacion antes de la reunión.
                     </FormDescription>
                   </div>
                   <FormControl>
@@ -201,7 +203,7 @@ export default function MeetingCreateForm() {
                   onClick={() => form.reset()}
                   disabled={isPending}
                 >
-                  Cancel
+                  Cancelar
                 </Button>
               </DialogClose>
               <Button
@@ -210,7 +212,7 @@ export default function MeetingCreateForm() {
                 className="h-8"
                 disabled={isPending}
               >
-                Submit
+                Crear
               </Button>
             </DialogFooter>
           </form>

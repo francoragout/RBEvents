@@ -24,11 +24,11 @@ import Image from "next/image";
 const clientLinks = [{ name: "Events", href: "/client/events" }];
 
 const adminLinks = [
-  { name: "Dashboard", href: "/admin/dashboard" },
-  { name: "Events", href: "/admin/events" },
-  { name: "Providers", href: "/admin/providers" },
-  { name: "Incomes", href: "/admin/incomes" },
-  { name: "Users", href: "/admin/users" },
+  { name: "Panel", href: "/admin/dashboard" },
+  { name: "Eventos", href: "/admin/events" },
+  { name: "Salónes", href: "/admin/providers" },
+  { name: "Ingresos", href: "/admin/incomes" },
+  { name: "Usuarios", href: "/admin/users" },
 ];
 
 type Notification = z.infer<typeof NotificationSchema>;
@@ -49,7 +49,7 @@ export default function Navbar({ session, notifications }: NavbarProps) {
         <Button variant="outline" className="rounded-full" size="icon">
           <Image
             className="dark:invert dark:brightness-0"
-            src="/RB.svg"
+            src="/RBEventos.svg"
             width={40}
             height={40}
             alt="Logo of the app"

@@ -13,6 +13,7 @@ import { EventSchema, MeetingSchema } from "@/lib/validations";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 import { z } from "zod";
+import { es } from 'date-fns/locale';
 
 type Meeting = z.infer<typeof MeetingSchema>;
 type Event = z.infer<typeof EventSchema>;
@@ -46,16 +47,17 @@ export default function DashboardCalendar({
   return (
     <Card className="col-span-1 md:col-span-5 lg:col-span-2">
       <CardHeader>
-        <CardTitle>Calendar</CardTitle>
+        <CardTitle>Calendario</CardTitle>
         <CardDescription className="flex gap-1">
-          Keep track of your
-          <span className="font-medium text-primary">Meetings</span>
-          and
-          <span className="font-medium text-foreground">Events</span>
+          Registro de
+          <span className="font-medium text-primary">Reuniones</span>
+          y
+          <span className="font-medium text-foreground">Eventos</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="flex justify-center">
         <DayPicker
+        locale={es}
           mode="multiple"
           selected={dates}
           showOutsideDays={true}
