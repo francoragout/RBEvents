@@ -35,13 +35,13 @@ export default function SubNavbar({ event }: { event: Event }) {
 
   useEffect(() => {
     if (path.endsWith("/tasks")) {
-      setTitle("Tasks");
+      setTitle("Tareas");
     } else if (path.endsWith("/guests")) {
-      setTitle("Guests");
+      setTitle("Invitados");
     } else if (path.endsWith("/budget")) {
-      setTitle("Budget");
+      setTitle("Presupuesto");
     } else {
-      setTitle("Information");
+      setTitle("Información");
     }
   }, [path]);
 
@@ -60,8 +60,6 @@ export default function SubNavbar({ event }: { event: Event }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuSeparator />
           <div className="flex flex-col">
             <Button
               asChild
@@ -75,7 +73,7 @@ export default function SubNavbar({ event }: { event: Event }) {
                 }/information`}
               >
                 <EyeIcon className="mr-2 h-4 w-4" />
-                <span>Information</span>
+                <span>Información</span>
               </Link>
             </Button>
 
@@ -91,7 +89,7 @@ export default function SubNavbar({ event }: { event: Event }) {
                 }/budget`}
               >
                 <DollarSign className="mr-2 h-4 w-4" />
-                <span>Budget</span>
+                <span>Presupuesto</span>
               </Link>
             </Button>
 
@@ -107,7 +105,7 @@ export default function SubNavbar({ event }: { event: Event }) {
                 }/guests`}
               >
                 <Users className="mr-2 h-4 w-4" />
-                <span>Guests</span>
+                <span>Invitados</span>
               </Link>
             </Button>
 
@@ -120,7 +118,7 @@ export default function SubNavbar({ event }: { event: Event }) {
               >
                 <Link href={`/admin/events/${event?.id}/tasks`}>
                   <ListTodo className="mr-2 h-4 w-4" />
-                  <span>Tasks</span>
+                  <span>Tareas</span>
                 </Link>
               </Button>
             )}

@@ -22,7 +22,7 @@ export function BudgetTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter budgets..."
+          placeholder="Filtrar presupuesto..."
           value={
             (table.getColumn("category")?.getFilterValue() as string) ?? ""
           }
@@ -33,7 +33,7 @@ export function BudgetTableToolbar<TData>({
         />
       </div>
       <div className="flex space-x-4">
-        <DataTableViewOptions table={table} />
+        {/* <DataTableViewOptions table={table} /> */}
         {role === "ADMIN" && <BudgetCreateForm eventId={eventId} />}
       </div>
     </div>

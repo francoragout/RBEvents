@@ -55,7 +55,7 @@ export function BudgetTableRowActions<TData>({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <div className="flex flex-col">
             <BudgetEditForm budget={budget} />
@@ -66,7 +66,7 @@ export function BudgetTableRowActions<TData>({
               size="sm"
             >
               <Trash className="mr-2 h-4 w-4" />
-              <span>Delete</span>
+              <span>Eliminar</span>
             </Button>
           </div>
         </DropdownMenuContent>

@@ -16,14 +16,14 @@ export const TasksColumns: ColumnDef<Task>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="Título" />
     ),
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label);
 
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="default">{label.label}</Badge>}
+          {label && <Badge>{label.label}</Badge>}
           <span className="max-w-[700px] truncate font-medium">
             {row.getValue("title")}
           </span>
@@ -34,7 +34,7 @@ export const TasksColumns: ColumnDef<Task>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title="Estado" />
     ),
     cell: ({ row }) => {
       const status = statuses.find(
@@ -71,7 +71,7 @@ export const TasksColumns: ColumnDef<Task>[] = [
   {
     accessorKey: "priority",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
+      <DataTableColumnHeader column={column} title="Prioridad" />
     ),
     cell: ({ row }) => {
       const priority = priorities.find(

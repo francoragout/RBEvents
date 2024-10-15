@@ -104,9 +104,9 @@ model Information {
   eventId    String
 }
 
-enum GuestType {
-  AT_THE_BEGINNING
-  AFTERWARDS
+enum GuestInvitation {
+  BANQUET
+  PARTY
   TO_BE_CONFIRMED
 }
 
@@ -114,7 +114,7 @@ model Guest {
   id           String    @id @default(cuid())
   first_name   String
   last_name    String
-  guest_type   GuestType
+  invitation   GuestInvitation
   observation  String?
   table_number Int?
   event        Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)

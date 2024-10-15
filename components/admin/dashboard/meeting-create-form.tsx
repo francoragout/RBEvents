@@ -212,7 +212,7 @@ export default function MeetingCreateForm() {
                 className="h-8"
                 disabled={isPending}
               >
-                Crear
+                Guardar
               </Button>
             </DialogFooter>
           </form>

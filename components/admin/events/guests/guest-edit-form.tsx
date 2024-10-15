@@ -34,9 +34,9 @@ import {
 } from "../../../ui/select";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { guestTypes } from "@/lib/data";
+import { invitations } from "@/lib/data";
 import { Input } from "@/components/ui/input";
-import { CreateGuest, UpdateGuest } from "@/actions/guest";
+import { UpdateGuest } from "@/actions/guest";
 import { Pencil } from "lucide-react";
 
 type Guest = z.infer<typeof GuestSchema>;
@@ -52,7 +52,7 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
       last_name: guest.last_name,
       observation: guest.observation,
       table_number: guest.table_number || undefined,
-      guest_type: guest.guest_type,
+      invitation: guest.invitation,
     },
   });
 
@@ -62,6 +62,7 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
         (response) => {
           if (response.success) {
             toast.success(response.message);
+            setOpen(false);
             form.reset();
           } else {
             toast.error(response.message);
@@ -76,14 +77,14 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
       <DialogTrigger asChild>
         <Button variant="ghost" className="flex justify-start pl-2" size="sm">
           <Pencil className="mr-2 h-4 w-4" />
-          <span>Edit</span>
+          <span>Editar</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Guest</DialogTitle>
+          <DialogTitle>Editar Invitado</DialogTitle>
           <DialogDescription>
-            Use Tabs and Enter keys to navigate faster between fields.
+            Utilice Tabs para navegar más rápido entre los campos.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -96,10 +97,10 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
               name="first_name"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="First Name (required)"
+                      placeholder="Nombre (requerido)"
                       {...field}
                       disabled={isPending}
                     />
@@ -113,10 +114,10 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
               name="last_name"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Last Name</FormLabel>
+                  <FormLabel>Apellido</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Last Name (required)"
+                      placeholder="Apellido (requerido)"
                       {...field}
                       disabled={isPending}
                     />
@@ -128,10 +129,10 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
 
             <FormField
               control={form.control}
-              name="guest_type"
+              name="invitation"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Type</FormLabel>
+                  <FormLabel>Invitación</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value || ""}
@@ -144,14 +145,17 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        <SelectValue placeholder="Type (required)" />
+                        <SelectValue placeholder="Seleccionar invitacion (required)" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       <SelectGroup>
-                        {guestTypes.map((type) => (
-                          <SelectItem key={type.value} value={type.value}>
-                            {type.label}
+                        {invitations.map((invitation) => (
+                          <SelectItem
+                            key={invitation.value}
+                            value={invitation.value}
+                          >
+                            {invitation.label}
                           </SelectItem>
                         ))}
                       </SelectGroup>
@@ -167,16 +171,15 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
               name="table_number"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Table Number</FormLabel>
+                  <FormLabel>Número de mesa</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Table Number"
+                      placeholder="Número de mesa (requerido)"
                       type="number"
                       value={field.value ?? ""}
                       onChange={field.onChange}
                       disabled={
-                        form.watch("guest_type") !== "AT_THE_BEGINNING" ||
-                        isPending
+                        form.watch("invitation") !== "BANQUET" || isPending
                       }
                     />
                   </FormControl>
@@ -190,14 +193,13 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
               name="observation"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Observation</FormLabel>
+                  <FormLabel>Observación</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Observation"
+                      placeholder="Observación (opcional)"
                       {...field}
                       disabled={
-                        form.watch("guest_type") !== "AT_THE_BEGINNING" ||
-                        isPending
+                        form.watch("invitation") !== "BANQUET" || isPending
                       }
                     />
                   </FormControl>

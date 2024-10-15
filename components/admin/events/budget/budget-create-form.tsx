@@ -66,14 +66,15 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8" size="sm">
-          New Budget
+          Nuevo Presupuesto
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create Budget</DialogTitle>
+          <DialogTitle>Crear Presupuesto</DialogTitle>
           <DialogDescription>
-            Use Tabs and Enter keys to navigate faster between fields.
+            Utilice Tabs para navegar más rápido entre los
+            campos.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -86,10 +87,10 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
               name="category"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>Categoría</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Category (required)"
+                      placeholder="Categoría (requerido)"
                       {...field}
                       disabled={isPending}
                     />
@@ -103,10 +104,10 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Name (optional)"
+                      placeholder="Nombre (opcional)"
                       {...field}
                       disabled={isPending}
                     />
@@ -121,10 +122,10 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Descripción</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Description (optional)"
+                      placeholder="Descripción (opcional)"
                       {...field}
                       disabled={isPending}
                     />
@@ -139,10 +140,10 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
               name="paid_method"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Paid Method</FormLabel>
+                  <FormLabel>Método de pago</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Paid method (optional)"
+                      placeholder="Método de pago (opcional)"
                       {...field}
                       disabled={isPending}
                     />
@@ -158,10 +159,10 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
                 name="total_price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Total Price</FormLabel>
+                    <FormLabel>Total</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Total Price"
+                        placeholder="Total (opcional)"
                         type="number"
                         {...field}
                         disabled={isPending}
@@ -177,10 +178,10 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
                 name="amount_paid"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Amount Paid</FormLabel>
+                    <FormLabel>Pagado</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Amount Paid"
+                        placeholder="Pagado (opcional)"
                         type="number"
                         {...field}
                         disabled={isPending}
@@ -197,10 +198,10 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
               name="observation"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Observation</FormLabel>
+                  <FormLabel>Observación</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Observation (optional)"
+                      placeholder="Observación (opcional)"
                       {...field}
                       disabled={isPending}
                     />
@@ -220,7 +221,7 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
                   onClick={() => form.reset()}
                   disabled={isPending}
                 >
-                  Cancel
+                  Cancelar
                 </Button>
               </DialogClose>
               <Button
@@ -229,7 +230,7 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
                 className="h-8"
                 disabled={isPending}
               >
-                Submit
+                Guardar
               </Button>
             </DialogFooter>
           </form>

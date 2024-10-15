@@ -76,39 +76,39 @@ export const labels = [
 export const statuses = [
   {
     value: "BACKLOG",
-    label: "Backlog",
+    label: "Pendiente",
     icon: QuestionMarkCircledIcon,
   },
   {
     value: "TODO",
-    label: "Todo",
+    label: "Por Hacer",
     icon: CircleIcon,
   },
   {
     value: "IN_PROGRESS",
-    label: "In Progress",
+    label: "En Progreso",
     icon: StopwatchIcon,
   },
   {
     value: "DONE",
-    label: "Done",
+    label: "Hecho",
     icon: CheckCircledIcon,
   },
 ];
 
 export const priorities = [
   {
-    label: "Low",
+    label: "Baja",
     value: "LOW",
     icon: ArrowDownIcon,
   },
   {
-    label: "Medium",
+    label: "Media",
     value: "MEDIUM",
     icon: ArrowRightIcon,
   },
   {
-    label: "High",
+    label: "Alta",
     value: "HIGH",
     icon: ArrowUpIcon,
   },
@@ -236,17 +236,17 @@ export const cities = [
   },
 ];
 
-export const guestTypes = [
+export const invitations = [
   {
-    value: "AT_THE_BEGINNING",
-    label: "At the beginning",
+    value: "BANQUET",
+    label: "Almuerzo/Cena",
   },
   {
-    value: "AFTERWARDS",
-    label: "Afterwards",
+    value: "PARTY",
+    label: "Fiesta",
   },
   {
     value: "TO_BE_CONFIRMED",
-    label: "To be confirmed",
+    label: "Tiene que confirmar",
   },
 ];

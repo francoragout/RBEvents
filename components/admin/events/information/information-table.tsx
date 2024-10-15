@@ -15,12 +15,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { InformationTableToolbar } from "./information-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
@@ -42,8 +37,7 @@ export function InformationTable<TData, TValue>({
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
-  const information = data.length
-
+  const information = data.length;
 
   const table = useReactTable({
     data,
@@ -67,30 +61,40 @@ export function InformationTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  // Extract the headers and rows data
   const headers = table.getHeaderGroups()[0]?.headers ?? [];
   const rows = table.getRowModel().rows;
 
   return (
     <div className="space-y-4">
-      <InformationTableToolbar table={table} eventId={eventId} information={information}/>
+      <InformationTableToolbar
+        table={table}
+        eventId={eventId}
+        information={information}
+      />
       <div className="rounded-md border">
         <Table>
           <TableBody>
             {headers.map((header) => (
               <TableRow key={header.id}>
-                {/* Render the header as the first cell in each row */}
                 <TableCell className="font-medium">
-                  {flexRender(header.column.columnDef.header, header.getContext())}
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
                 </TableCell>
-                {/* Render the corresponding cells for each row */}
+
                 {rows.map((row) => {
-                  const cell = row.getVisibleCells().find(
-                    (cell) => cell.column.id === header.id
-                  );
+                  const cell = row
+                    .getVisibleCells()
+                    .find((cell) => cell.column.id === header.id);
                   return (
                     <TableCell key={row.id + header.id}>
-                      {cell ? flexRender(cell.column.columnDef.cell, cell.getContext()) : null}
+                      {cell
+                        ? flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )
+                        : null}
                     </TableCell>
                   );
                 })}

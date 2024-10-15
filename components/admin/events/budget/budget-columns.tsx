@@ -13,35 +13,37 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
   {
     accessorKey: "category",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Category" />
+      <DataTableColumnHeader column={column} title="Categoría" />
     ),
-    cell: ({ row }) => <div className="font-medium">{row.getValue("category")}</div>,
+    cell: ({ row }) => (
+      <div className="font-medium">{row.getValue("category")}</div>
+    ),
   },
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
+      <DataTableColumnHeader column={column} title="Nombre" />
     ),
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
     accessorKey: "description",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description" />
+      <DataTableColumnHeader column={column} title="Descripción" />
     ),
     cell: ({ row }) => <div>{row.getValue("description")}</div>,
   },
   {
     accessorKey: "paid_method",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Paid Method" />
+      <DataTableColumnHeader column={column} title="Método de pago" />
     ),
     cell: ({ row }) => <div>{row.getValue("paid_method")}</div>,
   },
   {
     accessorKey: "total_price",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Total Price" />
+      <DataTableColumnHeader column={column} title="Total" />
     ),
     cell: ({ row }) => {
       const total_price = row.getValue("total_price") as number;
@@ -53,7 +55,7 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
   {
     accessorKey: "amount_paid",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Amount Paid" />
+      <DataTableColumnHeader column={column} title="Pagado" />
     ),
     cell: ({ row }) => {
       const amountPaid = row.getValue("amount_paid") as number;
@@ -65,25 +67,25 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
   {
     accessorKey: "due",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Due" />
+      <DataTableColumnHeader column={column} title="Deuda" />
     ),
     cell: ({ row }) => {
       const total_price = row.getValue("total_price") as number;
       const amount_paid = row.getValue("amount_paid") as number;
       const due = total_price - amount_paid;
       if (total_price === 0 && amount_paid === 0) {
-        return <p>No set</p>;
+        return <p>No configurado</p>;
       } else if (due !== 0) {
         return <p className="text-red-600 font-medium">${due}</p>;
       } else {
-        return <p className="text-green-600 font-medium">Paid</p>;
+        return <p className="text-green-600 font-medium">Pagado</p>;
       }
     },
   },
   {
     accessorKey: "observation",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Observation" />
+      <DataTableColumnHeader column={column} title="Observación" />
     ),
     cell: ({ row }) => <div>{row.getValue("observation")}</div>,
   },

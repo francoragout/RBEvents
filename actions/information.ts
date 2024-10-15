@@ -60,7 +60,7 @@ export const CreateInformation = async (
 
     await db.notification.create({
       data: {
-        message: `New Information: '${eventName?.name}'`,
+        message: `Nueva información: '${eventName?.name}'`,
         link: `/admin/events/${eventId}/information`,
         read: false,
       },
@@ -69,13 +69,13 @@ export const CreateInformation = async (
     revalidatePath(`/admin/events/${eventId}/information`);
     return {
       success: true,
-      message: "Information was created successfully!",
+      message: "La información fue creada exitosamente.",
     };
   } catch (error) {
     console.error("Error creating information:", error);
     return {
       success: false,
-      message: "Failed to create information!",
+      message: "Error al crear la información.",
     };
   }
 };
@@ -129,13 +129,13 @@ export const UpdateInformation = async (
     revalidatePath(`/admin/events/${values.eventId}/information`);
     return {
       success: true,
-      message: "Information was updated successfully!",
+      message: "La información fue editada exitosamente.",
     };
   } catch (error) {
     console.error("Error updating information:", error);
     return {
       success: false,
-      message: "Failed to update information!",
+      message: "Error al editar la información.",
     };
   }
 };
@@ -150,13 +150,13 @@ export const DeleteInformation = async (eventId: string) => {
     revalidatePath(`/admin/events/${eventId}/information`);
     return {
       success: true,
-      message: "Information was deleted successfully!",
+      message: "La información fue eliminada exitosamente.",
     };
   } catch (error) {
     console.error("Error deleting information:", error);
     return {
       success: false,
-      message: "Failed to delete information!",
+      message: "Error al eliminar la información.",
     };
   }
 };

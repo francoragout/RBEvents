@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,7 +34,7 @@ import {
 } from "../../../ui/select";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { guestTypes } from "@/lib/data";
+import { invitations } from "@/lib/data";
 import { Input } from "@/components/ui/input";
 import { CreateGuest } from "@/actions/guest";
 
@@ -70,14 +70,14 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8" size="sm">
-          New Guest
+          Nuevo Invitado
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create Guest</DialogTitle>
+          <DialogTitle>Crear Invitado</DialogTitle>
           <DialogDescription>
-            Use Tabs and Enter keys to navigate faster between fields.
+            Utilice Tabs para navegar más rápido entre los campos.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -90,10 +90,10 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
               name="first_name"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="First Name (required)"
+                      placeholder="Nombre (requerido)"
                       {...field}
                       disabled={isPending}
                     />
@@ -107,10 +107,10 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
               name="last_name"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Last Name</FormLabel>
+                  <FormLabel>Apellido</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Last Name (required)"
+                      placeholder="Apellido (requerido)"
                       {...field}
                       disabled={isPending}
                     />
@@ -122,10 +122,10 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
 
             <FormField
               control={form.control}
-              name="guest_type"
+              name="invitation"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Type</FormLabel>
+                  <FormLabel>Invitación</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value || ""}
@@ -138,14 +138,14 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        <SelectValue placeholder="Type (required)" />
+                        <SelectValue placeholder="Seleccionar invitacion (required)" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       <SelectGroup>
-                        {guestTypes.map((type) => (
-                          <SelectItem key={type.value} value={type.value}>
-                            {type.label}
+                        {invitations.map((invitation) => (
+                          <SelectItem key={invitation.value} value={invitation.value}>
+                            {invitation.label}
                           </SelectItem>
                         ))}
                       </SelectGroup>
@@ -161,16 +161,15 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
               name="table_number"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Table Number</FormLabel>
+                  <FormLabel>Número de mesa</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Table Number"
+                      placeholder="Número de mesa (requerido)"
                       type="number"
                       value={field.value ?? ""}
                       onChange={field.onChange}
                       disabled={
-                        form.watch("guest_type") !== "AT_THE_BEGINNING" ||
-                        isPending
+                        form.watch("invitation") !== "BANQUET" || isPending
                       }
                     />
                   </FormControl>
@@ -184,14 +183,13 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
               name="observation"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Observation</FormLabel>
+                  <FormLabel>Observación</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Observation"
+                      placeholder="Observación (opcional)"
                       {...field}
                       disabled={
-                        form.watch("guest_type") !== "AT_THE_BEGINNING" ||
-                        isPending
+                        form.watch("invitation") !== "BANQUET" || isPending
                       }
                     />
                   </FormControl>
@@ -210,7 +208,7 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
                   onClick={() => form.reset()}
                   disabled={isPending}
                 >
-                  Cancel
+                  Cancelar
                 </Button>
               </DialogClose>
               <Button
@@ -219,7 +217,7 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
                 className="h-8"
                 disabled={isPending}
               >
-                Submit
+                Guardar
               </Button>
             </DialogFooter>
           </form>

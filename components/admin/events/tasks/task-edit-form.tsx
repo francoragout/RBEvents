@@ -36,6 +36,7 @@ import { cn } from "@/lib/utils";
 import { UpdateTask } from "@/actions/task";
 import { toast } from "sonner";
 import { statuses } from "@/lib/data";
+import { Input } from "@/components/ui/input";
 
 type Task = z.infer<typeof TaskSchema>;
 
@@ -72,14 +73,14 @@ export default function TaskEditForm({ task }: { task: Task }) {
       <DialogTrigger asChild>
         <Button variant="ghost" className="flex justify-start pl-2" size="sm">
           <Pencil className="mr-2 h-4 w-4" />
-          <span>Edit</span>
+          <span>Editar</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit task</DialogTitle>
+          <DialogTitle>Editar Tarea</DialogTitle>
           <DialogDescription>
-            Use Tabs and Enter keys to navigate faster between fields.
+            Utilice Tabs para navegar más rápido entre los campos.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -92,11 +93,11 @@ export default function TaskEditForm({ task }: { task: Task }) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>Título</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Do a kickflip"
-                      className="resize-none"
+                    <Input
+                      placeholder="Título (requerido)"
+                      disabled={isPending}
                       {...field}
                     />
                   </FormControl>
@@ -110,10 +111,10 @@ export default function TaskEditForm({ task }: { task: Task }) {
               name="status"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Status</FormLabel>
+                  <FormLabel>Estado</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value || ""}
                     disabled={isPending}
                   >
                     <FormControl>
@@ -123,7 +124,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        <SelectValue placeholder="Status (required)" />
+                        <SelectValue placeholder="Estado (opcional)" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -146,7 +147,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
               name="priority"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Priority</FormLabel>
+                  <FormLabel>Prioridad</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value || ""}
@@ -163,9 +164,9 @@ export default function TaskEditForm({ task }: { task: Task }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="LOW">Low</SelectItem>
-                      <SelectItem value="MEDIUM">Medium</SelectItem>
-                      <SelectItem value="HIGH">High</SelectItem>
+                      <SelectItem value="LOW">Baja</SelectItem>
+                      <SelectItem value="MEDIUM">Media</SelectItem>
+                      <SelectItem value="HIGH">Alta</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -178,7 +179,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
               name="label"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Etiqueta</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value || ""}
@@ -191,7 +192,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        <SelectValue placeholder="Label (required)" />
+                        <SelectValue placeholder="Label (optional)" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

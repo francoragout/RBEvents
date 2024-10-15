@@ -44,7 +44,7 @@ export function TasksTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col">
           <TaskEditForm task={task} />
@@ -55,7 +55,7 @@ export function TasksTableRowActions<TData>({
             size="sm"
           >
             <Trash className="mr-2 h-4 w-4" />
-            <span>Delete</span>
+            <span>Eliminar</span>
           </Button>
         </div>
       </DropdownMenuContent>

@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { GuestSchema, TaskSchema } from "@/lib/validations";
+import { GuestSchema } from "@/lib/validations";
 import { MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "sonner";
 import { DeleteGuest } from "@/actions/guest";
@@ -44,7 +44,7 @@ export function GuestsTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col">
           <GuestEditForm guest={guest} />
@@ -55,7 +55,7 @@ export function GuestsTableRowActions<TData>({
             size="sm"
           >
             <Trash className="mr-2 h-4 w-4" />
-            <span>Delete</span>
+            <span>Eliminar</span>
           </Button>
         </div>
       </DropdownMenuContent>

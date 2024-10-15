@@ -84,9 +84,9 @@ export default function InformationEditForm({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edite Information</DialogTitle>
+          <DialogTitle>Editar Información</DialogTitle>
           <DialogDescription>
-            Use Tabs and Enter keys to navigate faster between fields.
+            Utilice Tabs para navegar más rápido entre los campos.
           </DialogDescription>
         </DialogHeader>
 
@@ -95,15 +95,19 @@ export default function InformationEditForm({
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-4"
           >
+            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+              Pareja
+            </h4>
+
             <FormField
               control={form.control}
               name="full_name"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel>Nombre Completo</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Full Name (required)"
+                      placeholder="Nombre Completo (requerido)"
                       {...field}
                       disabled={isPending}
                     />
@@ -114,7 +118,7 @@ export default function InformationEditForm({
             />
 
             <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-              Family
+              Nombres Familia y Amigos
             </h4>
 
             <div className="grid grid-cols-2 gap-4">
@@ -123,10 +127,10 @@ export default function InformationEditForm({
                 name="mother"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Mother</FormLabel>
+                    <FormLabel>Madre</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Mother (optional)"
+                        placeholder="Madre (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -140,10 +144,10 @@ export default function InformationEditForm({
                 name="father"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Father</FormLabel>
+                    <FormLabel>Padre</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Father (optional)"
+                        placeholder="Padre (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -158,10 +162,10 @@ export default function InformationEditForm({
                 name="brothers"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Brothers</FormLabel>
+                    <FormLabel>Hermanos</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Brothers (optional)"
+                        placeholder="Hermanos (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -176,10 +180,10 @@ export default function InformationEditForm({
                 name="children"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Children</FormLabel>
+                    <FormLabel>Hijos</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Children (optional)"
+                        placeholder="Hijos (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -194,10 +198,10 @@ export default function InformationEditForm({
                 name="godparents"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Godparents</FormLabel>
+                    <FormLabel>Padrinos</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Godparents (optional)"
+                        placeholder="Padrinos (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -211,10 +215,10 @@ export default function InformationEditForm({
                 name="witnesses"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Witnesses</FormLabel>
+                    <FormLabel>Testigos</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Witnesses (optional)"
+                        placeholder="Testigos (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -226,7 +230,7 @@ export default function InformationEditForm({
             </div>
 
             <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-              Preferences
+              Preferencias
             </h4>
 
             <div className="grid grid-cols-2 gap-4">
@@ -235,10 +239,10 @@ export default function InformationEditForm({
                 name="nutrition"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Nutrition</FormLabel>
+                    <FormLabel>Nutrición</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Nutrition (optional)"
+                        placeholder="Nutrición (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -253,10 +257,10 @@ export default function InformationEditForm({
                 name="allergies"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Allergies</FormLabel>
+                    <FormLabel>Alergias</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Allergies (optional)"
+                        placeholder="Alergias (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -271,10 +275,10 @@ export default function InformationEditForm({
                 name="drinks"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Drinks</FormLabel>
+                    <FormLabel>Bebida alcohólica</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Drinks (optional)"
+                        placeholder="Bebida alcohólica (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -295,7 +299,7 @@ export default function InformationEditForm({
                   onClick={() => form.reset()}
                   disabled={isPending}
                 >
-                  Cancel
+                  Cancelar
                 </Button>
               </DialogClose>
               <Button
@@ -304,7 +308,7 @@ export default function InformationEditForm({
                 className="h-8"
                 disabled={isPending}
               >
-                Submit
+                Guardar
               </Button>
             </DialogFooter>
           </form>

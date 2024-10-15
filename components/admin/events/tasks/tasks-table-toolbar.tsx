@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input"
 import { priorities, statuses } from "@/lib/data"
 import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
 import TaskCreateForm from "./task-create-form"
-import { DataTableViewOptions } from "@/components/data-table-view-options"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -24,7 +23,7 @@ export function TasksTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter tasks..."
+          placeholder="Filtrar tareas..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
@@ -34,14 +33,14 @@ export function TasksTableToolbar<TData>({
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
-            title="Status"
+            title="Estado"
             options={statuses}
           />
         )}
         {table.getColumn("priority") && (
           <DataTableFacetedFilter
             column={table.getColumn("priority")}
-            title="Priority"
+            title="Prioridad"
             options={priorities}
           />
         )}
@@ -51,13 +50,12 @@ export function TasksTableToolbar<TData>({
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            Reset
+            Reiniciar
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
       </div>
       <div className="flex space-x-4">
-        <DataTableViewOptions table={table} />
         <TaskCreateForm eventId={eventId}/>
       </div>
     </div>

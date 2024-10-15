@@ -81,7 +81,7 @@ export default function DashboardTable({ meetings }: { meetings: Meeting[] }) {
               {meetings.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
-                    No hay reuniones programadas.
+                    Sin resultados.
                   </TableCell>
                 </TableRow>
               )}

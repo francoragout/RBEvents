@@ -2,7 +2,6 @@
 
 import { Table } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "@/components/data-table-view-options";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -31,7 +30,6 @@ export function EventsTableToolbar<TData>({
         />
       </div>
       <div className="flex space-x-4">
-        {/* <DataTableViewOptions table={table} /> */}
         {role === "ADMIN" && (
           <Button variant="default" size="sm" className="h-8" asChild>
             <Link href="/admin/events/create">Nuevo Evento</Link>

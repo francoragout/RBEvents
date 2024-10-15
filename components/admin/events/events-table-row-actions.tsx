@@ -91,7 +91,7 @@ export function EventsTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col">
           <Button
@@ -106,7 +106,7 @@ export function EventsTableRowActions<TData>({
               }/information`}
             >
               <EyeIcon className="mr-2 h-4 w-4" />
-              <span>Information</span>
+              <span>Información</span>
             </Link>
           </Button>
 
@@ -122,7 +122,7 @@ export function EventsTableRowActions<TData>({
               }/budget`}
             >
               <DollarSign className="mr-2 h-4 w-4" />
-              <span>Budget</span>
+              <span>Presupuesto</span>
             </Link>
           </Button>
 
@@ -138,7 +138,7 @@ export function EventsTableRowActions<TData>({
               }/guests`}
             >
               <Users className="mr-2 h-4 w-4" />
-              <span>Guests</span>
+              <span>Invitados</span>
             </Link>
           </Button>
 
@@ -152,10 +152,10 @@ export function EventsTableRowActions<TData>({
               >
                 <Link href={`/admin/events/${event.id}/tasks`}>
                   <ListTodo className="mr-2 h-4 w-4" />
-                  <span>Tasks</span>
+                  <span>Tareas</span>
                 </Link>
               </Button>
-              
+
               <Button
                 asChild
                 variant="ghost"
@@ -164,7 +164,7 @@ export function EventsTableRowActions<TData>({
               >
                 <Link href={`/admin/events/${event.id}/edit`}>
                   <Pencil className="mr-2 h-4 w-4" />
-                  <span>Edit</span>
+                  <span>Editar</span>
                 </Link>
               </Button>
 
@@ -175,7 +175,7 @@ export function EventsTableRowActions<TData>({
                 onClick={handleArchive}
               >
                 <ArchiveRestore className="mr-2 h-4 w-4" />
-                <span>Archive</span>
+                <span>Archivar</span>
               </Button>
 
               <AlertDialog>
@@ -186,24 +186,24 @@ export function EventsTableRowActions<TData>({
                     className="flex justify-start pl-2 w-full"
                   >
                     <Trash className="mr-2 h-4 w-4" />
-                    Delete
+                    Eliminar
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle>
-                      Are you absolutely sure?
+                      Estas completamente seguro?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your event &apos;{event.name}&apos; and remove your data
-                      from our servers.
+                      Esta acción no se puede deshacer. Esto eliminará
+                      permanentemente el evento &apos;{event.name}&apos; y todos
+                      los datos asociados de nuestros servidores.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
                     <AlertDialogAction onClick={handleDelite}>
-                      Continue
+                      Continuar
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>

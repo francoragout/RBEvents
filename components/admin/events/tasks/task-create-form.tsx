@@ -66,14 +66,14 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8" size="sm">
-          New Task
+          Nueva Tarea
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create task</DialogTitle>
+          <DialogTitle>Crear Tarea</DialogTitle>
           <DialogDescription>
-            Use Tabs and Enter keys to navigate faster between fields.
+            Utilice Tabs para navegar más rápido entre los campos.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -86,10 +86,10 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>Título</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Title (required)"
+                      placeholder="Título (requerido)"
                       disabled={isPending}
                       {...field}
                     />
@@ -104,7 +104,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
               name="status"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Status</FormLabel>
+                  <FormLabel>Estado</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value || ""}
@@ -117,7 +117,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        <SelectValue placeholder="Status (required)" />
+                        <SelectValue placeholder="Estado (opcional)" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -140,7 +140,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
               name="priority"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Priority</FormLabel>
+                  <FormLabel>Prioridad</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value || ""}
@@ -157,9 +157,9 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="LOW">Low</SelectItem>
-                      <SelectItem value="MEDIUM">Medium</SelectItem>
-                      <SelectItem value="HIGH">High</SelectItem>
+                      <SelectItem value="LOW">Baja</SelectItem>
+                      <SelectItem value="MEDIUM">Media</SelectItem>
+                      <SelectItem value="HIGH">Alta</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -172,7 +172,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
               name="label"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Etiqueta</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value || ""}
@@ -208,7 +208,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                   onClick={() => form.reset()}
                   disabled={isPending}
                 >
-                  Cancel
+                  Cancelar
                 </Button>
               </DialogClose>
               <Button
@@ -217,7 +217,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
                 className="h-8"
                 disabled={isPending}
               >
-                Submit
+                Guardar
               </Button>
             </DialogFooter>
           </form>

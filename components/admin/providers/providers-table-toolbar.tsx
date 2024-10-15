@@ -2,7 +2,6 @@
 
 import { Table } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "@/components/data-table-view-options";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -13,8 +12,7 @@ interface DataTableToolbarProps<TData> {
 export function ProvidersTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
-
+  
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -28,7 +26,6 @@ export function ProvidersTableToolbar<TData>({
         />
       </div>
       <div className="flex space-x-4">
-        <DataTableViewOptions table={table} />
         <Button variant="default" size="sm" className="h-8" asChild>
           <Link href="/admin/providers/create">New Provider</Link>
         </Button>

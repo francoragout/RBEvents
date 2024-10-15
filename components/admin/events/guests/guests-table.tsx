@@ -33,6 +33,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
   eventId: string
   guestList: any[]
+  eventName: string
 }
 
 export function GuestsTable<TData, TValue>({
@@ -40,6 +41,7 @@ export function GuestsTable<TData, TValue>({
   data,
   eventId,
   guestList,
+  eventName,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -47,7 +49,7 @@ export function GuestsTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
-  const [sorting, setSorting] = React.useState<SortingState>([{ id: "guest_type", desc: true }, { id: "last_name", desc: false }])
+  const [sorting, setSorting] = React.useState<SortingState>([{ id: "invitation", desc: false }, { id: "last_name", desc: false }])
 
   const table = useReactTable({
     data,
@@ -73,7 +75,7 @@ export function GuestsTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <GuestsTableToolbar table={table} eventId={eventId}  guestsList={guestList}/>
+      <GuestsTableToolbar table={table} eventId={eventId}  guestsList={guestList} eventName={eventName}/>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -117,7 +119,7 @@ export function GuestsTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Sin resultados.
                 </TableCell>
               </TableRow>
             )}

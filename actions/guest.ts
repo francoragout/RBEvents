@@ -19,7 +19,7 @@ export const CreateGuest = async (
     };
   }
 
-  const { first_name, last_name, guest_type, table_number, observation } =
+  const { first_name, last_name, invitation, table_number, observation } =
     validatedFields.data;
 
   try {
@@ -27,7 +27,7 @@ export const CreateGuest = async (
       data: {
         first_name,
         last_name,
-        guest_type,
+        invitation,
         table_number,
         observation,
         event: { connect: { id: eventId } },
@@ -36,13 +36,13 @@ export const CreateGuest = async (
     revalidatePath(`/admin/events/${eventId}/guests`);
     return {
       success: true,
-      message: "Guest was created successfully!",
+      message: "El invitado fue creado exitosamente.",
     };
   } catch (error) {
     console.error("Error creating guest:", error);
     return {
       success: false,
-      message: "Failed to create guest!",
+      message: "Error al crear el invitado.",
     };
   }
 };
@@ -62,7 +62,7 @@ export const UpdateGuest = async (
     };
   }
 
-  const { first_name, last_name, guest_type, table_number, observation } =
+  const { first_name, last_name, invitation, table_number, observation } =
     validatedFields.data;
 
   try {
@@ -71,7 +71,7 @@ export const UpdateGuest = async (
       data: {
         first_name,
         last_name,
-        guest_type,
+        invitation,
         table_number,
         observation,
       },
@@ -79,13 +79,13 @@ export const UpdateGuest = async (
     revalidatePath(`/admin/events/${guestId}/guests`);
     return {
       success: true,
-      message: "Guest was updated successfully!",
+      message: "El invitado fue editado exitosamente.",
     };
   } catch (error) {
     console.error("Error updating guest:", error);
     return {
       success: false,
-      message: "Failed to update guest!",
+      message: "Error al editar el invitado.",
     };
   }
 };
@@ -96,13 +96,13 @@ export const DeleteGuest = async (guestId: string) => {
     revalidatePath(`/admin/events/${guestId}/guests`);
     return {
       success: true,
-      message: "Guest was deleted successfully!",
+      message: "El invitado fue eliminado exitosamente.",
     };
   } catch (error) {
     console.error("Error deleting guest:", error);
     return {
       success: false,
-      message: "Failed to delete guest!",
+      message: "Error al eliminar el invitado.",
     };
   }
 };

@@ -71,7 +71,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
       if (provider) {
         await CreateBudget(event.id, {
           name: provider.name,
-          category: "Provider",
+          category: "Salón",
           observation: "",
           description: "",
           paid_method: "",

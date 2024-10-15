@@ -54,7 +54,7 @@ export const CreateBudget = async (
 
     await db.notification.create({
       data: {
-        message: `New Budget: '${eventName?.name}'`,
+        message: `Nuevo presupuesto: '${eventName?.name}'`,
         link: `/admin/events/${eventId}/budget`,
         read: false,
       },
@@ -63,13 +63,13 @@ export const CreateBudget = async (
     revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
-      message: "Budget created successfully.",
+      message: "Presupuesto creado exitosamente.",
     };
   } catch (error) {
     console.error("Error creating budget:", error);
     return {
       success: false,
-      message: "Failed to create budget.",
+      message: "Error al crear el presupuesto.",
     };
   }
 };
@@ -115,13 +115,13 @@ export const UpdateBudget = async (
     revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
-      message: "Budget updated successfully.",
+      message: "Presupuesto editado exitosamente.",
     };
   } catch (error) {
     console.error("Error updating budget:", error);
     return {
       success: false,
-      message: "Failed to update budget.",
+      message: "Error al editar el presupuesto.",
     };
   }
 };
@@ -132,13 +132,13 @@ export const DeleteBudget = async (budgetId: string, eventId: string) => {
     revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
-      message: "Budget deleted successfully.",
+      message: "Presupuesto eliminado exitosamente.",
     };
   } catch (error) {
     console.error("Error deleting budget:", error);
     return {
       success: false,
-      message: "Failed to delete budget.",
+      message: "Error al eliminar el presupuesto.",
     };
   }
 };
