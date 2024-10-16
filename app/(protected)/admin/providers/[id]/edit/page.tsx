@@ -29,9 +29,8 @@ export default async function EditProviderPage({
     phone: provider.phone || undefined,
     capacity: provider.capacity || undefined,
     rent: provider.rent || undefined,
-    dinner: provider.dinner || undefined,
-    lunch: provider.lunch || undefined,
-    after: provider.after || undefined,
+    banquet: provider.banquet || undefined,
+    party: provider.party || undefined,
   };
 
   return (
@@ -40,4 +39,3 @@ export default async function EditProviderPage({
     </div>
   );
 }
-

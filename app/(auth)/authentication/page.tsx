@@ -26,7 +26,7 @@ export default function AuthenticationPage() {
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                &ldquo;Esta increíble aplicación te permitirá gestionar la
+                &ldquo;Esta aplicación te permitirá gestionar y visualizar la
                 información, presupuesto e invitados de tu proximo
                 evento.&rdquo;
               </p>
