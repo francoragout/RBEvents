@@ -5,7 +5,6 @@ import { BudgetSchema } from "@/lib/validations";
 import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
 import { BudgetTableRowActions } from "./budget-table-row-actions";
-import { Badge } from "@/components/ui/badge";
 
 type Budget = z.infer<typeof BudgetSchema>;
 

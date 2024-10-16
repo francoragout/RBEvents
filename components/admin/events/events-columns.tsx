@@ -18,7 +18,9 @@ export const EventsColumns: ColumnDef<Event>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Nombre" />
     ),
-    cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
+    cell: ({ row }) => (
+      <div className="font-medium">{row.getValue("name")}</div>
+    ),
   },
   {
     accessorKey: "type",
@@ -43,12 +45,8 @@ export const EventsColumns: ColumnDef<Event>[] = [
         date.setHours(date.getHours() + 3);
         return format(date, "EEE, dd MMM yyyy", { locale: es });
       };
-      
-      return (
-        <div className="truncate">
-          {formatDate(date)}
-        </div>
-      );
+
+      return <div className="truncate">{formatDate(date)}</div>;
     },
   },
   {
@@ -127,9 +125,9 @@ export const EventsColumns: ColumnDef<Event>[] = [
       const totalGuests = guests.length;
       const confirmedGuests = guests.filter(
         (guest) =>
-          guest.guest_type === "AT_THE_BEGINNING" ||
-          guest.guest_type === "AFTERWARDS"
+          guest.invitation === "BANQUET" || guest.invitation === "PARTY"
       ).length;
+
       return (
         <div>
           {confirmedGuests} / {totalGuests}
