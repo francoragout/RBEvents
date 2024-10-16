@@ -80,7 +80,9 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
     <Card className="my-5">
       <CardHeader>
         <CardTitle>Editar Salón</CardTitle>
-        <CardDescription>Modifique su salón con un solo clic.</CardDescription>
+        <CardDescription>
+          Utilice Tabs para navegar más rápido entre los campos.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>

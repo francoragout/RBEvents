@@ -38,12 +38,11 @@ import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { es } from 'date-fns/locale';
+import { es } from "date-fns/locale";
 
 export default function MeetingCreateForm() {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
-  
 
   const form = useForm<z.infer<typeof MeetingSchema>>({
     resolver: zodResolver(MeetingSchema),
@@ -78,7 +77,7 @@ export default function MeetingCreateForm() {
         <DialogHeader>
           <DialogTitle>Crear Reunion</DialogTitle>
           <DialogDescription>
-          Complete los detalles a continuación para crear una nueva reunión.
+            Utilice Tabs para navegar más rápido entre los campos.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -122,7 +121,9 @@ export default function MeetingCreateForm() {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, "EEE, dd MMM yyyy", {locale: es})
+                            format(field.value, "EEE, dd MMM yyyy", {
+                              locale: es,
+                            })
                           ) : (
                             <span>Seleccionar fecha (requerido)</span>
                           )}
@@ -132,7 +133,7 @@ export default function MeetingCreateForm() {
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
-                      locale={es}
+                        locale={es}
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}

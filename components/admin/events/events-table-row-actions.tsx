@@ -9,9 +9,7 @@ import {
   ArchiveRestore,
   DollarSign,
   EyeIcon,
-  List,
   ListTodo,
-  MoreHorizontal,
   Pencil,
   Trash,
   Users,
@@ -20,18 +18,12 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { EventSchema, ProviderSchema } from "@/lib/validations";
+import { EventSchema } from "@/lib/validations";
 import Link from "next/link";
-import { DeleteProvider } from "@/actions/provider";
 import { toast } from "sonner";
 import {
   AlertDialog,
@@ -44,8 +36,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { ArchiveEvent, DeleteEvent } from "@/actions/event";
+import { ArchiveEvent, DeleteEvent, UnarchiveEvent } from "@/actions/event";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -55,7 +48,7 @@ export function EventsTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const event = EventSchema.parse(row.original);
-
+  const pathname = usePathname();
   const { data: session } = useSession();
   const role = session?.user?.role;
 
@@ -71,6 +64,16 @@ export function EventsTableRowActions<TData>({
 
   const handleArchive = () => {
     ArchiveEvent(event.id ?? "").then((response) => {
+      if (response.success) {
+        toast.success(response.message);
+      } else {
+        toast.error(response.message);
+      }
+    });
+  };
+
+  const handleUnarchive = () => {
+    UnarchiveEvent(event.id ?? "").then((response) => {
       if (response.success) {
         toast.success(response.message);
       } else {
@@ -172,10 +175,14 @@ export function EventsTableRowActions<TData>({
                 variant="ghost"
                 className="flex justify-start pl-2"
                 size="sm"
-                onClick={handleArchive}
+                onClick={event.archived ? handleUnarchive : handleArchive}
               >
                 <ArchiveRestore className="mr-2 h-4 w-4" />
-                <span>Archivar</span>
+                <span>
+                  {pathname === "/admin/events/archived"
+                    ? "Desarchivar"
+                    : "Archivar"}
+                </span>
               </Button>
 
               <AlertDialog>

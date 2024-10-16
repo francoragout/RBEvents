@@ -70,7 +70,7 @@ export default function ProviderCreateForm() {
       <CardHeader>
         <CardTitle>Crear Salón</CardTitle>
         <CardDescription>
-          Implemente su nuevo salón con un solo clic.
+          Utilice Tabs para navegar más rápido entre los campos.
         </CardDescription>
       </CardHeader>
       <CardContent>

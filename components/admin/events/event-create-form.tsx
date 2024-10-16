@@ -91,7 +91,7 @@ export default function EventCreateForm({
       <CardHeader>
         <CardTitle>Crear Evento</CardTitle>
         <CardDescription>
-          Implemente su nuevo proyecto con un solo clic.
+          Utilice Tabs para navegar más rápido entre los campos.
         </CardDescription>
       </CardHeader>
       <CardContent>

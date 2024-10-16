@@ -102,7 +102,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   }
 };
 
-export const EditEvent = async (
+export const UpdateEvent = async (
   id: string,
   values: z.infer<typeof EventSchema>
 ) => {
@@ -230,3 +230,25 @@ export const ArchiveEvent = async (id: string) => {
     };
   }
 };
+
+export const UnarchiveEvent = async (id: string) => {
+  try {
+    await db.event.update({
+      where: { id },
+      data: {
+        archived: false,
+      },
+    });
+    revalidatePath("/admin/events/archived");
+    return {
+      success: true,
+      message: "Evento desarchivado exitosamente.",
+    };
+  } catch (error) {
+    console.error("Error unarchiving event:", error);
+    return {
+      success: false,
+      message: "Error al desarchivar el evento.",
+    };
+  }
+}

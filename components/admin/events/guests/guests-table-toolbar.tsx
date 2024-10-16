@@ -73,7 +73,7 @@ export function GuestsTableToolbar<TData>({
           <Button
             variant="outline"
             size="sm"
-            className="ml-auto h-8"
+            className="ml-auto h-8 hidden md:flex"
             onClick={DownloadGuests}
           >
             <Download className="mr-2 h-4 w-4" />

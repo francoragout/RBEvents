@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -13,9 +14,9 @@ interface DataTableToolbarProps<TData> {
 export function EventsTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
-
-  const { data: session } = useSession()
-  const role = session?.user?.role
+  const { data: session } = useSession();
+  const role = session?.user?.role;
+  const pathname = usePathname();
 
   return (
     <div className="flex items-center justify-between">
@@ -29,13 +30,26 @@ export function EventsTableToolbar<TData>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
       </div>
-      <div className="flex space-x-4">
-        {role === "ADMIN" && (
-          <Button variant="default" size="sm" className="h-8" asChild>
+      {role === "ADMIN" && (
+        <div className="flex space-x-4">
+          <Button variant="secondary" size="sm" className="h-8" asChild>
+            <Link
+              href={
+                pathname === "/admin/events/archived"
+                  ? "/admin/events"
+                  : "/admin/events/archived"
+              }
+            >
+              {pathname === "/admin/events/archived"
+                ? "En curso"
+                : "Archivados"}
+            </Link>
+          </Button>
+          <Button size="sm" className="h-8" asChild>
             <Link href="/admin/events/create">Nuevo Evento</Link>
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

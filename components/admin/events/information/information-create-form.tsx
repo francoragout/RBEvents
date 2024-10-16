@@ -86,7 +86,7 @@ export default function InformationCreateForm({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Crear Información</DialogTitle>
+          <DialogTitle>Cuestionario</DialogTitle>
           <DialogDescription>
             Utilice Tabs para navegar más rápido entre los campos.
           </DialogDescription>

@@ -45,7 +45,7 @@ export default function Navbar({ session, notifications }: NavbarProps) {
 
   return (
     <nav className="flex items-center justify-between py-2 px-8">
-      <div className="flex space-x-8 items-center">
+      <div className="flex space-x-4 items-center">
         <Button variant="outline" className="rounded-full" size="icon">
           <Image
             className="dark:invert dark:brightness-0"

@@ -69,13 +69,13 @@ export const CreateInformation = async (
     revalidatePath(`/admin/events/${eventId}/information`);
     return {
       success: true,
-      message: "Se ha añadido la información exitosamente.",
+      message: "Información creada exitosamente.",
     };
   } catch (error) {
     console.error("Error creating information:", error);
     return {
       success: false,
-      message: "Error al añadir la información.",
+      message: "Error al crear información.",
     };
   }
 };
@@ -150,7 +150,7 @@ export const DeleteInformation = async (eventId: string) => {
     revalidatePath(`/admin/events/${eventId}/information`);
     return {
       success: true,
-      message: "La información fue eliminada exitosamente.",
+      message: "Información eliminada exitosamente.",
     };
   } catch (error) {
     console.error("Error deleting information:", error);

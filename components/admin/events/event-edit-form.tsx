@@ -1,6 +1,6 @@
 "use client";
 
-import { date, z } from "zod";
+import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -9,13 +9,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
-import { EditEvent } from "@/actions/event";
+import { UpdateEvent } from "@/actions/event";
 import { EventSchema, ProviderSchema } from "@/lib/validations";
 import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -82,7 +81,7 @@ export default function EventEditForm({
 
   function onSubmit(values: z.infer<typeof EventSchema>) {
     startTransition(() => {
-      EditEvent(event.id, values).then((response) => {
+      UpdateEvent(event.id, values).then((response) => {
         if (response.success) {
           toast.success(response.message);
           router.push("/admin/events");
@@ -98,7 +97,7 @@ export default function EventEditForm({
       <CardHeader>
         <CardTitle>Editar Evento</CardTitle>
         <CardDescription>
-          Modifique su proyecto con un solo clic.
+          Utilice Tabs para navegar más rápido entre los campos.
         </CardDescription>
       </CardHeader>
       <CardContent>

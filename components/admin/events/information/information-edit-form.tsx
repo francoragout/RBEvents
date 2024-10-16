@@ -84,7 +84,7 @@ export default function InformationEditForm({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Editar Información</DialogTitle>
+          <DialogTitle>Editar Cuestionario</DialogTitle>
           <DialogDescription>
             Utilice Tabs para navegar más rápido entre los campos.
           </DialogDescription>

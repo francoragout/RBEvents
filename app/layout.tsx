@@ -48,7 +48,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <Navbar session={session} notifications={notifications} />
-            <Separator className="mb-14" />
+            <Separator className="mb-10" />
             <div className="container mb-14">{children}</div>
             <Toaster />
           </ThemeProvider>
