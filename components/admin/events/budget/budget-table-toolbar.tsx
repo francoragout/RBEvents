@@ -2,7 +2,6 @@
 
 import { Table } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "@/components/data-table-view-options";
 import BudgetCreateForm from "./budget-create-form";
 import { useSession } from "next-auth/react";
 

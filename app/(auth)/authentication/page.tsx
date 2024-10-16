@@ -54,7 +54,7 @@ export default function AuthenticationPage() {
               >
                 Términos de servicio
               </Link>{" "}
-              and{" "}
+              y{" "}
               <Link
                 href="/privacy"
                 className="underline underline-offset-4 hover:text-primary"
