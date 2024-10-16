@@ -35,24 +35,23 @@ const CityEnum = z.enum([
   "YERBA_BUENA",
   "LULES",
   "TAFI_DEL_VALLE",
-]);
+], { message: "Seleccione una ciudad" });
 
 const ProviderSchema = z.object({
   id: z.string().optional(),
   name: z
-    .string({ required_error: "Name is required" })
+    .string()
     .trim()
-    .min(3, "Name must be at least 3 characters.")
-    .max(30, "Name must not be longer than 30 characters."),
+    .min(1, "El nombre debe tener al menos 1 caracteres")
+    .max(30, "El nombre no debe tener más de 30 caracteres"),
   address: z.string().optional(),
   city: CityEnum,
   phone: z.string().optional(),
   features: z.array(z.string()).optional(),
   capacity: z.coerce.number().nonnegative().optional(),
   rent: z.coerce.number().nonnegative().optional(),
-  dinner: z.coerce.number().nonnegative().optional(),
-  lunch: z.coerce.number().nonnegative().optional(),
-  after: z.coerce.number().nonnegative().optional(),
+  banquet: z.coerce.number().nonnegative().optional(),
+  party: z.coerce.number().nonnegative().optional(),
 });
 
 const GuestInvitation = z.enum(["BANQUET", "PARTY", "TO_BE_CONFIRMED"], {

@@ -117,19 +117,19 @@ export const priorities = [
 export const features = [
   {
     id: "genset",
-    label: "Genset",
+    label: "Generador Eléctrico",
   },
   {
     id: "green_space",
-    label: "Green Space",
+    label: "Espacio Verde",
   },
   {
     id: "parking",
-    label: "Parking",
+    label: "Estacionamiento",
   },
   {
     id: "bridal_suite",
-    label: "Bridal Suite",
+    label: "Suite Nupcial",
   },
   {
     id: "catering",
@@ -141,7 +141,7 @@ export const features = [
   },
   {
     id: "security",
-    label: "Security",
+    label: "Seguridad",
   },
   {
     id: "wifi",
@@ -149,67 +149,67 @@ export const features = [
   },
   {
     id: "audiovisual_equipment",
-    label: "Audiovisual Equipment",
+    label: "Equipamiento Audiovisual",
   },
   {
     id: "air_conditioning",
-    label: "Air Conditioning",
+    label: "Aire Acondicionado",
   },
   {
     id: "heating",
-    label: "Heating",
+    label: "Calefacción",
   },
   {
     id: "elevator",
-    label: "Elevator",
+    label: "Ascensor",
   },
   {
     id: "wheelchair_access",
-    label: "Wheelchair Access",
+    label: "Acceso para Silla de Ruedas",
   },
   {
     id: "stage",
-    label: "Stage",
+    label: "Escenario",
   },
   {
     id: "dance_floor",
-    label: "Dance Floor",
+    label: "Pista de Baile",
   },
   {
     id: "sound_system",
-    label: "Sound System",
+    label: "Sistema de Sonido",
   },
   {
     id: "lighting",
-    label: "Lighting",
+    label: "Iluminación de Fiesta",
   },
   {
     id: "furniture",
-    label: "Furniture",
+    label: "Mobiliario",
   },
   {
     id: "tables",
-    label: "Tables",
+    label: "Mesas",
   },
   {
     id: "chairs",
-    label: "Chairs",
+    label: "Sillas",
   },
   {
     id: "tableware",
-    label: "Tableware",
+    label: "Vajilla",
   },
   {
     id: "tablecloths",
-    label: "Tablecloths",
+    label: "Mantelería",
   },
   {
     id: "glassware",
-    label: "Glassware",
+    label: "Cristalería",
   },
   {
     id: "decorations",
-    label: "Decorations",
+    label: "Decoración",
   },
 ];
 

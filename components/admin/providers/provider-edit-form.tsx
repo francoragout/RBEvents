@@ -57,9 +57,8 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
       city: provider.city,
       phone: provider.phone,
       rent: provider.rent || undefined,
-      dinner: provider.dinner || undefined,
-      lunch: provider.lunch || undefined,
-      after: provider.after || undefined,
+      banquet: provider.banquet || undefined,
+      party: provider.party || undefined,
       capacity: provider.capacity || undefined,
       features: provider.features,
     },
@@ -80,8 +79,8 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
   return (
     <Card className="my-5">
       <CardHeader>
-        <CardTitle>Update Provider</CardTitle>
-        <CardDescription>Edit your provider</CardDescription>
+        <CardTitle>Editar Salón</CardTitle>
+        <CardDescription>Modifique su salón con un solo clic.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -92,28 +91,10 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                 name="name"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Nombre</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Name (required)"
-                        {...field}
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="address"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Address</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Address (optional)"
+                        placeholder="Nombre (requerido)"
                         {...field}
                         disabled={isPending}
                       />
@@ -128,7 +109,7 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                 name="city"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>City</FormLabel>
+                    <FormLabel>Ciudad</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -141,7 +122,7 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <SelectValue placeholder="City (required)" />
+                          <SelectValue placeholder="Seleccionar ciudad (requerido)" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -161,13 +142,31 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
 
               <FormField
                 control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Dirección</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Dirección (opcional)"
+                        {...field}
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
                 name="phone"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Phone</FormLabel>
+                    <FormLabel>Teléfono</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Phone (optional)"
+                        placeholder="Teléfono (opcional)"
                         type="number"
                         {...field}
                         disabled={isPending}
@@ -183,10 +182,10 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                 name="capacity"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Capacity</FormLabel>
+                    <FormLabel>Capacidad</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Capacity (optional)"
+                        placeholder="Capacidad (opcional)"
                         type="number"
                         {...field}
                         disabled={isPending}
@@ -202,10 +201,10 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                 name="rent"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Rent</FormLabel>
+                    <FormLabel>Alquiler</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Rent (optional)"
+                        placeholder="Alquiler (opcional)"
                         type="number"
                         {...field}
                         disabled={isPending}
@@ -218,13 +217,13 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
 
               <FormField
                 control={form.control}
-                name="dinner"
+                name="banquet"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Dinner Card</FormLabel>
+                    <FormLabel>Almuerzo/Cena</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Dinner card (optional)"
+                        placeholder="Almuerzo/Cena (opcional)"
                         type="number"
                         {...field}
                         disabled={isPending}
@@ -237,32 +236,14 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
 
               <FormField
                 control={form.control}
-                name="lunch"
+                name="party"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Lunch Card</FormLabel>
+                    <FormLabel>Fiesta</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Lunch card (optional)"
                         type="number"
-                        {...field}
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="after"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>After Card</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="After card (optional)"
+                        placeholder="Fiesta (opcional)"
                         {...field}
                         disabled={isPending}
                       />
@@ -272,69 +253,79 @@ export default function ProviderEditForm({ provider }: { provider: Provider }) {
                 )}
               />
             </div>
-              <FormField
-                control={form.control}
-                name="features"
-                render={() => (
-                  <FormItem>
-                    <div className="mt-8">
-                      <FormLabel className="text-base">Features</FormLabel>
-                      <FormDescription>
-                        Select the features that the provider offers (optional)
-                      </FormDescription>
+
+            <FormField
+              control={form.control}
+              name="features"
+              render={() => (
+                <FormItem>
+                  <div className="mt-8">
+                    <FormLabel className="text-base">Características</FormLabel>
+                    <FormDescription>
+                      Seleccione todas las caracteristicas del salón (opcional)
+                    </FormDescription>
+                  </div>
+                  <Card>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+                      {features.map((feature) => (
+                        <FormField
+                          key={feature.id}
+                          control={form.control}
+                          name="features"
+                          render={({ field }) => {
+                            return (
+                              <FormItem
+                                key={feature.id}
+                                className="flex flex-row items-start space-x-3 space-y-0"
+                              >
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(feature.id)}
+                                    onCheckedChange={(checked) => {
+                                      return checked
+                                        ? field.onChange([
+                                            ...(field.value ?? []),
+                                            feature.id,
+                                          ])
+                                        : field.onChange(
+                                            field.value?.filter(
+                                              (value) => value !== feature.id
+                                            )
+                                          );
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className="font-normal">
+                                  {feature.label}
+                                </FormLabel>
+                              </FormItem>
+                            );
+                          }}
+                        />
+                      ))}
                     </div>
-                    <Card>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-                        {features.map((feature) => (
-                          <FormField
-                            key={feature.id}
-                            control={form.control}
-                            name="features"
-                            render={({ field }) => {
-                              return (
-                                <FormItem
-                                  key={feature.id}
-                                  className="flex flex-row items-start space-x-3 space-y-0"
-                                >
-                                  <FormControl>
-                                    <Checkbox
-                                      checked={field.value?.includes(
-                                        feature.id
-                                      )}
-                                      onCheckedChange={(checked) => {
-                                        return checked
-                                          ? field.onChange([
-                                              ...(field.value ?? []),
-                                              feature.id,
-                                            ])
-                                          : field.onChange(
-                                              field.value?.filter(
-                                                (value) => value !== feature.id
-                                              )
-                                            );
-                                      }}
-                                    />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">
-                                    {feature.label}
-                                  </FormLabel>
-                                </FormItem>
-                              );
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </Card>
-                  </FormItem>
-                )}
-              />
+                  </Card>
+                </FormItem>
+              )}
+            />
 
             <div className="flex justify-end space-x-4 mt-8">
-              <Button asChild variant="outline" size="sm" className="h-8">
-                <Link href="/admin/providers">Cancel</Link>
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="h-8"
+                disabled={isPending}
+              >
+                <Link href="/admin/providers">Cancelar</Link>
               </Button>
-              <Button type="submit" size="sm" className="h-8">
-                Submit
+              <Button
+                type="submit"
+                size="sm"
+                className="h-8"
+                disabled={isPending}
+              >
+                Guardar
               </Button>
             </div>
           </form>

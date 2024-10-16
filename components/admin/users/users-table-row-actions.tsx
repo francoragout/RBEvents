@@ -57,7 +57,7 @@ export function UsersTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col">
           <AlertDialog>
@@ -68,21 +68,22 @@ export function UsersTableRowActions<TData>({
                 className="flex justify-start pl-2 w-full"
               >
                 <Trash className="mr-2 h-4 w-4" />
-                Delete
+                Eliminar
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>Estas completamente seguro?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the
-                  user &apos;{user.name}&apos; and remove your data from our servers.
+                  Esta acción no se puede deshacer. Esto eliminará
+                  permanentemente el usuario &apos;{user.name}&apos; y todos los
+                  datos asociados de nuestros servidores.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
                 <AlertDialogAction onClick={deleteUser}>
-                  Continue
+                  Continuar
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

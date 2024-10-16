@@ -44,5 +44,5 @@ export function EventFormSkeleton() {
 }
 
 export default function ProviderFormSkeleton() {
-  return <Skeleton className="h-[984px] w-full" />;
+  return <Skeleton className="h-[826px] w-full" />;
 }

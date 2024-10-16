@@ -38,14 +38,14 @@ export const UsersColumns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
+      <DataTableColumnHeader column={column} title="Nombre" />
     ),
     cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "email",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Email" />
+      <DataTableColumnHeader column={column} title="Correo electrónico" />
     ),
     cell: ({ row }) => {
       const email = row.getValue("email") as string;
@@ -61,14 +61,14 @@ export const UsersColumns: ColumnDef<User>[] = [
                   className="ml-2"
                   onClick={() => {
                     navigator.clipboard.writeText(email);
-                    toast.success("Email copied to clipboard");
+                    toast.success("Correo electrónico copiado al portapapeles.");
                   }}
                 >
                   <Copy className="h-4 w-4" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Copy email</p>
+                <p>Copiar correo electrónico</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -79,14 +79,14 @@ export const UsersColumns: ColumnDef<User>[] = [
   {
     accessorKey: "role",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Role" />
+      <DataTableColumnHeader column={column} title="Rol" />
     ),
-    cell: ({ row }) => <div className="flex">{row.getValue("role")}</div>,
+    cell: ({ row }) => <div className="flex text-primary font-medium">{row.getValue("role")}</div>,
   },
   {
     accessorKey: "createdAt",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Created At" />
+      <DataTableColumnHeader column={column} title="Creado el" />
     ),
     cell: ({ row }) => {
       const createAt = new Date(row.getValue("createdAt"));
@@ -100,7 +100,7 @@ export const UsersColumns: ColumnDef<User>[] = [
   {
     accessorKey: "events",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Events" />
+      <DataTableColumnHeader column={column} title="Eventos" />
     ),
     cell: ({ row }) => {
       const events = row.original.events ?? [];

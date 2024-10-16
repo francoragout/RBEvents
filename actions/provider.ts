@@ -24,9 +24,8 @@ export const CreateProvider = async (
     city,
     phone,
     rent,
-    dinner,
-    lunch,
-    after,
+    banquet,
+    party,
     capacity,
     features,
   } = validatedFields.data;
@@ -39,9 +38,8 @@ export const CreateProvider = async (
         city,
         phone,
         rent,
-        dinner,
-        lunch,
-        after,
+        banquet,
+        party,
         capacity,
         features,
       },
@@ -49,13 +47,13 @@ export const CreateProvider = async (
     revalidatePath("/admin/providers");
     return {
       success: true,
-      message: "Provider was created successfully!",
+      message: "El salón fue creado exitosamente.",
     };
   } catch (error) {
     console.error("Error creating provider:", error);
     return {
       success: false,
-      message: "Failed to create provider!",
+      message: "Error al crear el salón.",
     };
   }
 };
@@ -81,9 +79,8 @@ export const UpdateProvider = async (
     phone,
     capacity,
     rent,
-    dinner,
-    lunch,
-    after,
+    banquet,
+    party,
     features,
   } = validatedFields.data;
 
@@ -97,22 +94,21 @@ export const UpdateProvider = async (
         phone,
         capacity,
         rent,
-        dinner,
-        lunch,
-        after,
+        banquet,
+        party,
         features,
       },
     });
     revalidatePath("/admin/providers");
     return {
       success: true,
-      message: "Provider was updated successfully!",
+      message: "El salón fue editado exitosamente.",
     };
   } catch (error) {
     console.error("Error updating provider:", error);
     return {
       success: false,
-      message: "Failed to update provider!",
+      message: "Error al editar el salón.",
     };
   }
 };
@@ -125,13 +121,13 @@ export const DeleteProvider = async (id: string) => {
     revalidatePath("/admin/providers");
     return {
       success: true,
-      message: "Provider was deleted successfully!",
+      message: "El salón fue eliminado exitosamente.",
     };
   } catch (error) {
     console.error("Error deleting provider:", error);
     return {
       success: false,
-      message: "Failed to delete provider!",
+      message: "Error al eliminar el salón.",
     };
   }
 };

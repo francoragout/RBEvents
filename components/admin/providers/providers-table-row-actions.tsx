@@ -7,18 +7,13 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ProviderSchema } from "@/lib/validations";
 import Link from "next/link";
-import { ArchiveRestore, Pencil, Trash } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import { DeleteProvider } from "@/actions/provider";
 import { toast } from "sonner";
 import {
@@ -64,7 +59,7 @@ export function ProvidersTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col">
           <Button
@@ -75,7 +70,7 @@ export function ProvidersTableRowActions<TData>({
           >
             <Link href={`/admin/providers/${provider.id}/edit`}>
               <Pencil className="mr-2 h-4 w-4" />
-              <span>Edit</span>
+              <span>Editar</span>
             </Link>
           </Button>
 
@@ -87,16 +82,16 @@ export function ProvidersTableRowActions<TData>({
                 className="flex justify-start pl-2 w-full"
               >
                 <Trash className="mr-2 h-4 w-4" />
-                Delete
+                Eliminar
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>Estas completamente seguro?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the
-                  provider &apos;{provider.name}&apos; and remove your data from
-                  our servers.
+                  Esta acción no se puede deshacer. Esto eliminará
+                  permanentemente el salón &apos;{provider.name}&apos; y todos
+                  los datos asociados de nuestros servidores.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

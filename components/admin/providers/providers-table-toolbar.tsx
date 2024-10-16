@@ -17,7 +17,7 @@ export function ProvidersTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter providers..."
+          placeholder="Filtrar salónes..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
@@ -27,7 +27,7 @@ export function ProvidersTableToolbar<TData>({
       </div>
       <div className="flex space-x-4">
         <Button variant="default" size="sm" className="h-8" asChild>
-          <Link href="/admin/providers/create">New Provider</Link>
+          <Link href="/admin/providers/create">Nuevo Salón</Link>
         </Button>
       </div>
     </div>

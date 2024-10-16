@@ -87,7 +87,7 @@ model Event {
   user         User?             @relation(fields: [userId], references: [id])
   userId       String?
 }
- 
+
 model Information {
   id         String  @id @default(cuid())
   full_name  String
@@ -111,13 +111,13 @@ enum GuestInvitation {
 }
 
 model Guest {
-  id           String    @id @default(cuid())
+  id           String          @id @default(cuid())
   first_name   String
   last_name    String
   invitation   GuestInvitation
   observation  String?
   table_number Int?
-  event        Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  event        Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId      String
 }
 
@@ -166,9 +166,8 @@ model Provider {
   features String[]
   capacity Int?
   rent     Int?
-  dinner   Int?
-  lunch    Int?
-  after    Int?
+  banquet  Int?
+  party    Int?
   event    Event[]
 }
 
@@ -200,5 +199,3 @@ model Notification {
   createdAt DateTime @default(now())
   read      Boolean  @default(false)
 }
-
-
