@@ -5,9 +5,8 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { InformationSchema } from "@/lib/validations";
-import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogClose,
@@ -45,14 +44,8 @@ export default function InformationCreateForm({
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const [disabled, setDisabled] = useState(false);
-
-  useEffect(() => {
-    if (information === 2) {
-      setDisabled(true);
-    }
-  }, [information]);
-
+  const disabled = information === 2;
+  
   const form = useForm<z.infer<typeof InformationSchema>>({
     resolver: zodResolver(InformationSchema),
     defaultValues: {

@@ -115,13 +115,13 @@ export const UpdateBudget = async (
     revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
-      message: "Presupuesto editado exitosamente.",
+      message: "Presupuesto actualiazdo exitosamente.",
     };
   } catch (error) {
     console.error("Error updating budget:", error);
     return {
       success: false,
-      message: "Error al editar el presupuesto.",
+      message: "Error al azctuazliar el presupuesto.",
     };
   }
 };

@@ -74,7 +74,7 @@ export default function Notifications({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center space-x-4">
           <DropdownMenuLabel>Notificaciónes</DropdownMenuLabel>
           <Button
             size="sm"
@@ -92,7 +92,7 @@ export default function Notifications({
         <ScrollArea className="h-96">
           {notifications.length === 0 && (
             <DropdownMenuItem className="flex justify-center">
-              No notifications
+              Sin resultados.
             </DropdownMenuItem>
           )}
           {notifications.map((notification) => (

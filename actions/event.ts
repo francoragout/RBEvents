@@ -180,12 +180,12 @@ export const EditEvent = async (
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: "Evento editado exitosamente.",
+      message: "Evento actualizado exitosamente.",
     };
   } catch (error) {
     return {
       success: false,
-      message: "Error al editar el evento.",
+      message: "Error al actualizazr el evento.",
     };
   }
 };

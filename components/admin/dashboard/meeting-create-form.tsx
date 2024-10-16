@@ -171,7 +171,7 @@ export default function MeetingCreateForm() {
               )}
             />
 
-            <FormField
+            {/* <FormField
               control={form.control}
               name="reminder"
               render={({ field }) => (
@@ -191,7 +191,7 @@ export default function MeetingCreateForm() {
                   </FormControl>
                 </FormItem>
               )}
-            />
+            /> */}
 
             <DialogFooter className="gap-4 pt-2 sm:space-x-0">
               <DialogClose asChild>

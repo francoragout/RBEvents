@@ -189,7 +189,6 @@ model Meeting {
   note     String
   date     DateTime @db.Date
   time     String
-  reminder Boolean  @default(false)
 }
 
 model Notification {

@@ -69,13 +69,13 @@ export const CreateInformation = async (
     revalidatePath(`/admin/events/${eventId}/information`);
     return {
       success: true,
-      message: "La información fue creada exitosamente.",
+      message: "Se ha añadido la información exitosamente.",
     };
   } catch (error) {
     console.error("Error creating information:", error);
     return {
       success: false,
-      message: "Error al crear la información.",
+      message: "Error al añadir la información.",
     };
   }
 };
@@ -129,13 +129,13 @@ export const UpdateInformation = async (
     revalidatePath(`/admin/events/${values.eventId}/information`);
     return {
       success: true,
-      message: "La información fue editada exitosamente.",
+      message: "Información actualizada exitosamente.",
     };
   } catch (error) {
     console.error("Error updating information:", error);
     return {
       success: false,
-      message: "Error al editar la información.",
+      message: "Error al actualizar la información.",
     };
   }
 };

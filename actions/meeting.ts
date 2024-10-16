@@ -16,7 +16,7 @@ export const CreateMeeting = async (values: z.infer<typeof MeetingSchema>) => {
     };
   }
 
-  const { note, date, time, reminder } = validatedFields.data;
+  const { note, date, time } = validatedFields.data;
 
   try {
     await db.meeting.create({
@@ -24,19 +24,19 @@ export const CreateMeeting = async (values: z.infer<typeof MeetingSchema>) => {
         note,
         date,
         time,
-        reminder,
       },
     });
+
     revalidatePath("/admin/dashboard");
     return {
       success: true,
-      message: "Meeting was created successfully!",
+      message: "Reunión creada exitosamente.",
     };
   } catch (error) {
     console.error("Error creating meeting:", error);
     return {
       success: false,
-      message: "Failed to create meeting!",
+      message: "Error al crear la reunión.",
     };
   }
 };
@@ -51,13 +51,13 @@ export const DeleteMeeting = async (id: string) => {
     revalidatePath("/admin/dashboard");
     return {
       success: true,
-      message: "Meeting was deleted successfully!",
+      message: "Reunión eliminada exitosamente.",
     };
   } catch (error) {
     console.error("Error deleting meeting:", error);
     return {
       success: false,
-      message: "Failed to delete meeting!",
+      message: "Error al eliminar la reunión.",
     };
   }
 };

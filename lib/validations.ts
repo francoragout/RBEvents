@@ -155,7 +155,6 @@ const MeetingSchema = z.object({
   time: z
     .string()
     .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Seleccione una hora"),
-  reminder: z.boolean().default(false),
 });
 
 const RoleEnum = z.enum(["USER", "ADMIN"]);

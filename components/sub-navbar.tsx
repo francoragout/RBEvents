@@ -28,22 +28,19 @@ import { useSession } from "next-auth/react";
 type Event = z.infer<typeof EventSchema>;
 
 export default function SubNavbar({ event }: { event: Event }) {
-  const [title, setTitle] = useState("");
+  
   const path = usePathname();
   const { data: session } = useSession();
   const role = session?.user?.role;
 
-  useEffect(() => {
-    if (path.endsWith("/tasks")) {
-      setTitle("Tareas");
-    } else if (path.endsWith("/guests")) {
-      setTitle("Invitados");
-    } else if (path.endsWith("/budget")) {
-      setTitle("Presupuesto");
-    } else {
-      setTitle("Información");
-    }
-  }, [path]);
+  let title = "Información";
+  if (path.endsWith("/tasks")) {
+    title = "Tareas";
+  } else if (path.endsWith("/guests")) {
+    title = "Invitados";
+  } else if (path.endsWith("/budget")) {
+    title = "Presupuesto";
+  }
 
   return (
     <div className="flex items-center mb-4 justify-between">
