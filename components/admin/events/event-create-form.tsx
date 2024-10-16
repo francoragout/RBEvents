@@ -224,7 +224,7 @@ export default function EventCreateForm({
                 name="organization"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Organiación</FormLabel>
+                    <FormLabel>Organización</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}

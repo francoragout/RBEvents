@@ -5,7 +5,7 @@ export function TableSkeleton() {
     <div className="flex flex-col w-full space-y-4">
       <div className="flex justify-between">
         <Skeleton className="h-[32px] w-[150px] lg:w-[250px]" />
-        <Skeleton className="h-[32px] w-[116px]" />
+        <Skeleton className="h-[32px] w-[232px]" />
       </div>
       <div className="space-y-2">
         <Skeleton className="h-[48px]" />

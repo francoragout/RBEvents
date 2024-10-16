@@ -11,15 +11,15 @@ import {
 export const organizations = [
   {
     value: "COORDINATION",
-    label: "Coordination",
+    label: "Coordinación",
   },
   {
     value: "PARTIAL",
-    label: "Partial",
+    label: "Parcial",
   },
   {
     value: "COMPREHENSIVE",
-    label: "Comprehensive",
+    label: "Integral",
   },
 ];
 
