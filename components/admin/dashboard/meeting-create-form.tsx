@@ -50,7 +50,6 @@ export default function MeetingCreateForm() {
     defaultValues: {
       note: "",
       time: "00:00",
-      reminder: false,
     },
   });
 
@@ -170,28 +169,6 @@ export default function MeetingCreateForm() {
                 </FormItem>
               )}
             />
-
-            {/* <FormField
-              control={form.control}
-              name="reminder"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                  <div className="space-y-0.5">
-                    <FormLabel className="text-base">Recordatorio</FormLabel>
-                    <FormDescription>
-                      Recibir una notificacion antes de la reunión.
-                    </FormDescription>
-                  </div>
-                  <FormControl>
-                    <Switch
-                      disabled={isPending}
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            /> */}
 
             <DialogFooter className="gap-4 pt-2 sm:space-x-0">
               <DialogClose asChild>
