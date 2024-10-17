@@ -37,6 +37,7 @@ import { toast } from "sonner";
 import { invitations } from "@/lib/data";
 import { Input } from "@/components/ui/input";
 import { CreateGuest } from "@/actions/guest";
+import { PlusCircle } from "lucide-react";
 
 export default function GuestCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
@@ -70,7 +71,8 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8" size="sm">
-          Nuevo Invitado
+          <PlusCircle className="flex sm:hidden h-4 w-4" />
+          <span className="hidden sm:flex">Nuevo Invitado</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -144,7 +146,10 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
                     <SelectContent>
                       <SelectGroup>
                         {invitations.map((invitation) => (
-                          <SelectItem key={invitation.value} value={invitation.value}>
+                          <SelectItem
+                            key={invitation.value}
+                            value={invitation.value}
+                          >
                             {invitation.label}
                           </SelectItem>
                         ))}

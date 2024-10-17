@@ -42,7 +42,7 @@ export default function AuthenticationPage() {
               </h1>
               <p className="text-sm text-muted-foreground">
                 Introduce tu correo electrónico a continuación para crear tu
-                cuenta
+                cuenta o iniciar sesión.
               </p>
             </div>
             <UserAuthForm />

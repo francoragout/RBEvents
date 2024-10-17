@@ -31,6 +31,7 @@ import { toast } from "sonner";
 import { CreateInformation } from "@/actions/information";
 import { increment } from "@/lib/features/notifications/CounterSlice";
 import { useDispatch } from "react-redux";
+import { PlusCircle } from "lucide-react";
 
 interface InformationCreateFormProps {
   eventId: string;
@@ -45,7 +46,7 @@ export default function InformationCreateForm({
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const disabled = information === 2;
-  
+
   const form = useForm<z.infer<typeof InformationSchema>>({
     resolver: zodResolver(InformationSchema),
     defaultValues: {
@@ -81,7 +82,8 @@ export default function InformationCreateForm({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8" size="sm" disabled={disabled}>
-          Nueva Información
+          <PlusCircle className="flex sm:hidden h-4 w-4" />
+          <span className="hidden sm:flex">Nueva Información</span>
         </Button>
       </DialogTrigger>
       <DialogContent>

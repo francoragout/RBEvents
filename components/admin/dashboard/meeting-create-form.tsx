@@ -33,7 +33,7 @@ import { cn } from "@/lib/utils";
 import { MeetingSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, PlusCircle } from "lucide-react";
 import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -70,7 +70,8 @@ export default function MeetingCreateForm() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8 me-6" size="sm">
-          Nueva Reunión
+          <PlusCircle className="flex sm:hidden" />
+          <span className="hidden sm:flex">Nuevo Reunión</span>
         </Button>
       </DialogTrigger>
       <DialogContent>

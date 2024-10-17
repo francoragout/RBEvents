@@ -35,6 +35,7 @@ import { CreateTask } from "@/actions/task";
 import { toast } from "sonner";
 import { statuses } from "@/lib/data";
 import { Input } from "@/components/ui/input";
+import { PlusCircle } from "lucide-react";
 
 export default function TaskCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
@@ -66,7 +67,8 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8" size="sm">
-          Nueva Tarea
+          <PlusCircle className="flex sm:hidden h-4 w-4" />
+          <span className="hidden sm:flex">Nueva Tarea</span>
         </Button>
       </DialogTrigger>
       <DialogContent>

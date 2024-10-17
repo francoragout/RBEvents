@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   ArchiveRestore,
   DollarSign,
-  EyeIcon,
+  Info,
   ListTodo,
   Pencil,
   Trash,
@@ -108,7 +108,7 @@ export function EventsTableRowActions<TData>({
                 event.id
               }/information`}
             >
-              <EyeIcon className="mr-2 h-4 w-4" />
+              <Info className="mr-2 h-4 w-4" />
               <span>Información</span>
             </Link>
           </Button>

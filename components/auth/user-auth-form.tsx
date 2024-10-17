@@ -1,32 +1,43 @@
 "use client";
 
 import * as React from "react";
-
 import { cn } from "@/lib/utils";
-import { Icons } from "@/components/icons";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
+import { Icons } from "../icons";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
+  const resendAction = async (formData: FormData) => {
     setIsLoading(true);
-
-    setTimeout(() => {
+    try {
+      // Ejecuta el signIn usando el proveedor "resend" y el email obtenido del formData.
+      const email = formData.get("email") as string;
+      await signIn("resend", { email });
+    } catch (error) {
+      console.error("Error during sign-in with Resend:", error);
+    } finally {
       setIsLoading(false);
-    }, 3000);
-  }
+    }
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    resendAction(formData);
+  };
+
+  
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="grid gap-2">
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
@@ -34,6 +45,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id="email"
+              name="email"
               placeholder="nombre@ejemplo.com"
               type="email"
               autoCapitalize="none"
@@ -42,7 +54,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               disabled={isLoading}
             />
           </div>
-          <Button disabled={isLoading}>
+          <Button disabled={isLoading} type="submit">
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}

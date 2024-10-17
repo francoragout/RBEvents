@@ -30,6 +30,7 @@ import { Input } from "@/components/ui/input";
 import { CreateBudget } from "@/actions/budget";
 import { increment } from "@/lib/features/notifications/CounterSlice";
 import { useDispatch } from "react-redux";
+import { PlusCircle } from "lucide-react";
 
 export default function BudgetCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
@@ -66,15 +67,15 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8" size="sm">
-          Nuevo Presupuesto
+          <PlusCircle className="flex sm:hidden h-4 w-4" />
+          <span className="hidden sm:flex">Nuevo Presupuesto</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Crear Presupuesto</DialogTitle>
           <DialogDescription>
-            Utilice Tabs para navegar más rápido entre los
-            campos.
+            Utilice Tabs para navegar más rápido entre los campos.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

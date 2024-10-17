@@ -32,7 +32,6 @@ export function BudgetTableToolbar<TData>({
         />
       </div>
       <div className="flex space-x-4">
-        {/* <DataTableViewOptions table={table} /> */}
         {role === "ADMIN" && <BudgetCreateForm eventId={eventId} />}
       </div>
     </div>

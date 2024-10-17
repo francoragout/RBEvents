@@ -47,7 +47,7 @@ export const CreateProvider = async (
     revalidatePath("/admin/providers");
     return {
       success: true,
-      message: "El salón fue creado exitosamente.",
+      message: "Salón creado exitosamente.",
     };
   } catch (error) {
     console.error("Error creating provider:", error);
@@ -102,13 +102,13 @@ export const UpdateProvider = async (
     revalidatePath("/admin/providers");
     return {
       success: true,
-      message: "El salón fue editado exitosamente.",
+      message: "Salón actualizado exitosamente.",
     };
   } catch (error) {
     console.error("Error updating provider:", error);
     return {
       success: false,
-      message: "Error al editar el salón.",
+      message: "Error al actualizar el salón.",
     };
   }
 };
@@ -121,7 +121,7 @@ export const DeleteProvider = async (id: string) => {
     revalidatePath("/admin/providers");
     return {
       success: true,
-      message: "El salón fue eliminado exitosamente.",
+      message: "Salón eliminado exitosamente.",
     };
   } catch (error) {
     console.error("Error deleting provider:", error);

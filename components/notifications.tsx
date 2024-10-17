@@ -1,6 +1,6 @@
 "use client";
 
-import { DotIcon } from "lucide-react";
+import { DotIcon, EyeIcon } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   DropdownMenu,
@@ -85,7 +85,7 @@ export default function Notifications({
             {isPending && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Leídas
+            <EyeIcon className="h-4 w-4"/>
           </Button>
         </div>
         <DropdownMenuSeparator />

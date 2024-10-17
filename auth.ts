@@ -1,25 +1,27 @@
 import NextAuth from "next-auth";
-
 import { PrismaAdapter } from "@auth/prisma-adapter";
-
 import authConfig from "@/auth.config";
 import { db } from "@/lib/db";
+import Resend from "next-auth/providers/resend";
+
+const combinedProviders = [
+  ...authConfig.providers,
+  Resend({
+    from: "no-reply@rbeventos.org",
+  }),
+];
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: combinedProviders,
   adapter: PrismaAdapter(db),
-  ...authConfig,
   session: { strategy: "jwt" },
   callbacks: {
-    // jwt() se ejecuta cada vez que se crea o actualiza un token JWT.
-    // Aquí es donde puedes agregar información adicional al token.
     jwt({ token, user }) {
       if (user) {
         token.role = user.role;
       }
       return token;
     },
-    // session() se utiliza para agregar la información del token a la sesión del usuario,
-    // lo que hace que esté disponible en el cliente.
     session({ session, token }) {
       if (session.user) {
         session.user.role = token.role;
@@ -28,25 +30,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   events: {
-    // El evento linkAccount se dispara cuando una cuenta (proveedor OAuth: GitHub, Google, Facebook, etc.)  se vincula a un usuario existente en tu base de datos.
     async linkAccount({ user }) {
-      await db.user.update({
-        where: { id: user.id },
-        data: {
-          emailVerified: new Date(),
-        },
-      });
+      try {
+        await db.user.update({
+          where: { id: user.id },
+          data: {
+            emailVerified: new Date(),
+          },
+        });
+      } catch (error) {
+        console.error("Error updating emailVerified:", error);
+      }
     },
-
-    // crear notificacion cuando un usuario se registra por primera vez
     async createUser({ user }) {
-      await db.notification.create({
-        data: {
-          message: `New User: '${user.name}'`,
-          link: "/admin/users",
-          read: false,
-        },
-      });
+      try {
+        await db.notification.create({
+          data: {
+            message: `New User: '${user.name}'`,
+            link: "/admin/users",
+            read: false,
+          },
+        });
+      } catch (error) {
+        console.error("Error creating notification:", error);
+      }
     },
   },
   pages: {

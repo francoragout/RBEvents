@@ -2,7 +2,7 @@
 
 import {
   DollarSign,
-  EyeIcon,
+  Info,
   ListTodo,
   MoreHorizontal,
   Users,
@@ -12,15 +12,12 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { z } from "zod";
 import { EventSchema } from "@/lib/validations";
 import { useSession } from "next-auth/react";
@@ -32,20 +29,41 @@ export default function SubNavbar({ event }: { event: Event }) {
   const { data: session } = useSession();
   const role = session?.user?.role;
 
-  let title = "Información";
+  let title = (
+    <div>
+      <Info className="flex sm:hidden ms-1" />
+      <span className="hidden sm:flex">Información</span>
+    </div>
+  );
+
   if (path.endsWith("/tasks")) {
-    title = "Tareas";
+    title = (
+      <div>
+        <ListTodo className="flex sm:hidden ms-1" />
+        <span className="hidden sm:flex">Tareas</span>
+      </div>
+    );
   } else if (path.endsWith("/guests")) {
-    title = "Invitados";
+    title = (
+      <div>
+        <Users className="flex sm:hidden ms-1" />
+        <span className="hidden sm:flex">Invitados</span>
+      </div>
+    );
   } else if (path.endsWith("/budget")) {
-    title = "Presupuesto";
+    title = (
+      <div>
+        <DollarSign className="flex sm:hidden ms-1" />
+        <span className="hidden sm:flex">Presupuesto</span>
+      </div>
+    );
   }
 
   if (!path.endsWith("/edit")) {
     return (
       <div className="flex items-center mb-4 justify-between">
         <Badge variant="outline">
-          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight flex">
+          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight flex items-center">
             {event?.name}:<div className="text-primary ml-1">{title}</div>
           </h4>
         </Badge>
@@ -69,7 +87,7 @@ export default function SubNavbar({ event }: { event: Event }) {
                     event?.id
                   }/information`}
                 >
-                  <EyeIcon className="mr-2 h-4 w-4" />
+                  <Info className="mr-2 h-4 w-4" />
                   <span>Información</span>
                 </Link>
               </Button>
