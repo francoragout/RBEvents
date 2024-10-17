@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { PlusCircle } from "lucide-react";
+import { Activity, ArchiveRestore, PlusCircle } from "lucide-react";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -41,14 +41,22 @@ export function EventsTableToolbar<TData>({
                   : "/admin/events/archived"
               }
             >
-              {pathname === "/admin/events/archived"
-                ? "En curso"
-                : "Archivados"}
+              {pathname === "/admin/events/archived" ? (
+                <div className="flex space-x-2">
+                  <Activity className="h-4 w-4" />
+                  <span className="hidden sm:flex">Activos</span>
+                </div>
+              ) : (
+                <div className="flex space-x-2">
+                  <ArchiveRestore className="h-4 w-4" />
+                  <span className="hidden sm:flex">Archivados</span>
+                </div>
+              )}
             </Link>
           </Button>
           <Button size="sm" className="h-8 flex" asChild>
             <Link href="/admin/events/create">
-              <PlusCircle className="flex sm:hidden h-4 w-4"/>
+              <PlusCircle className="flex sm:hidden h-4 w-4" />
               <span className="hidden sm:flex">Nuevo Evento</span>
             </Link>
           </Button>

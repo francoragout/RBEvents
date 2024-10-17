@@ -70,7 +70,7 @@ export default function MeetingCreateForm() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="h-8 me-6" size="sm">
-          <PlusCircle className="flex sm:hidden" />
+          <PlusCircle className="flex sm:hidden h-4 w-4" />
           <span className="hidden sm:flex">Nuevo Reunión</span>
         </Button>
       </DialogTrigger>
