@@ -13,21 +13,32 @@ export default async function EditEventPage({
       city: true,
     },
   });
-  
+
   const id = params.id;
   const event = await db.event.findUnique({
     where: {
       id: id,
     },
+    include: {
+      provider: {
+        select: {
+          id: true,
+          name: true,
+          city: true,
+        },
+      },
+    },
   });
+
+  console.log(event?.provider?.name);
 
   if (!event) {
     return <div>Event not found</div>;
   }
-  
+
   return (
-      <div>
-        <EventEditForm event={event} providers={providers}/>
-      </div>
-    );
+    <div>
+      <EventEditForm event={event} providers={providers} />
+    </div>
+  );
 }

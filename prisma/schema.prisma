@@ -60,7 +60,6 @@ enum EventType {
   PARTY
   PARADE
   CONGRESS
-  PRODUCT_LAUNCH
   OTHER
 }
 
@@ -73,10 +72,11 @@ enum EventOrganization {
 model Event {
   id           String            @id @default(cuid())
   name         String
-  time         String
-  date         DateTime          @db.Date
-  archived     Boolean           @default(false)
   type         EventType
+  date         DateTime          @db.Date
+  time         String
+  email        String?
+  archived     Boolean           @default(false)
   organization EventOrganization
   task         Task[]
   budget       Budget[]

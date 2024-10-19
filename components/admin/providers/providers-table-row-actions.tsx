@@ -90,8 +90,14 @@ export function ProvidersTableRowActions<TData>({
                 <AlertDialogTitle>Estas completamente seguro?</AlertDialogTitle>
                 <AlertDialogDescription>
                   Esta acción no se puede deshacer. Esto eliminará
-                  permanentemente el salón &apos;{provider.name}&apos; y todos
-                  los datos asociados de nuestros servidores.
+                  permanentemente el salón{" "}
+                  {
+                    <span className="text-primary">
+                      {" "}
+                      &apos;{provider.name}&apos;
+                    </span>
+                  }{" "}
+                  y todos los datos asociados de nuestros servidores.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

@@ -17,30 +17,8 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     };
   }
 
-  const { name, type, date, time, providerId, organization, userEmail } =
+  const { name, type, date, time, providerId, organization, email } =
     validatedFields.data;
-
-  let userId: string | null = null;
-
-  if (userEmail) {
-    const user = await db.user.findUnique({
-      where: {
-        email: userEmail,
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    if (!user) {
-      return {
-        success: false,
-        message: "Email no encontrado",
-      };
-    }
-
-    userId = user.id;
-  }
 
   try {
     const event = await db.event.create({
@@ -51,12 +29,34 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
         time,
         organization,
         providerId,
-        userId: userId,
+        email,
       },
       select: {
         id: true,
       },
     });
+
+    if (email) {
+      const user = await db.user.findUnique({
+        where: {
+          email,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (user) {
+        await db.event.update({
+          where: {
+            id: event.id,
+          },
+          data: {
+            userId: user.id,
+          },
+        });
+      }
+    }
 
     if (providerId) {
       const provider = await db.provider.findUnique({
@@ -116,30 +116,10 @@ export const UpdateEvent = async (
     };
   }
 
-  const { name, type, date, time, providerId, organization, userEmail } =
+  const { name, type, date, time, providerId, organization, email } =
     validatedFields.data;
 
   let userId: string | null = null;
-
-  if (userEmail) {
-    const user = await db.user.findUnique({
-      where: {
-        email: userEmail,
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    if (!user) {
-      return {
-        success: false,
-        message: "Email no encontrado",
-      };
-    }
-
-    userId = user.id;
-  }
 
   try {
     await db.event.update({
@@ -149,11 +129,34 @@ export const UpdateEvent = async (
         type,
         date,
         time,
+        email,
         organization,
         providerId,
         userId: userId,
       },
     });
+
+    if (email) {
+      const user = await db.user.findUnique({
+        where: {
+          email,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (user) {
+        await db.event.update({
+          where: {
+            id,
+          },
+          data: {
+            userId: user.id,
+          },
+        });
+      }
+    }
 
     if (providerId) {
       const provider = await db.provider.findUnique({
@@ -251,4 +254,4 @@ export const UnarchiveEvent = async (id: string) => {
       message: "Error al desarchivar el evento.",
     };
   }
-}
+};

@@ -76,8 +76,14 @@ export function UsersTableRowActions<TData>({
                 <AlertDialogTitle>Estas completamente seguro?</AlertDialogTitle>
                 <AlertDialogDescription>
                   Esta acción no se puede deshacer. Esto eliminará
-                  permanentemente el usuario &apos;{user.name}&apos; y todos los
-                  datos asociados de nuestros servidores.
+                  permanentemente el usuario{" "}
+                  {
+                    <span className="text-primary">
+                      {" "}
+                      &apos;{user.name}&apos;
+                    </span>
+                  }{" "}
+                  y todos los datos asociados de nuestros servidores.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

@@ -76,6 +76,7 @@ export default function EventEditForm({
       time: event.time,
       providerId: event.providerId,
       organization: event.organization,
+      email: event.email,
     },
   });
 
@@ -267,7 +268,11 @@ export default function EventEditForm({
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Salón</FormLabel>
-                    <Select onValueChange={field.onChange} disabled={isPending}>
+                    <Select
+                      onValueChange={field.onChange}
+                      disabled={isPending}
+                      defaultValue={field.value || ""}
+                    >
                       <FormControl>
                         <SelectTrigger
                           className={cn(
@@ -298,7 +303,7 @@ export default function EventEditForm({
 
               <FormField
                 control={form.control}
-                name="userEmail"
+                name="email"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Email</FormLabel>

@@ -53,10 +53,6 @@ export const types = [
     label: "Congreso",
   },
   {
-    value: "PRODUCT_LAUNCH",
-    label: "Lanzamiento de producto",
-  },
-  {
     value: "OTHER",
     label: "Otro",
   },

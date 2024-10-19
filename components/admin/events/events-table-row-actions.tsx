@@ -203,8 +203,13 @@ export function EventsTableRowActions<TData>({
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                       Esta acción no se puede deshacer. Esto eliminará
-                      permanentemente el evento &apos;{event.name}&apos; y todos
-                      los datos asociados de nuestros servidores.
+                      permanentemente el evento
+                      {
+                        <span className="text-primary">
+                          {" "}&apos;{event.name}&apos;
+                        </span>
+                      }{" "}
+                      y todos los datos asociados de nuestros servidores.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>

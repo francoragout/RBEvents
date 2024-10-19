@@ -292,7 +292,7 @@ export default function EventCreateForm({
 
               <FormField
                 control={form.control}
-                name="userEmail"
+                name="email"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Email</FormLabel>
