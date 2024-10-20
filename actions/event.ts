@@ -92,7 +92,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: "Evento creado exitosamente.",
+      message: "Evento creado exitosamente",
     };
   } catch (error) {
     return {
@@ -183,12 +183,12 @@ export const UpdateEvent = async (
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: "Evento actualizado exitosamente.",
+      message: "Evento actualizado",
     };
   } catch (error) {
     return {
       success: false,
-      message: "Error al actualizazr el evento.",
+      message: "Error al actualizazr el evento",
     };
   }
 };
@@ -201,13 +201,13 @@ export const DeleteEvent = async (id: string) => {
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: "Evento eliminado exitosamente.",
+      message: "Evento eliminado",
     };
   } catch (error) {
     console.error("Error deleting event:", error);
     return {
       success: false,
-      message: "Error al eliminar el evento.",
+      message: "Error al eliminar el evento",
     };
   }
 };
@@ -223,13 +223,13 @@ export const ArchiveEvent = async (id: string) => {
     revalidatePath("/admin/events");
     return {
       success: true,
-      message: "Evento archivado exitosamente.",
+      message: "Evento archivado",
     };
   } catch (error) {
     console.error("Error archiving event:", error);
     return {
       success: false,
-      message: "Error al archivar el evento.",
+      message: "Error al archivar el evento",
     };
   }
 };
@@ -245,13 +245,13 @@ export const UnarchiveEvent = async (id: string) => {
     revalidatePath("/admin/events/archived");
     return {
       success: true,
-      message: "Evento desarchivado exitosamente.",
+      message: "Evento desarchivado",
     };
   } catch (error) {
     console.error("Error unarchiving event:", error);
     return {
       success: false,
-      message: "Error al desarchivar el evento.",
+      message: "Error al desarchivar el evento",
     };
   }
 };

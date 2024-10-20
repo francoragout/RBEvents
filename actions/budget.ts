@@ -63,13 +63,13 @@ export const CreateBudget = async (
     revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
-      message: "Presupuesto creado exitosamente.",
+      message: "Presupuesto creado exitosamente",
     };
   } catch (error) {
     console.error("Error creating budget:", error);
     return {
       success: false,
-      message: "Error al crear el presupuesto.",
+      message: "Error al crear el presupuesto",
     };
   }
 };
@@ -115,13 +115,13 @@ export const UpdateBudget = async (
     revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
-      message: "Presupuesto actualiazdo exitosamente.",
+      message: "Presupuesto actualiazdo",
     };
   } catch (error) {
     console.error("Error updating budget:", error);
     return {
       success: false,
-      message: "Error al azctuazliar el presupuesto.",
+      message: "Error al actuazliar el presupuesto",
     };
   }
 };
@@ -132,7 +132,7 @@ export const DeleteBudget = async (budgetId: string, eventId: string) => {
     revalidatePath(`/admin/events/${eventId}/budget`);
     return {
       success: true,
-      message: "Presupuesto eliminado exitosamente.",
+      message: "Presupuesto eliminado",
     };
   } catch (error) {
     console.error("Error deleting budget:", error);

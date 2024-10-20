@@ -11,13 +11,13 @@ export const DeleteUser = async (id: string) => {
     revalidatePath("/admin/users");
     return {
       success: true,
-      message: "User was deleted successfully!",
+      message: "Usuario eliminado",
     };
   } catch (error) {
     console.error("Error deleting user:", error);
     return {
       success: false,
-      message: "Failed to delete user!",
+      message: "Error al eliminar el usuario",
     };
   }
 };

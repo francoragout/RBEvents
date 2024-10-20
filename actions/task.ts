@@ -34,13 +34,13 @@ export const CreateTask = async (
     revalidatePath(`/admin/events/${eventId}/tasks`);
     return {
       success: true,
-      message: "Task was created successfully!",
+      message: "Tarea creada exitosamente",
     };
   } catch (error) {
     console.error("Error creating task:", error);
     return {
       success: false,
-      message: "Failed to create task!",
+      message: "Error al crear la tarea",
     };
   }
 };
@@ -70,13 +70,13 @@ export const UpdateTask = async (
     revalidatePath(`/admin/events/${eventId}/tasks`);
     return {
       success: true,
-      message: "Task was updated successfully!",
+      message: "Tarea actualizada",
     };
   } catch (error) {
     console.error("Error updating task:", error);
     return {
       success: false,
-      message: "Failed to update task!",
+      message: "Error al actualizar tarea",
     };
   }
 };
@@ -87,13 +87,13 @@ export const DeleteTask = async (eventId: string) => {
     revalidatePath(`/admin/events/${eventId}/tasks`);
     return {
       success: true,
-      message: "Task was deleted successfully!",
+      message: "Tarea eliminada",
     };
   } catch (error) {
     console.error("Error deleting task:", error);
     return {
       success: false,
-      message: "Failed to delete task!",
+      message: "Error al eliminar la tarea",
     };
   }
 };

@@ -36,13 +36,13 @@ export const CreateGuest = async (
     revalidatePath(`/admin/events/${eventId}/guests`);
     return {
       success: true,
-      message: "El invitado fue creado exitosamente.",
+      message: "Invitado creado exitosamente.",
     };
   } catch (error) {
     console.error("Error creating guest:", error);
     return {
       success: false,
-      message: "Error al crear el invitado.",
+      message: "Error al crear el invitado",
     };
   }
 };
@@ -79,13 +79,13 @@ export const UpdateGuest = async (
     revalidatePath(`/admin/events/${guestId}/guests`);
     return {
       success: true,
-      message: "El invitado fue editado exitosamente.",
+      message: "Invitado actualizado",
     };
   } catch (error) {
     console.error("Error updating guest:", error);
     return {
       success: false,
-      message: "Error al editar el invitado.",
+      message: "Error al actualizar invitado",
     };
   }
 };
@@ -96,13 +96,13 @@ export const DeleteGuest = async (guestId: string) => {
     revalidatePath(`/admin/events/${guestId}/guests`);
     return {
       success: true,
-      message: "El invitado fue eliminado exitosamente.",
+      message: "Invitado eliminado",
     };
   } catch (error) {
     console.error("Error deleting guest:", error);
     return {
       success: false,
-      message: "Error al eliminar el invitado.",
+      message: "Error al eliminar el invitado",
     };
   }
 };

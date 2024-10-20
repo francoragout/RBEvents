@@ -30,13 +30,13 @@ export const CreateMeeting = async (values: z.infer<typeof MeetingSchema>) => {
     revalidatePath("/admin/dashboard");
     return {
       success: true,
-      message: "Reunión creada exitosamente.",
+      message: "Reunión creada exitosamente",
     };
   } catch (error) {
     console.error("Error creating meeting:", error);
     return {
       success: false,
-      message: "Error al crear la reunión.",
+      message: "Error al crear la reunión",
     };
   }
 };
@@ -51,13 +51,13 @@ export const DeleteMeeting = async (id: string) => {
     revalidatePath("/admin/dashboard");
     return {
       success: true,
-      message: "Reunión eliminada exitosamente.",
+      message: "Reunión eliminada",
     };
   } catch (error) {
     console.error("Error deleting meeting:", error);
     return {
       success: false,
-      message: "Error al eliminar la reunión.",
+      message: "Error al eliminar la reunión",
     };
   }
 };

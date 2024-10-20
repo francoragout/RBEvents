@@ -70,13 +70,13 @@ export const CreateInformation = async (
 
     return {
       success: true,
-      message: "Información creada exitosamente.",
+      message: "Información creada exitosamente",
     };
   } catch (error) {
     console.error("Error creating information:", error);
     return {
       success: false,
-      message: "Error al crear información.",
+      message: "Error al crear información",
     };
   }
 };
@@ -132,13 +132,13 @@ export const UpdateInformation = async (
 
     return {
       success: true,
-      message: "Información actualizada exitosamente.",
+      message: "Información actualizada",
     };
   } catch (error) {
     console.error("Error updating information:", error);
     return {
       success: false,
-      message: "Error al actualizar la información.",
+      message: "Error al actualizar la información",
     };
   }
 };
@@ -153,13 +153,13 @@ export const DeleteInformation = async (eventId: string) => {
     revalidatePath(`/admin/events/${eventId}/information`);
     return {
       success: true,
-      message: "Información eliminada exitosamente.",
+      message: "Información eliminada",
     };
   } catch (error) {
     console.error("Error deleting information:", error);
     return {
       success: false,
-      message: "Error al eliminar la información.",
+      message: "Error al eliminar la información",
     };
   }
 };
