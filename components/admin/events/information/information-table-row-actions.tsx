@@ -3,10 +3,17 @@
 import { Row } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { InformationSchema } from "@/lib/validations";
-import { Trash } from "lucide-react";
+import { MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "sonner";
-import InformationEditForm from "./information-edit-form";
 import { DeleteInformation } from "@/actions/information";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import InformationEditForm from "./information-edit-form";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -28,16 +35,29 @@ export function InformationTableRowActions<TData>({
   };
 
   return (
-    <div className="flex space-x-4">
-      <InformationEditForm information={information} />
-      <Button
-        variant="outline"
-        className="flex justify-start pl-2"
-        onClick={handleDelete}
-        size="sm"
-      >
-        <Trash className="h-4 w-4" />
-      </Button>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <div className="flex flex-col">
+          <InformationEditForm information={information} />
+          <Button
+            variant="ghost"
+            className="flex justify-start pl-2"
+            onClick={handleDelete}
+            size="sm"
+          >
+            <Trash className="mr-2 h-4 w-4" />
+            <span>Eliminar</span>
+          </Button>
+        </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

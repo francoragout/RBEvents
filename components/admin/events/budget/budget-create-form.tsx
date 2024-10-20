@@ -53,9 +53,9 @@ export default function BudgetCreateForm({ eventId }: { eventId: string }) {
       CreateBudget(eventId, values).then((response) => {
         if (response.success) {
           toast.success(response.message);
+          dispatch(increment(1));
           form.reset();
           setOpen(false);
-          dispatch(increment(1));
         } else {
           toast.error(response.message);
         }

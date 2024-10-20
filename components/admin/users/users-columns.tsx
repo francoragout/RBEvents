@@ -61,7 +61,7 @@ export const UsersColumns: ColumnDef<User>[] = [
                   className="ml-2"
                   onClick={() => {
                     navigator.clipboard.writeText(email);
-                    toast.success("Correo electrónico copiado al portapapeles.");
+                    toast.success("Correo electrónico copiado en portapapeles.");
                   }}
                 >
                   <Copy className="h-4 w-4" />
@@ -104,7 +104,7 @@ export const UsersColumns: ColumnDef<User>[] = [
     ),
     cell: ({ row }) => {
       const events = row.original.events ?? [];
-      const eventNames = events.map((event) => event.name);
+      const eventNames = events.map((event) => event.name).join(", ");
       return <div className="flex">{eventNames}</div>;
     },
   },

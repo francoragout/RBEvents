@@ -199,7 +199,7 @@ export function EventsTableRowActions<TData>({
                 <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle>
-                      Estas completamente seguro?
+                      ¿Estas completamente seguro?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                       Esta acción no se puede deshacer. Esto eliminará

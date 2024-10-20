@@ -67,7 +67,7 @@ export const ProvidersColumns: ColumnDef<Provider>[] = [
                   className="ml-2"
                   onClick={() => {
                     navigator.clipboard.writeText(phone);
-                    toast.success("Teléfono copiado al portapapeles.");
+                    toast.success("Teléfono copiado en portapapeles.");
                   }}
                 >
                   <Copy className="h-4 w-4" />

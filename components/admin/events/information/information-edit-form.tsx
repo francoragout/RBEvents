@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
 import { InformationSchema } from "@/lib/validations";
-import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogClose,
@@ -27,9 +26,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import Link from "next/link";
 import { toast } from "sonner";
-import { CreateInformation, UpdateInformation } from "@/actions/information";
+import { UpdateInformation } from "@/actions/information";
 import { Pencil } from "lucide-react";
 
 type Information = z.infer<typeof InformationSchema>;
@@ -67,6 +65,7 @@ export default function InformationEditForm({
       ).then((response) => {
         if (response.success) {
           toast.success(response.message);
+          form.reset();
           setOpen(false);
         } else {
           toast.error(response.message);
@@ -78,8 +77,9 @@ export default function InformationEditForm({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="flex justify-start pl-2" size="sm">
-          <Pencil className="h-4 w-4" />
+        <Button variant="ghost" className="flex justify-start pl-2" size="sm">
+          <Pencil className="mr-2 h-4 w-4" />
+          <span>Editar</span>
         </Button>
       </DialogTrigger>
       <DialogContent>

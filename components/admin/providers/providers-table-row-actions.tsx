@@ -87,7 +87,7 @@ export function ProvidersTableRowActions<TData>({
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Estas completamente seguro?</AlertDialogTitle>
+                <AlertDialogTitle>¿Estas completamente seguro?</AlertDialogTitle>
                 <AlertDialogDescription>
                   Esta acción no se puede deshacer. Esto eliminará
                   permanentemente el salón{" "}

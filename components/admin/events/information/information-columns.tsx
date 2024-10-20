@@ -115,7 +115,6 @@ export const InformationColumns: ColumnDef<Information>[] = [
   },
   {
     id: "actions",
-    header: () => <div className="text-left">Acciones:</div>,
     cell: ({ row }) => <InformationTableRowActions row={row} />,
   },
 ];

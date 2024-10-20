@@ -67,6 +67,7 @@ export const CreateInformation = async (
     });
 
     revalidatePath(`/admin/events/${eventId}/information`);
+
     return {
       success: true,
       message: "Información creada exitosamente.",
@@ -126,7 +127,9 @@ export const UpdateInformation = async (
         drinks,
       },
     });
-    revalidatePath(`/admin/events/${values.eventId}/information`);
+
+    revalidatePath(`/admin/events/${eventId}/information`);
+
     return {
       success: true,
       message: "Información actualizada exitosamente.",
