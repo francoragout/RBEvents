@@ -7,7 +7,7 @@ import Resend from "next-auth/providers/resend";
 const combinedProviders = [
   ...authConfig.providers,
   Resend({
-    from: "no-reply@rbeventos.org",
+    from: "rbeventos@rbeventos.org",
   }),
 ];
 
@@ -51,6 +51,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             read: false,
           },
         });
+
+        await db.event.updateMany({
+          where: { email: user.email },
+          data: {
+            userId: user.id,
+          },
+        });
+        
       } catch (error) {
         console.error("Error creating notification:", error);
       }

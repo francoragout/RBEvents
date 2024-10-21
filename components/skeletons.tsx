@@ -10,22 +10,22 @@ export function TableSkeleton() {
       {pathname === "/admin/events" && (
         <div className="flex justify-between">
           <Skeleton className="h-[32px] w-[150px] lg:w-[250px]" />
-          <Skeleton className="h-[32px] w-[256px]" />
+          <Skeleton className="h-[32px] w-[96px] md:w-[256px]" />
         </div>
       )}
       {pathname === "/admin/events/archived" && (
         <div className="flex justify-between">
           <Skeleton className="h-[32px] w-[150px] lg:w-[250px]" />
-          <Skeleton className="h-[32px] w-[230px]" />
+          <Skeleton className="h-[32px] w-[96px] md:w-[230px]" />
         </div>
       )}
       {pathname === "/admin/providers" && (
         <div className="flex justify-between">
           <Skeleton className="h-[32px] w-[150px] lg:w-[250px]" />
-          <Skeleton className="h-[32px] w-[108px]" />
+          <Skeleton className="h-[32px] w-[40px] md:w-[108px]" />
         </div>
       )}
-      {pathname === "/admin/users" && (
+      {(pathname === "/admin/users" || pathname === "/client/events") && (
         <div className="flex">
           <Skeleton className="h-[32px] w-[150px] lg:w-[250px]" />
         </div>

@@ -33,6 +33,8 @@ export function UserAuthForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    signIn("resend", { email: values.email });
+
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
