@@ -159,7 +159,7 @@ const MeetingSchema = z.object({
 
 const RoleEnum = z.enum(["USER", "ADMIN"]);
 const UserSchema = z.object({
-  id: z.string().cuid(),
+  id: z.string().optional(),
   name: z.string().nullable(),
   email: z.string().email(),
   image: z.string().nullable(),

@@ -58,7 +58,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             userId: user.id,
           },
         });
-        
       } catch (error) {
         console.error("Error creating notification:", error);
       }

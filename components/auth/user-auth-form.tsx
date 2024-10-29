@@ -16,6 +16,11 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Icons } from "../icons";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { AlertCircle } from "lucide-react";
+import { MagicLinks } from "@/actions/authentication";
+import { useTransition } from "react";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   email: z
@@ -26,56 +31,72 @@ const formSchema = z.object({
 });
 
 export function UserAuthForm() {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = React.useState<string | null>(
+    null
+  );
+  const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    signIn("resend", { email: values.email });
-
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    startTransition(() => {
+      MagicLinks(values.email).then((response) => {
+        if (response.success) {
+          signIn("resend", { email: values.email, redirect: false });
+          setSuccessMessage(response.message);
+        } else {
+          setErrorMessage(response.message);
+        }
+      });
+      form.reset();
+    });
   }
 
   return (
     <div className="grid gap-6">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid gap-2">
-            <div className="grid gap-1">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormControl>
-                      <Input
-                        placeholder="nombre@ejemplo.com"
-                        autoCapitalize="none"
-                        autoComplete="email"
-                        autoCorrect="off"
-                        disabled={isLoading}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+      {successMessage ? (
+        <Alert className={cn("text-green-600 border-green-600 text-center")}>
+          <AlertTitle>{successMessage}</AlertTitle>
+        </Alert>
+      ) : (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid gap-2">
+              <div className="grid gap-1">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormControl>
+                        <Input
+                          placeholder="nombre@ejemplo.com"
+                          autoCapitalize="none"
+                          autoComplete="email"
+                          autoCorrect="off"
+                          disabled={isPending}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <Button type="submit" disabled={isPending}>
+                {isPending && (
+                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                 )}
-              />
+                Iniciar sesión
+              </Button>
             </div>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading && (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-              )}
-              Iniciar sesión
-            </Button>
-          </div>
-        </form>
-      </Form>
+          </form>
+        </Form>
+      )}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
@@ -91,11 +112,19 @@ export function UserAuthForm() {
         onClick={() => signIn("google")}
         variant="outline"
         type="button"
-        disabled={isLoading}
+        disabled={isPending}
       >
         <FcGoogle className="h-5 w-5 me-2" />
         Google
       </Button>
+
+      {errorMessage && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{errorMessage}</AlertDescription>
+        </Alert>
+      )}
     </div>
   );
 }
