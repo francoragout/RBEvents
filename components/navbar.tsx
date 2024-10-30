@@ -120,7 +120,11 @@ export default function Navbar({ session, notifications }: NavbarProps) {
           <DropdownMenuContent align="end">
             {session ? (
               <>
-                <DropdownMenuLabel>{session?.user?.name}</DropdownMenuLabel>
+                <DropdownMenuLabel>
+                  {session?.user?.name
+                    ? session?.user?.name
+                    : session?.user?.email}
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <UserSignOut />
               </>

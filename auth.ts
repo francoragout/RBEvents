@@ -44,17 +44,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async createUser({ user }) {
       try {
-        await db.notification.create({
-          data: {
-            message: `New User: '${user.email}'`,
-            link: "/admin/users",
-            read: false,
-          },
-        });
         await db.event.updateMany({
           where: { email: user.email },
           data: {
             userId: user.id,
+          },
+        });
+        await db.notification.create({
+          data: {
+            message: `Nuevo usuario: '${user.email ? user.email : user.name}'`,
+            link: "/admin/users",
+            read: false,
           },
         });
       } catch (error) {
