@@ -45,11 +45,11 @@ model Account {
 }
 
 model VerificationToken {
-  identifier String   @unique
-  token      String
+  identifier String
+  token      String   @unique
   expires    DateTime
 
-  @@id([identifier])
+  @@id([identifier, token])
 }
 
 enum EventType {
@@ -185,10 +185,10 @@ model Budget {
 }
 
 model Meeting {
-  id       String   @id @default(cuid())
-  note     String
-  date     DateTime @db.Date
-  time     String
+  id   String   @id @default(cuid())
+  note String
+  date DateTime @db.Date
+  time String
 }
 
 model Notification {

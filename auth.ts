@@ -46,12 +46,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       try {
         await db.notification.create({
           data: {
-            message: `New User: '${user.name}'`,
+            message: `New User: '${user.email}'`,
             link: "/admin/users",
             read: false,
           },
         });
-
         await db.event.updateMany({
           where: { email: user.email },
           data: {
@@ -59,7 +58,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
         });
       } catch (error) {
-        console.error("Error creating notification:", error);
+        console.error("Something went wrong:", error);
       }
     },
   },

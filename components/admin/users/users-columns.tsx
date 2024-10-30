@@ -28,7 +28,7 @@ export const UsersColumns: ColumnDef<User>[] = [
       return (
         <Avatar>
           <AvatarImage src={image} alt="avatar" />
-          <AvatarFallback className="bg-background">
+          <AvatarFallback className="bg-secondary">
             <PersonIcon />
           </AvatarFallback>
         </Avatar>

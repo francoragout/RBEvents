@@ -121,7 +121,7 @@ export function UserAuthForm() {
       {errorMessage && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
+          <AlertTitle>Aviso</AlertTitle>
           <AlertDescription>{errorMessage}</AlertDescription>
         </Alert>
       )}
