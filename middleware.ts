@@ -4,7 +4,7 @@ import authConfig from "./auth.config";
 
 const { auth } = NextAuth(authConfig);
 
-const publicRoutes = ["/"];
+// const publicRoutes = ["/"];
 const authRoutes = ["/authentication"];
 const apiAuthPrefix = "/api/auth";
 
@@ -20,9 +20,9 @@ export default auth(async (req) => {
   }
 
   // Permitir acceso a rutas públicas sin importar el estado de autenticación
-  if (publicRoutes.includes(nextUrl.pathname)) {
-    return NextResponse.next();
-  }
+  // if (publicRoutes.includes(nextUrl.pathname)) {
+  //   return NextResponse.next();
+  // }
 
   // Redirigir a / si el usuario está logueado y trata de acceder a rutas de autenticación
   if (isLoggedIn && authRoutes.includes(nextUrl.pathname)) {
@@ -32,8 +32,8 @@ export default auth(async (req) => {
   // Redirigir a /login si el usuario no está logueado y trata de acceder a una ruta protegida
   if (
     !isLoggedIn &&
-    !authRoutes.includes(nextUrl.pathname) &&
-    !publicRoutes.includes(nextUrl.pathname)
+    !authRoutes.includes(nextUrl.pathname)
+    // !publicRoutes.includes(nextUrl.pathname)
   ) {
     return NextResponse.redirect(new URL("/authentication", nextUrl));
   }

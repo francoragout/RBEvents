@@ -24,7 +24,7 @@ export const MagicLinks = async (email: string) => {
     if (!userEvents) {
       return {
         success: false,
-        message: "Solo usuarios con eventos pueden iniciar sesión",
+        message: "Solo los usuarios con eventos pueden iniciar sesión",
       };
     }
 

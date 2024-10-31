@@ -7,7 +7,7 @@ import Resend from "next-auth/providers/resend";
 const combinedProviders = [
   ...authConfig.providers,
   Resend({
-    from: "rbeventos@rbeventos.org",
+    from: "no-reply@rbeventos.org",
   }),
 ];
 
@@ -27,6 +27,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.role = token.role;
       }
       return session;
+    },
+    async signIn({ user, account }) {
+      try {
+        if (account && account.provider === "google" && user.email) {
+          const adminUser = await db.user.findFirst({
+            where: { email: user.email, role: "ADMIN" },
+          });
+
+          if (adminUser) {
+            return true;
+          }
+
+          const userEvents = await db.event.findFirst({
+            where: { email: user.email },
+          });
+
+          if (!userEvents) {
+            return false;
+          }
+        }
+      } catch (error) {
+        console.error("Error during sign-in:", error);
+        return false;
+      }
+
+      return true;
     },
   },
   events: {

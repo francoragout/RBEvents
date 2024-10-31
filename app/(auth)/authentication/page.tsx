@@ -38,11 +38,10 @@ export default function AuthenticationPage() {
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
-                Crear una cuenta
+                Iniciar sesión
               </h1>
               <p className="text-sm text-muted-foreground">
-                Introduce tu correo electrónico a continuación para crear tu
-                cuenta o iniciar sesión.
+                Introduce tu correo electrónico para iniciar sesión.
               </p>
             </div>
             <UserAuthForm />

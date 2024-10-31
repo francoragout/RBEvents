@@ -52,7 +52,6 @@ export function UserAuthForm() {
           setErrorMessage(response.message);
         }
       });
-      form.reset();
     });
   }
 
