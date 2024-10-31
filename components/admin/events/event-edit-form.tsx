@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
-import { UpdateEvent } from "@/actions/event";
+import { DeleteProviderFromEvent, UpdateEvent } from "@/actions/event";
 import { EventSchema, ProviderSchema } from "@/lib/validations";
 import { useRouter } from "next/navigation";
 import {
@@ -40,10 +40,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import Link from "next/link";
 import { toast } from "sonner";
 import { organizations, types } from "../../../lib/data";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, TrashIcon } from "lucide-react";
 import { es } from "date-fns/locale";
 
 const ExtendedEventSchema = EventSchema.extend({
@@ -90,6 +96,17 @@ export default function EventEditForm({
           toast.error(response.message);
         }
       });
+    });
+  }
+
+  function handleDeleteProvider() {
+    DeleteProviderFromEvent(event.id).then((response) => {
+      if (response.success) {
+        toast.success(response.message);
+        form.reset({ providerId: null });
+      } else {
+        toast.error(response.message);
+      }
     });
   }
 
@@ -268,34 +285,55 @@ export default function EventEditForm({
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Salón</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      disabled={isPending}
-                      defaultValue={field.value || ""}
-                    >
-                      <FormControl>
-                        <SelectTrigger
-                          className={cn(
-                            "pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          <SelectValue placeholder="Seleccionar salón (opcional)" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectGroup>
-                          {providers.map((provider) => (
-                            <SelectItem
-                              key={provider.id}
-                              value={provider.id || ""}
+                    <div className="flex space-x-4">
+                      <Select
+                        onValueChange={field.onChange}
+                        disabled={isPending}
+                        defaultValue={field.value || ""}
+                      >
+                        <FormControl>
+                          <SelectTrigger
+                            className={cn(
+                              "pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            <SelectValue placeholder="Seleccionar salón (opcional)" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectGroup>
+                            {providers.map((provider) => (
+                              <SelectItem
+                                key={provider.id}
+                                value={provider.id || ""}
+                              >
+                                {provider.name}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              variant="outline"
+                              onClick={(event) => {
+                                event.preventDefault();
+                                handleDeleteProvider();
+                              }}
+                              disabled={!field.value || isPending}
                             >
-                              {provider.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
+                              <TrashIcon className="w-4 h-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Eliminar salón</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}

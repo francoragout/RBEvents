@@ -132,7 +132,9 @@ const EventSchema = z.object({
     .string()
     .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, "Seleccione una hora"),
   type: EventTypeEnum,
-  email: z.string().email().nullish(),
+  email: z.union([z.string().email({
+    message: "Ingrese un email válido",
+  }), z.string().max(0).optional(), z.null()]),
   organization: EventOrganizationEnum,
   archived: z.boolean().default(false),
   providerId: z.string().nullish(),

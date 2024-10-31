@@ -5,6 +5,17 @@ import { revalidatePath } from "next/cache";
 
 export const DeleteUser = async (id: string) => {
   try {
+    const events = await db.event.findMany({
+      where: { userId: id },
+    });
+
+    for (const event of events) {
+      await db.event.update({
+        where: { id: event.id },
+        data: { userId: null, email: null }, 
+      });
+    }
+
     await db.user.delete({
       where: { id },
     });

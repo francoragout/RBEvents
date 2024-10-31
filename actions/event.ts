@@ -157,29 +157,7 @@ export const UpdateEvent = async (
         });
       }
     }
-
-    if (providerId) {
-      const provider = await db.provider.findUnique({
-        where: {
-          id: providerId,
-        },
-        select: {
-          name: true,
-        },
-      });
-
-      if (provider) {
-        await CreateBudget(id, {
-          name: provider.name,
-          category: "Provider",
-          observation: "",
-          description: "",
-          paid_method: "",
-          amount_paid: undefined,
-          total_price: undefined,
-        });
-      }
-    }
+    
     revalidatePath("/admin/events");
     return {
       success: true,
@@ -255,3 +233,26 @@ export const UnarchiveEvent = async (id: string) => {
     };
   }
 };
+
+export const DeleteProviderFromEvent = async (eventId: string) => {
+  try {
+    await db.event.update({
+      where: { id: eventId },
+      data: {
+        providerId: null,
+      },
+    });
+    revalidatePath(`/admin/events/${eventId}/edit`);
+    return {
+      success: true,
+      message: "Proveedor eliminado",
+    };
+  } catch (error) {
+    console.error("Error deleting provider from event:", error);
+    return {
+      success: false,
+      message: "Error al eliminar el proveedor del evento",
+    };
+  }
+}
+

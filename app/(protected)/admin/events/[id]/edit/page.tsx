@@ -30,8 +30,6 @@ export default async function EditEventPage({
     },
   });
 
-  console.log(event?.provider?.name);
-
   if (!event) {
     return <div>Event not found</div>;
   }

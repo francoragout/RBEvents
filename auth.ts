@@ -36,6 +36,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           where: { id: user.id },
           data: {
             emailVerified: new Date(),
+            image: user.image,
+            name: user.name,
           },
         });
       } catch (error) {
@@ -50,13 +52,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             userId: user.id,
           },
         });
-        await db.notification.create({
-          data: {
-            message: `Nuevo usuario: '${user.email ? user.email : user.name}'`,
-            link: "/admin/users",
-            read: false,
-          },
-        });
+        if (user.email) {
+          const userDb = await db.user.findUnique({
+            where: { email: user.email },
+          });
+          if (!userDb) {
+            await db.notification.create({
+              data: {
+                message: `Nuevo usuario: '${
+                  user.email ? user.email : user.name
+                }'`,
+                link: "/admin/users",
+                read: false,
+              },
+            });
+          }
+        }
       } catch (error) {
         console.error("Something went wrong:", error);
       }
