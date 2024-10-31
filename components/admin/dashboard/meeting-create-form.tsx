@@ -28,7 +28,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { MeetingSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -132,7 +131,7 @@ export default function MeetingCreateForm() {
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 z-50" align="start">
+                    <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         locale={es}
                         mode="single"
@@ -143,7 +142,6 @@ export default function MeetingCreateForm() {
                           today.setHours(0, 0, 0, 0);
                           return date < today;
                         }}
-                        initialFocus
                       />
                     </PopoverContent>
                   </Popover>
