@@ -3,7 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from "@/auth.config";
 import { db } from "@/lib/db";
 import Resend from "next-auth/providers/resend";
-import { sendVerificationRequest } from "./lib/send-verification-request";
+import { sendVerificationRequest } from "@/lib/sendVerificationRequest";
 
 const combinedProviders = [
   ...authConfig.providers,
