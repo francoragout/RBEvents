@@ -35,7 +35,7 @@ export default function Email({ url, host }: EmailProps) {
             Ingresa a tu cuenta de RBEventos para verificar tu correo electrónico haciendo clic en el siguiente botón.
           </Text>
           <Section style={buttonContainer}>
-            <Button href={url} style={button}>
+            <Button href={url} style={button} target="_self">
               Iniciar sesión
             </Button>
           </Section>
@@ -64,6 +64,7 @@ const main = {
   backgroundColor: "#ffffff",
   fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
   textAlign: "center" as const,
+  color: "#000000", // Ensure text color is black
 };
 
 const container = {
@@ -79,10 +80,12 @@ const container = {
 
 const codeTitle = {
   textAlign: "center" as const,
+  color: "#000000", // Ensure text color is black
 };
 
 const codeDescription = {
   textAlign: "center" as const,
+  color: "#000000", // Ensure text color is black
 };
 
 const buttonContainer = {
@@ -101,7 +104,7 @@ const button = {
 };
 
 const paragraph = {
-  color: "#444",
+  color: "#444444", // Ensure text color is dark grey
   letterSpacing: "0",
   padding: "0 40px",
   margin: "0",
@@ -109,6 +112,6 @@ const paragraph = {
 };
 
 const link = {
-  color: "#444",
+  color: "#444444", // Ensure link color is dark grey
   textDecoration: "underline",
 };

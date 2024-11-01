@@ -5,7 +5,15 @@ import Email from "../emails/verification-email";
 export async function sendVerificationRequest(params: any) {
   const { identifier: to, provider, url } = params;
   const { host } = new URL(url);
-  const emailHtml = render(React.createElement(Email, { url, host }));
+  const emailHtml = await render(React.createElement(Email, { url, host }));
+
+  const requestBody = {
+    from: provider.from,
+    to,
+    subject: `Iniciar sesión en: ${host}`,
+    html: emailHtml,
+    text: text({ url, host }),
+  };
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -13,20 +21,15 @@ export async function sendVerificationRequest(params: any) {
       Authorization: `Bearer ${provider.apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      from: provider.from,
-      to,
-      subject: `Sign in to ${host}`,
-      html: emailHtml,
-      text: text({ url, host }),
-    }),
+    body: JSON.stringify(requestBody),
   });
 
-  if (!res.ok)
-    throw new Error("Resend error: " + JSON.stringify(await res.json()));
+  if (!res.ok) {
+    const errorResponse = await res.json();
+    throw new Error("Resend error: " + JSON.stringify(errorResponse));
+  }
 }
 
-// Email Text body (fallback for email clients that don't render HTML, e.g. feature phones)
 function text({ url, host }: { url: string; host: string }) {
-  return `Sign in to ${host}\n${url}\n\n`;
+  return `Iniciar sesión ${host}\n${url}\n\n`;
 }
