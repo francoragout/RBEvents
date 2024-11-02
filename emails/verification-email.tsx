@@ -64,7 +64,7 @@ const main = {
   backgroundColor: "#ffffff",
   fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
   textAlign: "center" as const,
-  color: "#000000", // Ensure text color is black
+  color: "#000000",
 };
 
 const container = {
@@ -75,17 +75,17 @@ const container = {
   width: "480px",
   maxWidth: "100%",
   margin: "0 auto",
-  padding: "2% 5%",
+  padding: "3% 5%",
 };
 
 const codeTitle = {
   textAlign: "center" as const,
-  color: "#000000", // Ensure text color is black
+  color: "#000000",
 };
 
 const codeDescription = {
   textAlign: "center" as const,
-  color: "#000000", // Ensure text color is black
+  color: "#000000",
 };
 
 const buttonContainer = {
@@ -104,7 +104,7 @@ const button = {
 };
 
 const paragraph = {
-  color: "#444444", // Ensure text color is dark grey
+  color: "#444444",
   letterSpacing: "0",
   padding: "0 40px",
   margin: "0",

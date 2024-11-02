@@ -11,8 +11,7 @@ export async function sendVerificationRequest(params: any) {
     from: provider.from,
     to,
     subject: `Iniciar sesión en: ${host}`,
-    html: emailHtml,
-    text: text({ url, host }),
+    html: String(emailHtml),
   };
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -28,8 +27,4 @@ export async function sendVerificationRequest(params: any) {
     const errorResponse = await res.json();
     throw new Error("Resend error: " + JSON.stringify(errorResponse));
   }
-}
-
-function text({ url, host }: { url: string; host: string }) {
-  return `Iniciar sesión ${host}\n${url}\n\n`;
 }
