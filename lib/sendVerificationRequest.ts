@@ -10,7 +10,7 @@ export async function sendVerificationRequest(params: any) {
   const requestBody = {
     from: provider.from,
     to,
-    subject: `Iniciar sesión en: ${host}`,
+    subject: `Correo de verificación`,
     html: String(emailHtml),
   };
 

@@ -22,7 +22,7 @@ export default function Email({ url, host }: EmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Iniciar sesión en RBEventos</Preview>
+      <Preview>Iniciar sesión en RB Eventos</Preview>
       <Body style={main}>
         <Container style={container}>
           <Img
@@ -32,7 +32,7 @@ export default function Email({ url, host }: EmailProps) {
           />
           <Heading style={codeTitle}>Correo de verificación</Heading>
           <Text style={codeDescription}>
-            Ingresa a tu cuenta de RBEventos para verificar tu correo electrónico haciendo clic en el siguiente botón.
+            Para verificar e ingresar a tu cuenta en RB Eventos, haz clic en el botón de abajo.
           </Text>
           <Section style={buttonContainer}>
             <Button href={url} style={button} target="_self">
