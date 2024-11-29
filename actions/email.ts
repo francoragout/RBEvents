@@ -1,3 +1,4 @@
+
 import { Resend } from "resend";
 import * as React from "react";
 import { render } from "@react-email/render";
@@ -31,7 +32,7 @@ export async function sendVerificationRequest(params: any) {
   const emailHtml = await render(React.createElement(VerificationRequestEmail, { url, host }));
 
   const requestBody = {
-    from: provider.from,
+    from: "no-reply@rbeventos.org",
     to,
     subject: `Correo de verificación`,
     html: String(emailHtml),
