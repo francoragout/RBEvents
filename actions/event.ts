@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
 import { CreateBudget } from "./budget";
-import { sendNewEvent } from "@/app/api/send/route";
+import { sendNewEvent } from "./email";
 
 export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   const validatedFields = EventSchema.safeParse(values);
@@ -160,7 +160,7 @@ export const UpdateEvent = async (
           },
         });
       }
-      
+
       if (user && user.email !== email) {
         await sendNewEvent(email, name);
       }
