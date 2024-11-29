@@ -1,23 +1,43 @@
-"use client"
+"use client";
 
-import { Cross2Icon } from "@radix-ui/react-icons"
-import { Table } from "@tanstack/react-table"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { priorities, statuses } from "@/lib/data"
-import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
-import TaskCreateForm from "./task-create-form"
+import { Cross2Icon } from "@radix-ui/react-icons";
+import { Table } from "@tanstack/react-table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { priorities, statuses } from "@/lib/data";
+import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter";
+import TaskCreateForm from "./task-create-form";
+import { DeleteTasks } from "@/actions/task";
+import { toast } from "sonner";
+import { Trash } from "lucide-react";
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>
-  eventId: string
+  table: Table<TData>;
+  eventId: string;
 }
 
 export function TasksTableToolbar<TData>({
   table,
   eventId,
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0
+  const isFiltered = table.getState().columnFilters.length > 0;
+  const selectedRowsCount = table.getSelectedRowModel().rows.length;
+
+  const handleDeleteSelected = () => {
+    const selectedRows = table.getSelectedRowModel().rows;
+    const tasksIds = selectedRows.map(
+      (row) => (row.original as { id: string }).id
+    );
+
+    DeleteTasks(tasksIds, eventId).then((response) => {
+      if (response.success) {
+        toast.success(response.message);
+        table.resetRowSelection();
+      } else {
+        toast.error(response.message);
+      }
+    });
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -56,8 +76,22 @@ export function TasksTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-4">
-        <TaskCreateForm eventId={eventId}/>
+        {selectedRowsCount > 1 && (
+          <Button
+            className="h-8"
+            onClick={handleDeleteSelected}
+            size="sm"
+            variant="outline"
+          >
+            <div className="space-x-2 flex">
+              <Trash className="h-4 w-4" />
+              <span className="hidden sm:flex">Eliminar Tareas</span>
+            </div>
+          </Button>
+        )}
+
+        <TaskCreateForm eventId={eventId} />
       </div>
     </div>
-  )
+  );
 }

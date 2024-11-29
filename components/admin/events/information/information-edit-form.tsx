@@ -65,7 +65,6 @@ export default function InformationEditForm({
       ).then((response) => {
         if (response.success) {
           toast.success(response.message);
-          form.reset();
           setOpen(false);
         } else {
           toast.error(response.message);

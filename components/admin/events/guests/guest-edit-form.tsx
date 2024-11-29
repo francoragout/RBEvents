@@ -62,7 +62,6 @@ export default function GuestEditForm({ guest }: { guest: Guest }) {
         (response) => {
           if (response.success) {
             toast.success(response.message);
-            form.reset();
             setOpen(false);
           } else {
             toast.error(response.message);

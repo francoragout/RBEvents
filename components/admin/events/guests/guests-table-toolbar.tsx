@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter";
 import GuestCreateForm from "./guest-create-form";
-import { Download } from "lucide-react";
+import { Download, Trash } from "lucide-react";
 import * as XLSX from "xlsx";
 import { useSession } from "next-auth/react";
 import { invitations } from "@/lib/data";
+import { DeleteGuests } from "@/actions/guest";
+import { toast } from "sonner";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -25,6 +27,23 @@ export function GuestsTableToolbar<TData>({
   eventName,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+  const selectedRowsCount = table.getSelectedRowModel().rows.length;
+
+  const handleDeleteSelected = () => {
+    const selectedRows = table.getSelectedRowModel().rows;
+    const guestsIds = selectedRows.map(
+      (row) => (row.original as { id: string }).id
+    );
+
+    DeleteGuests(guestsIds, eventId).then((response) => {
+      if (response.success) {
+        toast.success(response.message);
+        table.resetRowSelection();
+      } else {
+        toast.error(response.message);
+      }
+    });
+  };
 
   const { data: session } = useSession();
   const role = session?.user?.role;
@@ -69,6 +88,19 @@ export function GuestsTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-4">
+        {selectedRowsCount > 1 && (
+          <Button
+            className="h-8"
+            onClick={handleDeleteSelected}
+            size="sm"
+            variant="outline"
+          >
+            <div className="space-x-2 flex">
+              <Trash className="h-4 w-4" />
+              <span className="hidden sm:flex">Eliminar Invitados</span>
+            </div>
+          </Button>
+        )}
         {role === "ADMIN" && (
           <Button
             variant="outline"
@@ -79,7 +111,6 @@ export function GuestsTableToolbar<TData>({
             <div className="space-x-2 flex">
               <Download className="h-4 w-4" />
               <span className="hidden sm:flex">Exportar</span>
-
             </div>
           </Button>
         )}

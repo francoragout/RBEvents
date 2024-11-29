@@ -34,7 +34,6 @@ export function UsersTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const user = UserSchema.parse(row.original);
-  console.log(user.id);
   const deleteUser = () => {
     DeleteUser(user.id ?? "").then((response) => {
       if (response.success) {
@@ -80,7 +79,7 @@ export function UsersTableRowActions<TData>({
                   {
                     <span className="text-primary">
                       {" "}
-                      &apos;{user.name}&apos;
+                      &apos;{user.name || user.email}&apos;
                     </span>
                   }{" "}
                   y todos los datos asociados de nuestros servidores.

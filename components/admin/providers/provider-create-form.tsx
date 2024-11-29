@@ -253,7 +253,7 @@ export default function ProviderCreateForm() {
                   <div className="mt-8">
                     <FormLabel className="text-base">Características</FormLabel>
                     <FormDescription>
-                      Seleccione todas las caracteristicas del salón (opcional)
+                      Seleccione las caracteristicas que más se destacan del salón (opcional)
                     </FormDescription>
                   </div>
                   <Card>

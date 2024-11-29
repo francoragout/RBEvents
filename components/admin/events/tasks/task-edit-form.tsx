@@ -59,7 +59,6 @@ export default function TaskEditForm({ task }: { task: Task }) {
       UpdateTask(task.id ?? "", task.eventId ?? "", values).then((response) => {
         if (response.success) {
           toast.success(response.message);
-          form.reset();
           setOpen(false);
         } else {
           toast.error(response.message);

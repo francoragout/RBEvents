@@ -87,7 +87,7 @@ export const statuses = [
   },
   {
     value: "DONE",
-    label: "Hecho",
+    label: "Terminada",
     icon: CheckCircledIcon,
   },
 ];

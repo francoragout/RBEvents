@@ -97,3 +97,27 @@ export const DeleteTask = async (eventId: string) => {
     };
   }
 };
+
+export const DeleteTasks = async (taskIds: string[], eventId: string) => {
+  try {
+    await db.task.deleteMany({
+      where: {
+        id: {
+          in: taskIds,
+        },
+      },
+    });
+
+    revalidatePath(`/admin/events/${eventId}/tasks`);
+    return {
+      success: true,
+      message: "Tareas eliminadas",
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: "No se pudieron eliminar las tareas.",
+    };
+  }
+};

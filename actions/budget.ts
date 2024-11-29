@@ -142,3 +142,27 @@ export const DeleteBudget = async (budgetId: string, eventId: string) => {
     };
   }
 };
+
+export const DeleteBudgets = async (budgetIds: string[], eventId: string) => {
+  try {
+    await db.budget.deleteMany({
+      where: {
+        id: {
+          in: budgetIds,
+        },
+      },
+    });
+
+    revalidatePath(`/admin/events/${eventId}/budget`);
+    return {
+      success: true,
+      message: "Presupuestos eliminados",
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: "Error al eliminar los presupuestos",
+    };
+  }
+};

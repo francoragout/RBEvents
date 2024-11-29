@@ -5,11 +5,11 @@ import { db } from "@/lib/db";
 export const MagicLinks = async (email: string) => {
   try {
     // Check if the user is an admin
-    const user = await db.user.findFirst({
+    const admin = await db.user.findFirst({
       where: { email, role: 'ADMIN' },
     });
 
-    if (user) {
+    if (admin) {
       return {
         success: true,
         message: "Correo de verificación enviado",

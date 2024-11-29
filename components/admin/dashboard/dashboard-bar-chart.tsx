@@ -173,7 +173,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
       <CardFooter className="flex-col items-start gap-2 text-sm">
         {difference > 0 ? (
           <div className="flex gap-1">
-            Tendencia
+            Tendencia de
             <span className="font-medium text-primary">
               {difference.toFixed(2)}
             </span>
@@ -182,7 +182,7 @@ export function DashboardBarChart({ events }: { events: Event[] }) {
           </div>
         ) : difference < 0 ? (
           <div className="flex gap-1">
-            Tendencia
+            Tendencia de
             <span className="font-medium text-primary">
               {difference.toFixed(2)}
             </span>

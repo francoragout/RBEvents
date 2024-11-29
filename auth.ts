@@ -31,7 +31,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async signIn({ user, account }) {
-      console.log("Sign-in attempt for user:", user.email);
       try {
         if (account && account.provider === "google" && user.email) {
           const adminUser = await db.user.findFirst({
@@ -60,7 +59,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   events: {
     async linkAccount({ user }) {
-      console.log("Linking account for user:", user.email);
       try {
         await db.user.update({
           where: { id: user.id },
@@ -75,7 +73,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
     },
     async createUser({ user }) {
-      console.log("Creating user:", user.email);
       try {
         await db.event.updateMany({
           where: { email: user.email },
@@ -83,22 +80,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             userId: user.id,
           },
         });
-        if (user.email) {
-          const userDb = await db.user.findUnique({
-            where: { email: user.email },
-          });
-          if (!userDb) {
-            await db.notification.create({
-              data: {
-                message: `Nuevo usuario: '${
-                  user.email ? user.email : user.name
-                }'`,
-                link: "/admin/users",
-                read: false,
-              },
-            });
-          }
-        }
+        await db.notification.create({
+          data: {
+            message: `Nuevo usuario: '${user.email ? user.email : user.name}'`,
+            link: "/admin/users",
+            read: false,
+          },
+        });
       } catch (error) {
         console.error("Something went wrong:", error);
       }

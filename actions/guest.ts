@@ -106,3 +106,27 @@ export const DeleteGuest = async (guestId: string) => {
     };
   }
 };
+
+export const DeleteGuests = async (guestsIds: string[], eventId: string) => {
+  try {
+    await db.guest.deleteMany({
+      where: {
+        id: {
+          in: guestsIds,
+        },
+      },
+    });
+
+    revalidatePath(`/admin/events/${eventId}/guests`);
+    return {
+      success: true,
+      message: "Invitados eliminados",
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: "No se pudieron eliminar las invitados.",
+    };
+  }
+};

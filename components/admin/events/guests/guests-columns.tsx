@@ -1,17 +1,40 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
 import { GuestSchema } from "@/lib/validations";
-
 import { z } from "zod";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
 import { GuestsTableRowActions } from "./guests-table-row-actions";
 import { invitations } from "@/lib/data";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type Guest = z.infer<typeof GuestSchema>;
 
 export const GuestsColumns: ColumnDef<Guest>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+        className="translate-y-[2px]"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+        className="translate-y-[2px]"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "last_name",
     header: ({ column }) => (

@@ -4,15 +4,39 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { labels, priorities, statuses } from "@/lib/data";
 import { TaskSchema } from "@/lib/validations";
-
 import { z } from "zod";
 import { TasksTableRowActions } from "./tasks-table-row-actions";
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
 import clsx from "clsx";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type Task = z.infer<typeof TaskSchema>;
 
 export const TasksColumns: ColumnDef<Task>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+        className="translate-y-[2px]"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+        className="translate-y-[2px]"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "title",
     header: ({ column }) => (

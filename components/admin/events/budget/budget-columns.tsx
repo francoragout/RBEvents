@@ -5,10 +5,35 @@ import { BudgetSchema } from "@/lib/validations";
 import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
 import { BudgetTableRowActions } from "./budget-table-row-actions";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type Budget = z.infer<typeof BudgetSchema>;
 
 export const BudgetColumns: ColumnDef<Budget>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+        className="translate-y-[2px]"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+        className="translate-y-[2px]"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "category",
     header: ({ column }) => (

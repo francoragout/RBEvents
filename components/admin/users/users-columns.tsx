@@ -40,7 +40,9 @@ export const UsersColumns: ColumnDef<User>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Nombre" />
     ),
-    cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
+    cell: ({ row }) => (
+      <div className="font-medium">{row.getValue("name")}</div>
+    ),
   },
   {
     accessorKey: "email",
@@ -61,7 +63,9 @@ export const UsersColumns: ColumnDef<User>[] = [
                   className="ml-2"
                   onClick={() => {
                     navigator.clipboard.writeText(email);
-                    toast.success("Correo electrónico copiado en portapapeles.");
+                    toast.success(
+                      "Correo electrónico copiado en portapapeles."
+                    );
                   }}
                 >
                   <Copy className="h-4 w-4" />
@@ -81,7 +85,11 @@ export const UsersColumns: ColumnDef<User>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Rol" />
     ),
-    cell: ({ row }) => <div className="flex text-primary font-medium">{row.getValue("role")}</div>,
+    cell: ({ row }) => (
+      <div className="flex text-primary font-medium">
+        {row.getValue("role")}
+      </div>
+    ),
   },
   {
     accessorKey: "createdAt",
@@ -104,8 +112,10 @@ export const UsersColumns: ColumnDef<User>[] = [
     ),
     cell: ({ row }) => {
       const events = row.original.events ?? [];
-      const eventNames = events.map((event) => event.name).join(", ");
-      return <div className="flex">{eventNames}</div>;
+      const eventNames = events.map((event, index) => (
+        <div key={index}>{event.name}</div>
+      ));
+      return <div className="truncate">{eventNames}</div>;
     },
   },
   {

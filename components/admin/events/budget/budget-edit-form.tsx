@@ -55,7 +55,6 @@ export default function BudgetEditForm({ budget }: { budget: Budget }) {
         (response) => {
           if (response.success) {
             toast.success(response.message);
-            form.reset();
             setOpen(false);
           } else {
             toast.error(response.message);
