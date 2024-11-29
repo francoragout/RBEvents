@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
 import { CreateBudget } from "./budget";
-import { sendNewEvent } from "./email";
+import { sendNewEvent } from "../lib/email";
 
 export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   const validatedFields = EventSchema.safeParse(values);

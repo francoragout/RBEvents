@@ -32,7 +32,7 @@ export async function sendVerificationRequest(params: any) {
   const emailHtml = await render(React.createElement(VerificationRequestEmail, { url, host }));
 
   const requestBody = {
-    from: "no-reply@rbeventos.org",
+    from: provider.from,
     to,
     subject: `Correo de verificación`,
     html: String(emailHtml),
