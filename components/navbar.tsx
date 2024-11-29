@@ -21,7 +21,7 @@ import { z } from "zod";
 import { NotificationSchema } from "@/lib/validations";
 import Image from "next/image";
 
-const clientLinks = [{ name: "Events", href: "/client/events" }];
+const clientLinks = [{ name: "Eventos", href: "/client/events" }];
 
 const adminLinks = [
   { name: "Panel", href: "/admin/dashboard" },

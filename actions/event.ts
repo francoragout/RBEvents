@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { EventSchema } from "@/lib/validations";
 import { z } from "zod";
 import { CreateBudget } from "./budget";
+import { sendNewEvent } from "@/app/api/send/route";
 
 export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
   const validatedFields = EventSchema.safeParse(values);
@@ -56,6 +57,8 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
           },
         });
       }
+
+      await sendNewEvent(email, name);
     }
 
     if (providerId) {
@@ -143,6 +146,7 @@ export const UpdateEvent = async (
         },
         select: {
           id: true,
+          email: true,
         },
       });
 
@@ -156,8 +160,12 @@ export const UpdateEvent = async (
           },
         });
       }
+      
+      if (user && user.email !== email) {
+        await sendNewEvent(email, name);
+      }
     }
-    
+
     revalidatePath("/admin/events");
     return {
       success: true,
@@ -254,5 +262,4 @@ export const DeleteProviderFromEvent = async (eventId: string) => {
       message: "Error al eliminar el proveedor del evento",
     };
   }
-}
-
+};

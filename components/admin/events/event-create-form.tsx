@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -305,6 +306,10 @@ export default function EventCreateForm({
                       />
                     </FormControl>
                     <FormMessage />
+                    <FormDescription>
+                      El email ingresado recibirá una invitacion por correo
+                      electronico.
+                    </FormDescription>
                   </FormItem>
                 )}
               />

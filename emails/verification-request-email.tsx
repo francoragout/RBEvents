@@ -18,7 +18,7 @@ interface EmailProps {
   host: string;
 }
 
-export default function Email({ url, host }: EmailProps) {
+export default function VerificationRequestEmail({ url, host }: EmailProps) {
   return (
     <Html>
       <Head />
