@@ -9,7 +9,9 @@ import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter";
 import TaskCreateForm from "./task-create-form";
 import { DeleteTasks } from "@/actions/task";
 import { toast } from "sonner";
-import { Trash } from "lucide-react";
+import { ListTodo, SquareKanban, Trash } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -22,6 +24,7 @@ export function TasksTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const selectedRowsCount = table.getSelectedRowModel().rows.length;
+  const pathname = usePathname();
 
   const handleDeleteSelected = () => {
     const selectedRows = table.getSelectedRowModel().rows;
@@ -76,6 +79,27 @@ export function TasksTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-4">
+        <Button variant="secondary" size="sm" className="h-8" asChild>
+          <Link
+            href={
+              pathname === `/admin/events/${eventId}/tasks/board`
+                ? `/admin/events/${eventId}/tasks`
+                : `/admin/events/${eventId}/tasks/board`
+            }
+          >
+            {pathname === `/admin/events/${eventId}/tasks` ? (
+              <div className="flex space-x-2">
+                <SquareKanban className="h-4 w-4" />
+                <span className="hidden sm:flex">Tablero</span>
+              </div>
+            ) : (
+              <div className="flex space-x-2">
+                <ListTodo className="h-4 w-4" />
+                <span className="hidden sm:flex">Lista</span>
+              </div>
+            )}
+          </Link>
+        </Button>
         {selectedRowsCount > 1 && (
           <Button
             className="h-8"

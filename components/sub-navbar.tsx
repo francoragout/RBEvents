@@ -36,7 +36,7 @@ export default function SubNavbar({ event }: { event: Event }) {
     </div>
   );
 
-  if (path.endsWith("/tasks")) {
+  if (path.endsWith("/tasks") || path.endsWith("/board")) {
     title = (
       <div>
         <ListTodo className="flex sm:hidden ms-1" />
