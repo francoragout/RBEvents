@@ -32,6 +32,7 @@ export const CreateTask = async (
       },
     });
     revalidatePath(`/admin/events/${eventId}/tasks`);
+    revalidatePath(`/admin/events/${eventId}/tasks/board`);
     return {
       success: true,
       message: "Tarea creada exitosamente",
@@ -68,6 +69,7 @@ export const UpdateTask = async (
       data: { title, status, label, priority },
     });
     revalidatePath(`/admin/events/${eventId}/tasks`);
+    revalidatePath(`/admin/events/${eventId}/tasks/board`);
     return {
       success: true,
       message: "Tarea actualizada",
@@ -85,6 +87,7 @@ export const DeleteTask = async (eventId: string) => {
   try {
     await db.task.delete({ where: { id: eventId } });
     revalidatePath(`/admin/events/${eventId}/tasks`);
+    revalidatePath(`/admin/events/${eventId}/tasks/board`);
     return {
       success: true,
       message: "Tarea eliminada",

@@ -127,7 +127,11 @@ export default function SubNavbar({ event }: { event: Event }) {
               {role === "ADMIN" && (
                 <Button
                   asChild
-                  variant={path.endsWith("/tasks") ? "secondary" : "ghost"}
+                  variant={
+                    path.endsWith("/tasks") || path.endsWith("/board")
+                      ? "secondary"
+                      : "ghost"
+                  }
                   className="flex justify-start pl-2"
                   size="sm"
                 >

@@ -10,12 +10,35 @@ import Link from "next/link";
 import { ListTodo, SquareKanban } from "lucide-react";
 import { usePathname } from "next/navigation";
 import TaskCreateForm from "./task-create-form";
+import {
+  CheckCircledIcon,
+  CircleIcon,
+  QuestionMarkCircledIcon,
+  StopwatchIcon,
+} from "@radix-ui/react-icons";
+import { UpdateTask } from "@/actions/task";
+import { toast } from "sonner";
 
 const COLUMNS: ColumnType[] = [
-  { id: "BACKLOG", title: "Pendiente", color: "border-blue-500" },
-  { id: "TODO", title: "Por Hacer", color: "border-red-500" },
-  { id: "IN_PROGRESS", title: "En Progreso", color: "border-yellow-500" },
-  { id: "DONE", title: "Terminada", color: "border-green-500" },
+  {
+    id: "BACKLOG",
+    title: "Pendiente",
+    color: "border-blue-500",
+    icon: QuestionMarkCircledIcon,
+  },
+  { id: "TODO", title: "Por Hacer", color: "border-red-500", icon: CircleIcon },
+  {
+    id: "IN_PROGRESS",
+    title: "En Progreso",
+    color: "border-yellow-500",
+    icon: StopwatchIcon,
+  },
+  {
+    id: "DONE",
+    title: "Terminada",
+    color: "border-green-500",
+    icon: CheckCircledIcon,
+  },
 ];
 
 type Task = z.infer<typeof TaskSchema>;
@@ -40,18 +63,32 @@ export default function TasksBoard({
     const taskId = active.id as string;
     const newStatus = over.id as Task["status"];
 
-    setTasks(() =>
-      tasks.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              status: newStatus,
-            }
-          : task
-      )
-    );
-  }
+    const taskToUpdate = tasks.find((task) => task.id === taskId);
 
+    if (taskToUpdate && taskToUpdate.status !== newStatus) {
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId
+            ? {
+                ...task,
+                status: newStatus,
+              }
+            : task
+        )
+      );
+
+      UpdateTask(taskId, eventId, { ...taskToUpdate, status: newStatus }).then(
+        (response) => {
+          if (!response.success) {
+            toast.success(response.message);
+            
+          } else {
+            toast.error(response.message);
+          }
+        }
+      );
+    }
+  }
   return (
     <>
       <div className="flex justify-end space-x-4 mb-4">

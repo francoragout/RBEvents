@@ -79,7 +79,7 @@ export function TasksTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-4">
-        <Button variant="secondary" size="sm" className="h-8" asChild>
+        <Button variant="secondary" size="sm" className="h-8 hidden lg:flex" asChild>
           <Link
             href={
               pathname === `/admin/events/${eventId}/tasks/board`
