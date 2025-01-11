@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect } from "react";
 import type { Column as ColumnType } from "@/lib/types";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { Droppable } from "./droppable";
@@ -18,6 +19,9 @@ import {
 } from "@radix-ui/react-icons";
 import { UpdateTask } from "@/actions/task";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { setTasks, updateTask } from "@/lib/features/tasks/TaskSlice";
 
 const COLUMNS: ColumnType[] = [
   {
@@ -48,12 +52,15 @@ interface TasksBoardProps {
   eventId: string;
 }
 
-export default function TasksBoard({
-  tasks: initialTasks,
-  eventId,
-}: TasksBoardProps) {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+export default function TasksBoard({ tasks, eventId }: TasksBoardProps) {
+  const dispatch = useDispatch();
   const pathname = usePathname();
+
+  useEffect(() => {
+    dispatch(setTasks(tasks));
+  }, [tasks, dispatch]);
+
+  const tasksState = useSelector((state: RootState) => state.tasks.tasks);
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
@@ -63,32 +70,23 @@ export default function TasksBoard({
     const taskId = active.id as string;
     const newStatus = over.id as Task["status"];
 
-    const taskToUpdate = tasks.find((task) => task.id === taskId);
+    const task = tasksState.find((task) => task.id === taskId);
 
-    if (taskToUpdate && taskToUpdate.status !== newStatus) {
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === taskId
-            ? {
-                ...task,
-                status: newStatus,
-              }
-            : task
-        )
-      );
+    if (!task || task.status === newStatus) return;
 
-      UpdateTask(taskId, eventId, { ...taskToUpdate, status: newStatus }).then(
-        (response) => {
-          if (!response.success) {
-            toast.success(response.message);
-            
-          } else {
-            toast.error(response.message);
-          }
-        }
-      );
-    }
+    const updatedTask = { ...task, status: newStatus };
+
+    dispatch(updateTask(updatedTask));
+
+    UpdateTask(taskId, eventId, updatedTask).then((response) => {
+      if (response.success) {
+        toast.success(response.message);
+      } else {
+        toast.error(response.message);
+      }
+    });
   }
+  
   return (
     <>
       <div className="flex justify-end space-x-4 mb-4">
@@ -124,7 +122,7 @@ export default function TasksBoard({
               <Droppable
                 key={column.id}
                 column={column}
-                tasks={tasks.filter((task) => task.status === column.id)}
+                tasks={tasksState.filter((task) => task.status === column.id)}
               />
             );
           })}

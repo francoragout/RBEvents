@@ -36,10 +36,13 @@ import { toast } from "sonner";
 import { statuses } from "@/lib/data";
 import { Input } from "@/components/ui/input";
 import { PlusCircle } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { addTask } from "@/lib/features/tasks/TaskSlice";
 
 export default function TaskCreateForm({ eventId }: { eventId: string }) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const form = useForm<z.infer<typeof TaskSchema>>({
     resolver: zodResolver(TaskSchema),
@@ -56,6 +59,7 @@ export default function TaskCreateForm({ eventId }: { eventId: string }) {
           toast.success(response.message);
           form.reset();
           setOpen(false);
+          dispatch(addTask(values));
         } else {
           toast.error(response.message);
         }
