@@ -37,12 +37,15 @@ import { UpdateTask } from "@/actions/task";
 import { toast } from "sonner";
 import { statuses } from "@/lib/data";
 import { Input } from "@/components/ui/input";
+import { useDispatch } from "react-redux";
+import { updateTask } from "@/lib/features/tasks/TaskSlice";
 
 type Task = z.infer<typeof TaskSchema>;
 
 export default function TaskEditForm({ task }: { task: Task }) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const form = useForm<z.infer<typeof TaskSchema>>({
     resolver: zodResolver(TaskSchema),
@@ -60,6 +63,7 @@ export default function TaskEditForm({ task }: { task: Task }) {
         if (response.success) {
           toast.success(response.message);
           setOpen(false);
+          dispatch(updateTask(values));
         } else {
           toast.error(response.message);
         }

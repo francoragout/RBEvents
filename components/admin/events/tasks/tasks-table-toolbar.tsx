@@ -79,27 +79,6 @@ export function TasksTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-4">
-        <Button variant="secondary" size="sm" className="h-8 hidden lg:flex" asChild>
-          <Link
-            href={
-              pathname === `/admin/events/${eventId}/tasks/board`
-                ? `/admin/events/${eventId}/tasks`
-                : `/admin/events/${eventId}/tasks/board`
-            }
-          >
-            {pathname === `/admin/events/${eventId}/tasks` ? (
-              <div className="flex space-x-2">
-                <SquareKanban className="h-4 w-4" />
-                <span className="hidden sm:flex">Tablero</span>
-              </div>
-            ) : (
-              <div className="flex space-x-2">
-                <ListTodo className="h-4 w-4" />
-                <span className="hidden sm:flex">Lista</span>
-              </div>
-            )}
-          </Link>
-        </Button>
         {selectedRowsCount > 1 && (
           <Button
             className="h-8"
