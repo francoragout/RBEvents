@@ -18,10 +18,18 @@ type ColumnProps = {
   tasks: Task[];
 };
 
+const priorityOrder = {
+  HIGH: 1,
+  MEDIUM: 2,
+  LOW: 3,
+};
+
 export function Droppable({ column, tasks }: ColumnProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: column.id,
   });
+
+  const sortedTasks = tasks.sort((a, b) => (priorityOrder[a.priority ?? 'LOW'] - priorityOrder[b.priority ?? 'LOW']));
 
   return (
     <Card ref={setNodeRef} className={isOver ? "bg-secondary" : ""}>
@@ -32,7 +40,7 @@ export function Droppable({ column, tasks }: ColumnProps) {
         </CardTitle>
       </CardHeader>
       <CardContent  className="space-y-4">
-        {tasks.map((task) => {
+        {sortedTasks.map((task) => {
           return <Draggable key={task.id} task={task} />;
         })}
       </CardContent>

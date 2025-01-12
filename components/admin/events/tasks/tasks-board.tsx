@@ -6,10 +6,6 @@ import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { Droppable } from "./droppable";
 import { z } from "zod";
 import { TaskSchema } from "@/lib/validations";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ListTodo, SquareKanban } from "lucide-react";
-import { usePathname } from "next/navigation";
 import TaskCreateForm from "./task-create-form";
 import {
   CheckCircledIcon,
@@ -54,7 +50,6 @@ interface TasksBoardProps {
 
 export default function TasksBoard({ tasks, eventId }: TasksBoardProps) {
   const dispatch = useDispatch();
-  const pathname = usePathname();
 
   useEffect(() => {
     dispatch(setTasks(tasks));

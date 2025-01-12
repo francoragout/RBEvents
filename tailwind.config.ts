@@ -60,6 +60,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        red: {
+          DEFAULT: "hsl(var(--chart-1))",
+          foreground: "hsl(var(--foreground))",
+        },
       },
       opacity: {
         10: "0.1",
