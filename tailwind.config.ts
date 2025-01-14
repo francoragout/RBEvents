@@ -60,8 +60,24 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        red: {
+        chart1: {
           DEFAULT: "hsl(var(--chart-1))",
+          foreground: "hsl(var(--foreground))",
+        },
+        chart2: {
+          DEFAULT: "hsl(var(--chart-2))",
+          foreground: "hsl(var(--foreground))",
+        },
+        chart3: {
+          DEFAULT: "hsl(var(--chart-3))",
+          foreground: "hsl(var(--foreground))",
+        },
+        chart4: {
+          DEFAULT: "hsl(var(--chart-4))",
+          foreground: "hsl(var(--foreground))",
+        },
+        chart5: {
+          DEFAULT: "hsl(var(--chart-5))",
           foreground: "hsl(var(--foreground))",
         },
       },

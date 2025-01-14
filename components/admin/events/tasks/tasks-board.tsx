@@ -23,20 +23,20 @@ const COLUMNS: ColumnType[] = [
   {
     id: "BACKLOG",
     title: "Pendiente",
-    color: "border-blue-500",
+    color: "border-chart3",
     icon: QuestionMarkCircledIcon,
   },
-  { id: "TODO", title: "Por Hacer", color: "border-red-500", icon: CircleIcon },
+  { id: "TODO", title: "Por Hacer", color: "border-chart1", icon: CircleIcon },
   {
     id: "IN_PROGRESS",
     title: "En Progreso",
-    color: "border-yellow-500",
+    color: "border-chart5",
     icon: StopwatchIcon,
   },
   {
     id: "DONE",
     title: "Terminada",
-    color: "border-green-500",
+    color: "border-chart2",
     icon: CheckCircledIcon,
   },
 ];
