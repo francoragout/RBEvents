@@ -32,6 +32,21 @@ export default async function RootLayout({
     },
   });
 
+  console.log(session?.user?.id);
+
+  const events = await db.event.findMany({
+    where: {
+      userId: session?.user?.id,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <StoreProvider>
@@ -47,7 +62,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar session={session} notifications={notifications} />
+            <Navbar session={session} notifications={notifications} events={events}/>
             <Separator className="mb-10" />
             <div className="container mb-14">{children}</div>
             <Toaster />

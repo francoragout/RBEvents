@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,7 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -23,16 +23,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
-import { DataTablePagination } from "@/components/data-table-pagination"
-import { BudgetTableToolbar } from "./budget-table-toolbar"
-
+import { DataTablePagination } from "@/components/data-table-pagination";
+import { BudgetTableToolbar } from "./budget-table-toolbar";
+import { SessionProvider } from "next-auth/react";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  eventId: string
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  eventId: string;
 }
 
 export function BudgetTable<TData, TValue>({
@@ -40,13 +40,13 @@ export function BudgetTable<TData, TValue>({
   data,
   eventId,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({})
+  const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
+    React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  );
+  const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
     data,
@@ -68,11 +68,13 @@ export function BudgetTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  })
+  });
 
   return (
     <div className="space-y-4">
-      <BudgetTableToolbar table={table} eventId={eventId}/>
+      <SessionProvider>
+        <BudgetTableToolbar table={table} eventId={eventId} />
+      </SessionProvider>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -88,7 +90,7 @@ export function BudgetTable<TData, TValue>({
                             header.getContext()
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -125,5 +127,5 @@ export function BudgetTable<TData, TValue>({
       </div>
       <DataTablePagination table={table} />
     </div>
-  )
+  );
 }

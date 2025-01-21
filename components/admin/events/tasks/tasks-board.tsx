@@ -26,7 +26,10 @@ const COLUMNS: ColumnType[] = [
     color: "border-chart3",
     icon: QuestionMarkCircledIcon,
   },
-  { id: "TODO", title: "Por Hacer", color: "border-chart1", icon: CircleIcon },
+  { id: "TODO",
+    title: "Por Hacer",
+    color: "border-chart1",
+    icon: CircleIcon },
   {
     id: "IN_PROGRESS",
     title: "En Progreso",

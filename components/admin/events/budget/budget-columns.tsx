@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { z } from "zod";
 import { BudgetTableRowActions } from "./budget-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
+import { SessionProvider } from "next-auth/react";
 
 type Budget = z.infer<typeof BudgetSchema>;
 
@@ -115,6 +116,10 @@ export const BudgetColumns: ColumnDef<Budget>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <BudgetTableRowActions row={row} />,
+    cell: ({ row }) => (
+      <SessionProvider>
+        <BudgetTableRowActions row={row} />
+      </SessionProvider>
+    ),
   },
 ];

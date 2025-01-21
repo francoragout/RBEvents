@@ -94,7 +94,7 @@ export const UsersColumns: ColumnDef<User>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Creado el" />
+      <DataTableColumnHeader column={column} title="Se unió el" />
     ),
     cell: ({ row }) => {
       const createAt = new Date(row.getValue("createdAt"));

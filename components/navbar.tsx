@@ -8,11 +8,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { PersonIcon } from "@radix-ui/react-icons";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { ModeToggle } from "./theme-toggle-button";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { LogIn } from "lucide-react";
 import UserSignOut from "./auth/user-signout";
@@ -20,25 +28,54 @@ import Notifications from "./notifications";
 import { z } from "zod";
 import { NotificationSchema } from "@/lib/validations";
 import Image from "next/image";
-
-const clientLinks = [{ name: "Eventos", href: "/client/events" }];
-
-const adminLinks = [
-  { name: "Panel", href: "/admin/dashboard" },
-  { name: "Eventos", href: "/admin/events" },
-  { name: "Salónes", href: "/admin/providers" },
-  { name: "Ingresos", href: "/admin/incomes" },
-  { name: "Usuarios", href: "/admin/users" },
-];
+import { useEffect, useState } from "react";
 
 type Notification = z.infer<typeof NotificationSchema>;
 
+const EventSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});
 interface NavbarProps {
   session: any;
   notifications: Notification[];
+  events: z.infer<typeof EventSchema>[];
 }
 
-export default function Navbar({ session, notifications }: NavbarProps) {
+export default function Navbar({
+  session,
+  notifications,
+  events,
+}: NavbarProps) {
+  const [currentEventId, setCurrentEventId] = useState<string | undefined>(events.length > 0 ? events[0].id : undefined);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (events && events.length > 0) {
+      setCurrentEventId(events[0].id);
+    }
+  }, [events]);
+
+  function handleEventChange(eventId: string) {
+    setCurrentEventId(eventId);
+    router.push(`/client/events/${eventId}/overview`);
+  }
+
+  const adminLinks = [
+    { name: "Panel", href: "/admin/dashboard" },
+    { name: "Eventos", href: "/admin/events" },
+    { name: "Salónes", href: "/admin/providers" },
+    { name: "Ingresos", href: "/admin/incomes" },
+    { name: "Usuarios", href: "/admin/users" },
+  ];
+
+  const clientLinks = [
+    { name: "Evento", href: `/client/events/${currentEventId}/overview` },
+    { name: "Información", href: `/client/events/${currentEventId}/information` },
+    { name: "Presupuesto", href: `/client/events/${currentEventId}/budget` },
+    { name: "Invitados", href: `/client/events/${currentEventId}/guests` },
+  ];
+
   const pathname = usePathname();
   const links = session?.user?.role === "ADMIN" ? adminLinks : clientLinks;
   const activeLink = links.find((link) => pathname.startsWith(link.href));
@@ -55,6 +92,21 @@ export default function Navbar({ session, notifications }: NavbarProps) {
             alt="Logo of the app"
           />
         </Button>
+
+        {session?.user?.role === "USER" && (
+          <Select onValueChange={handleEventChange} value={currentEventId} >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select Event" />
+            </SelectTrigger>
+            <SelectContent >
+              {events.map((event) => (
+                <SelectItem key={event.id} value={event.id} >
+                  {event.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
 
         {session && (
           <Tabs value={activeLink?.href}>

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,7 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -23,17 +23,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
-import { DataTablePagination } from "@/components/data-table-pagination"
-import { GuestsTableToolbar } from "./guests-table-toolbar"
+import { DataTablePagination } from "@/components/data-table-pagination";
+import { GuestsTableToolbar } from "./guests-table-toolbar";
+import { SessionProvider } from "next-auth/react";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  eventId: string
-  guestList: any[]
-  eventName: string
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  eventId: string;
+  guestList: any[];
+  eventName: string;
 }
 
 export function GuestsTable<TData, TValue>({
@@ -43,13 +44,16 @@ export function GuestsTable<TData, TValue>({
   guestList,
   eventName,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({})
+  const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
+    React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
-  const [sorting, setSorting] = React.useState<SortingState>([{ id: "invitation", desc: false }, { id: "last_name", desc: false }])
+  );
+  const [sorting, setSorting] = React.useState<SortingState>([
+    { id: "invitation", desc: false },
+    { id: "last_name", desc: false },
+  ]);
 
   const table = useReactTable({
     data,
@@ -71,11 +75,18 @@ export function GuestsTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  })
+  });
 
   return (
     <div className="space-y-4">
-      <GuestsTableToolbar table={table} eventId={eventId}  guestsList={guestList} eventName={eventName}/>
+      <SessionProvider>
+        <GuestsTableToolbar
+          table={table}
+          eventId={eventId}
+          guestsList={guestList}
+          eventName={eventName}
+        />
+      </SessionProvider>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -91,7 +102,7 @@ export function GuestsTable<TData, TValue>({
                             header.getContext()
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -128,5 +139,5 @@ export function GuestsTable<TData, TValue>({
       </div>
       <DataTablePagination table={table} />
     </div>
-  )
+  );
 }

@@ -140,7 +140,7 @@ export default function GuestCreateForm({ eventId }: { eventId: string }) {
                           !field.value && "text-muted-foreground"
                         )}
                       >
-                        <SelectValue placeholder="Seleccionar invitacion (required)" />
+                        <SelectValue placeholder="Seleccionar invitacion (requerido)" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

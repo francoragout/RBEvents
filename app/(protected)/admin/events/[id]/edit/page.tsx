@@ -1,5 +1,6 @@
 import EventEditForm from "@/components/admin/events/event-edit-form";
 import { db } from "@/lib/db";
+import { SessionProvider } from "next-auth/react";
 
 export default async function EditEventPage({
   params,
@@ -35,8 +36,8 @@ export default async function EditEventPage({
   }
 
   return (
-    <div>
+    <SessionProvider>
       <EventEditForm event={event} providers={providers} />
-    </div>
+    </SessionProvider>
   );
 }

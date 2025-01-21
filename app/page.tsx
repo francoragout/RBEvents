@@ -1,13 +1,22 @@
 import { auth } from "@/auth";
+import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
   const session = await auth();
+  const lastClientEvent = await db.event.findFirst({
+    where: {
+      userId: session?.user?.id,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+  });
 
   if (session?.user?.role === "ADMIN") {
     redirect("/admin/dashboard");
   } else if (session?.user?.role === "USER") {
-    redirect("/client/events");
+    redirect(`/client/events/${lastClientEvent?.id}/overview`);
   }
 
   return (

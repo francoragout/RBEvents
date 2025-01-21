@@ -31,6 +31,20 @@ export function TableSkeleton() {
         </div>
       )}
 
+      {pathname.endsWith("/budget") && (
+        <div className="flex justify-between">
+          <Skeleton className="h-[32px] w-[150px] lg:w-[250px]" />
+        </div>
+      )}
+
+      {pathname.endsWith("/guests") && (
+        <div className="flex justify-between">
+          <Skeleton className="h-[32px] w-[150px] lg:w-[376px]" />
+          <Skeleton className="h-[32px] w-[150px] lg:w-[124px]" />
+
+        </div>
+      )}
+
       <div className="space-y-2">
         <Skeleton className="h-[48px]" />
         <Skeleton className="h-[57px]" />
@@ -69,4 +83,12 @@ export function EventFormSkeleton() {
 
 export default function ProviderFormSkeleton() {
   return <Skeleton className="h-[826px] w-full" />;
+}
+
+export function EventOverviewSkeleton() {
+  return <Skeleton className="h-[534px] w-full" />;
+}
+
+export function EventInformationSkeleton() {
+  return <Skeleton className="h-[646px] w-full" />;
 }

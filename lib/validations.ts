@@ -1,3 +1,4 @@
+import { create } from "domain";
 import { array, z } from "zod";
 
 const TaskSchema = z.object({
@@ -144,6 +145,8 @@ const EventSchema = z.object({
   budget: z.array(BudgetSchema).optional(),
   guest: z.array(GuestSchema).optional(),
   information: array(InformationSchema).optional(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 });
 
 const MeetingSchema = z.object({

@@ -34,6 +34,7 @@ export const CreateGuest = async (
       },
     });
     revalidatePath(`/admin/events/${eventId}/guests`);
+    revalidatePath(`/client/events/${eventId}/guests`);
     return {
       success: true,
       message: "Invitado creado exitosamente.",
