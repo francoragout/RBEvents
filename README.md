@@ -19,6 +19,7 @@ Además, la aplicación cuenta con las siguientes características:
 - **Centro de notificaciones** implementado con Redux Toolkit.  
 - **Tablero analítico interactivo** con componentes de ShadCN UI.  
 - **Diseño responsive** para una experiencia óptima en cualquier dispositivo.  
+- **Sistema de roles (Administrador/Cliente):** cada tipo de usuario cuenta con una sesión personalizada acorde a su rol.  
 - **Testing robusto** con Jest para pruebas unitarias y Cypress para pruebas E2E.  
 
 Más allá de cualquier ganancia obtenida por este trabajo, lo que más valoro es la experiencia adquirida y todo lo aprendido durante el desarrollo. Esto me motiva a seguir adelante en la búsqueda de nuevos desafíos.  
