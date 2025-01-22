@@ -179,7 +179,7 @@ model Budget {
   name        String?
   description String?
   paid_method String?
-  total_price Int?
+  total_price Int
   amount_paid Int?
   observation String?
   event       Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)

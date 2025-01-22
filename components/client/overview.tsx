@@ -30,10 +30,15 @@ export default function Overview({ event }: { event: Event }) {
     (guest) => guest.invitation !== "TO_BE_CONFIRMED"
   ).length;
 
-  console.log(event.budget);
 
-  const budget =
-    event.budget?.reduce((acc, item) => acc + (item.total_price ?? 0), 0)
+  // sumar todos los presupuestos de un evento 
+
+  const budget = event.budget?.reduce((acc, budget) => {
+    return acc + budget.total_price;
+  }
+  , 0);
+
+  console.log(budget);
 
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),

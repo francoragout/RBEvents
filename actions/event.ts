@@ -79,7 +79,7 @@ export const CreateEvent = async (values: z.infer<typeof EventSchema>) => {
           description: "",
           paid_method: "",
           amount_paid: undefined,
-          total_price: undefined,
+          total_price: 0,
         });
       }
     }

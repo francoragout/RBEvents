@@ -32,9 +32,9 @@ export default async function OverviewPage({
         select: {
           id: true,
           category: true,
+          total_price: true,
         },
       },
-
     },
   });
 

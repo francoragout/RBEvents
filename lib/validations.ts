@@ -24,7 +24,9 @@ const BudgetSchema = z.object({
   name: z.string().optional(),
   description: z.string().optional(),
   paid_method: z.string().optional(),
-  total_price: z.coerce.number().nonnegative().optional(),
+  total_price: z.coerce.number({
+    message: "Ingrese un número válido",
+  }).nonnegative(),
   amount_paid: z.coerce.number().nonnegative().optional(),
   observation: z.string().optional(),
   eventId: z.string().optional(),
