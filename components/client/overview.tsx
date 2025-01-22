@@ -30,15 +30,9 @@ export default function Overview({ event }: { event: Event }) {
     (guest) => guest.invitation !== "TO_BE_CONFIRMED"
   ).length;
 
-
-  // sumar todos los presupuestos de un evento 
-
   const budget = event.budget?.reduce((acc, budget) => {
     return acc + budget.total_price;
-  }
-  , 0);
-
-  console.log(budget);
+  }, 0);
 
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
@@ -215,7 +209,7 @@ export default function Overview({ event }: { event: Event }) {
                 <FormItem className="flex flex-col">
                   <FormLabel>Presupuesto</FormLabel>
                   <FormControl>
-                    <Input {...field} readOnly value={budget} />
+                    <Input {...field} readOnly value={`$${budget}`} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

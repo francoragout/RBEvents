@@ -1,37 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ¡Mi primera aplicación web para un cliente real! 🚀  
 
-## Getting Started
+Hola, comunidad.  
 
-First, run the development server:
+Quiero compartir con ustedes que finalicé mi primera aplicación web para un cliente real. El proyecto consistió en desarrollar una herramienta de gestión de eventos que incluye:  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Tareas**  
+- **Presupuesto**  
+- **Invitaciones**  
+- **Información**  
+- **Proveedores o servicios contratados**  
+- **Ganancias**  
+- **Reuniones**  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Además, la aplicación cuenta con las siguientes características:  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Autenticación segura** mediante OAuth y Magic Links con Auth.js.  
+- **Reenvío de emails** utilizando Resend.  
+- **Centro de notificaciones** implementado con Redux Toolkit.  
+- **Tablero analítico interactivo** con componentes de ShadCN UI.  
+- **Diseño responsive** para una experiencia óptima en cualquier dispositivo.  
+- **Testing robusto** con Jest para pruebas unitarias y Cypress para pruebas E2E.  
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Más allá de cualquier ganancia obtenida por este trabajo, lo que más valoro es la experiencia adquirida y todo lo aprendido durante el desarrollo. Esto me motiva a seguir adelante en la búsqueda de nuevos desafíos.  
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# RBEvents
+¡Gracias por leer! 😊  

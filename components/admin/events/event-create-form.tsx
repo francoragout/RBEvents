@@ -75,11 +75,7 @@ export default function EventCreateForm({
         if (response.success) {
           toast.success(response.message);
           router.push("/admin/events");
-          if (values.providerId) {
-            dispatch(increment(2));
-          } else {
-            dispatch(increment(1));
-          }
+          dispatch(increment(1));
         } else {
           toast.error(response.message);
         }
