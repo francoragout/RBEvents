@@ -16,10 +16,12 @@ export function InformationTableToolbar<TData>({
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        Este es un cuestionario para saber mas sobre ustedes!
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Clientes
+        </h3>
       </div>
       <div className="flex space-x-4">
-        <InformationCreateForm eventId={eventId} information={information}/>
+        <InformationCreateForm eventId={eventId} information={information} />
       </div>
     </div>
   );

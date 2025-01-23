@@ -47,7 +47,9 @@ export default function Navbar({
   notifications,
   events,
 }: NavbarProps) {
-  const [currentEventId, setCurrentEventId] = useState<string | undefined>(events.length > 0 ? events[0].id : undefined);
+  const [currentEventId, setCurrentEventId] = useState<string | undefined>(
+    events.length > 0 ? events[0].id : undefined
+  );
   const router = useRouter();
 
   useEffect(() => {
@@ -71,7 +73,7 @@ export default function Navbar({
 
   const clientLinks = [
     { name: "Evento", href: `/client/events/${currentEventId}/overview` },
-    { name: "Información", href: `/client/events/${currentEventId}/information` },
+    { name: "Clientes", href: `/client/events/${currentEventId}/information` },
     { name: "Presupuesto", href: `/client/events/${currentEventId}/budget` },
     { name: "Invitados", href: `/client/events/${currentEventId}/guests` },
   ];
@@ -79,6 +81,7 @@ export default function Navbar({
   const pathname = usePathname();
   const links = session?.user?.role === "ADMIN" ? adminLinks : clientLinks;
   const activeLink = links.find((link) => pathname.startsWith(link.href));
+  const totalEvents = events.length;
 
   return (
     <nav className="flex items-center justify-between py-2 px-8">
@@ -93,14 +96,14 @@ export default function Navbar({
           />
         </Button>
 
-        {session?.user?.role === "USER" && (
-          <Select onValueChange={handleEventChange} value={currentEventId} >
+        {session?.user?.role === "USER" && totalEvents > 1 && (
+          <Select onValueChange={handleEventChange} value={currentEventId}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select Event" />
             </SelectTrigger>
-            <SelectContent >
+            <SelectContent>
               {events.map((event) => (
-                <SelectItem key={event.id} value={event.id} >
+                <SelectItem key={event.id} value={event.id}>
                   {event.name}
                 </SelectItem>
               ))}

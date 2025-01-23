@@ -86,7 +86,7 @@ export default function ProviderFormSkeleton() {
 }
 
 export function EventOverviewSkeleton() {
-  return <Skeleton className="h-[534px] w-full" />;
+  return <Skeleton className="h-[588px] w-full" />;
 }
 
 export function EventInformationSkeleton() {

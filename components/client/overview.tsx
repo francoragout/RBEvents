@@ -48,176 +48,186 @@ export default function Overview({ event }: { event: Event }) {
   });
 
   return (
-    <Card className="my-5">
-      <CardHeader>
-        <CardTitle>Evento</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Nombre</FormLabel>
-                  <FormControl>
-                    <Input {...field} readOnly />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Tipo</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      readOnly
-                      value={
-                        types.find((type) => type.value === field.value)?.label
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Fecha</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      readOnly
-                      value={format(new Date(field.value), "eee, dd MMM yyyy", {
-                        locale: es,
-                      })}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+    <>
+      <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        Evento
+      </h3>
+      <Card className="my-5">
+        <CardHeader>
+          <CardTitle>Información General</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Nombre</FormLabel>
+                    <FormControl>
+                      <Input {...field} readOnly />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Tipo</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        readOnly
+                        value={
+                          types.find((type) => type.value === field.value)
+                            ?.label
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Fecha</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        readOnly
+                        value={format(
+                          new Date(field.value),
+                          "eee, dd MMM yyyy",
+                          {
+                            locale: es,
+                          }
+                        )}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="time"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Hora</FormLabel>
-                  <FormControl>
-                    <Input {...field} readOnly />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="time"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Hora</FormLabel>
+                    <FormControl>
+                      <Input {...field} readOnly />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="organization"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Organización</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      readOnly
-                      value={
-                        organizations.find((org) => org.value === field.value)
-                          ?.label
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="organization"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Organización</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        readOnly
+                        value={
+                          organizations.find((org) => org.value === field.value)
+                            ?.label
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="providerId"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Salón</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      readOnly
-                      value={event.provider?.name || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="providerId"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Salón</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        readOnly
+                        value={event.provider?.name || ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} readOnly value={event.email || ""} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input {...field} readOnly value={event.email || ""} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Días Restantes</FormLabel>
-                  <FormControl>
-                    <Input {...field} readOnly value={diffDays} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Días Restantes</FormLabel>
+                    <FormControl>
+                      <Input {...field} readOnly value={diffDays} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="guest"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Invitados</FormLabel>
-                  <FormControl>
-                    <Input {...field} readOnly value={confirmedGuests} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="guest"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Invitados</FormLabel>
+                    <FormControl>
+                      <Input {...field} readOnly value={confirmedGuests} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="budget"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Presupuesto</FormLabel>
-                  <FormControl>
-                    <Input {...field} readOnly value={`$${budget}`} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </Form>
-      </CardContent>
-    </Card>
+              <FormField
+                control={form.control}
+                name="budget"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Presupuesto</FormLabel>
+                    <FormControl>
+                      <Input {...field} readOnly value={`$${budget}`} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </Form>
+        </CardContent>
+      </Card>
+    </>
   );
 }
